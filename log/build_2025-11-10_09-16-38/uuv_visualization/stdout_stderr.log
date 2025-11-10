@@ -1,0 +1,7 @@
+[31mCMake Error at CMakeLists.txt:137:
+  Parse error.  Expected "(", got identifier with text "repo".
+
+[0m
+-- Configuring incomplete, errors occurred!
+See also "/home/alberto/Documents/sub_alberto/build/uuv_visualization/CMakeFiles/CMakeOutput.log".
+gmake: *** [Makefile:226: cmake_check_build_system] Error 1

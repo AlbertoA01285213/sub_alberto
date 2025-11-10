@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot name="UUV">
+
+    <link name="base_link"/>
+
+    <link name="uuv">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <geometry>
+                <mesh filename="package://uuv_visualization/meshes/UUV_binary.stl" scale="0.01 0.01 0.01"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="base_to_visual" type="fixed">
+        <parent link="base_link"/>
+        <child link="uuv"/>
+    </joint>
+
+</robot>

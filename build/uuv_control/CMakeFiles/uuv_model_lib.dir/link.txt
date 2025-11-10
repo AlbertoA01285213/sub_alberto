@@ -1,0 +1,2 @@
+/usr/bin/ar qc libuuv_model_lib.a CMakeFiles/uuv_model_lib.dir/libs/model/uuv_dynamic_model.cpp.o
+/usr/bin/ranlib libuuv_model_lib.a

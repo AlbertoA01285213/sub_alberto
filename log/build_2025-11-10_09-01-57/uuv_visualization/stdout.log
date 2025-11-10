@@ -1,0 +1,10 @@
+-- Install configuration: ""
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/launch
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/meshes
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/meshes/uuv.STL
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/rviz
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/urdf
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/urdf/sub.urdf
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/scripts
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/scripts/object_visualizer.py
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_visualization/share/uuv_visualization/scripts/trayectory_visualizer.py

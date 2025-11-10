@@ -1,0 +1,53 @@
+[0.027s] Invoking command in '/home/alberto/Documents/sub_alberto/build/uuv_master': CMAKE_PREFIX_PATH=/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/ros2_ws/install/docker_test:/opt/ros/humble:/home/alberto/install/catkin:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/catkin:/home/alberto/uuv/install/uuv /usr/bin/cmake /home/alberto/Documents/sub_alberto/src/uuv_master -DCMAKE_INSTALL_PREFIX=/home/alberto/Documents/sub_alberto/install/uuv_master
+[0.183s] -- The C compiler identification is GNU 11.4.0
+[0.313s] -- The CXX compiler identification is GNU 11.4.0
+[0.321s] -- Detecting C compiler ABI info
+[0.393s] -- Detecting C compiler ABI info - done
+[0.399s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.400s] -- Detecting C compile features
+[0.401s] -- Detecting C compile features - done
+[0.403s] -- Detecting CXX compiler ABI info
+[0.496s] -- Detecting CXX compiler ABI info - done
+[0.501s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.501s] -- Detecting CXX compile features
+[0.502s] -- Detecting CXX compile features - done
+[0.509s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.972s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.093s] -- Found rclcpp: 16.0.15 (/opt/ros/humble/share/rclcpp/cmake)
+[1.173s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.184s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.195s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.219s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.249s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.313s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.317s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.415s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.449s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.494s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.508s] -- Looking for pthread.h
+[1.589s] -- Looking for pthread.h - found
+[1.590s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.669s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.670s] -- Found Threads: TRUE  
+[1.744s] -- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[1.762s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.787s] -- Found visualization_msgs: 4.9.0 (/opt/ros/humble/share/visualization_msgs/cmake)
+[1.827s] [31mCMake Error at CMakeLists.txt:15 (find_package):
+[1.827s]   By not providing "Findnav2_msgs.cmake" in CMAKE_MODULE_PATH this project
+[1.827s]   has asked CMake to find a package configuration file provided by
+[1.827s]   "nav2_msgs", but CMake did not find one.
+[1.828s] 
+[1.828s]   Could not find a package configuration file provided by "nav2_msgs" with
+[1.828s]   any of the following names:
+[1.828s] 
+[1.828s]     nav2_msgsConfig.cmake
+[1.828s]     nav2_msgs-config.cmake
+[1.828s] 
+[1.828s]   Add the installation prefix of "nav2_msgs" to CMAKE_PREFIX_PATH or set
+[1.828s]   "nav2_msgs_DIR" to a directory containing one of the above files.  If
+[1.828s]   "nav2_msgs" provides a separate development package or SDK, be sure it has
+[1.829s]   been installed.
+[1.829s] 
+[1.829s] [0m
+[1.829s] -- Configuring incomplete, errors occurred!
+[1.829s] See also "/home/alberto/Documents/sub_alberto/build/uuv_master/CMakeFiles/CMakeOutput.log".

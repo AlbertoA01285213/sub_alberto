@@ -1,0 +1,8 @@
+/usr/bin/ld: CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o: in function `DynamicModelSim::DynamicModelSim()':
+dynamic_model_uuv.cpp:(.text._ZN15DynamicModelSimC2Ev[_ZN15DynamicModelSimC5Ev]+0x1a5): undefined reference to `UUVDynamicModel::UUVDynamicModel()'
+/usr/bin/ld: CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o: in function `DynamicModelSim::update()':
+dynamic_model_uuv.cpp:(.text._ZN15DynamicModelSim6updateEv[_ZN15DynamicModelSim6updateEv]+0x63): undefined reference to `UUVDynamicModel::update(std::array<double, 6ul>)'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/dynamic_model_uuv.dir/build.make:229: dynamic_model_uuv] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/dynamic_model_uuv.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,15 @@
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/ament_index/resource_index/package_run_dependencies/uuv_mission
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/ament_index/resource_index/parent_prefix_path/uuv_mission
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/environment/ament_prefix_path.sh
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/environment/ament_prefix_path.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/environment/path.sh
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/environment/path.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/local_setup.bash
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/local_setup.sh
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/local_setup.zsh
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/local_setup.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/package.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/ament_index/resource_index/packages/uuv_mission
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/cmake/uuv_missionConfig.cmake
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/cmake/uuv_missionConfig-version.cmake
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/package.xml

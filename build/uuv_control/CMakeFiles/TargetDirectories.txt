@@ -1,0 +1,11 @@
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/uuv_control_uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/uuv_model_lib.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/dynamic_model_uuv.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/test.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/edit_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/rebuild_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/list_install_components.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/install.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/install/local.dir
+/home/alberto/Documents/sub_alberto/build/uuv_control/CMakeFiles/install/strip.dir

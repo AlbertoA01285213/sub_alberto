@@ -1,0 +1,23 @@
+# Archivo de parámetros para el nodo de trayectoria.
+# El nombre de nivel superior debe coincidir con el nombre del nodo
+# que definiste en el código, ej: super().__init__('trayectory_node')
+
+trayectory_node:
+  ros__parameters:
+    
+    # Topic para publicar la trayectoria generada
+    path_topic: "/robot_path"
+    
+    # Topic de odometría para saber la posición actual
+    odom_topic: "/odom"
+    
+    # Distancia entre los waypoints interpolados (en metros)
+    step_distance: 0.15
+    
+    # Frecuencia para generar una nueva trayectoria (en segundos)
+    generation_interval: 5.0
+    
+    # Ruta a la base de datos.
+    # NOTA: Este valor es un 'default'. El archivo launch
+    # lo sobrescribirá con una ruta absoluta para más seguridad.
+    db_path: "waypoints.db"

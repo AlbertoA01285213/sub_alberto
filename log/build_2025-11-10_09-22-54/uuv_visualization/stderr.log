@@ -1,0 +1,5 @@
+[31mCMake Error at CMakeLists.txt:60 (ament_python_install_executable):
+  Unknown CMake command "ament_python_install_executable".
+
+[0m
+gmake: *** [Makefile:226: cmake_check_build_system] Error 1

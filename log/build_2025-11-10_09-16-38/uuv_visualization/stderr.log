@@ -1,0 +1,5 @@
+[31mCMake Error at CMakeLists.txt:137:
+  Parse error.  Expected "(", got identifier with text "repo".
+
+[0m
+gmake: *** [Makefile:226: cmake_check_build_system] Error 1

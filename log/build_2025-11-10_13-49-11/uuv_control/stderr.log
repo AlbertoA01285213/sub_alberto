@@ -1,0 +1,6 @@
+[31mCMake Error at cmake_install.cmake:58 (file):
+  file INSTALL cannot find
+  "/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cp":
+  No such file or directory.
+
+[0m

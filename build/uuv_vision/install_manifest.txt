@@ -1,0 +1,15 @@
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/ament_index/resource_index/package_run_dependencies/uuv_vision
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/ament_index/resource_index/parent_prefix_path/uuv_vision
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/environment/ament_prefix_path.sh
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/environment/ament_prefix_path.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/environment/path.sh
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/environment/path.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/local_setup.bash
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/local_setup.sh
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/local_setup.zsh
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/local_setup.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/package.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/ament_index/resource_index/packages/uuv_vision
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/cmake/uuv_visionConfig.cmake
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/cmake/uuv_visionConfig-version.cmake
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/package.xml

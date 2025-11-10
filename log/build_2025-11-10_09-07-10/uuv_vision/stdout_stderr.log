@@ -1,0 +1,10 @@
+-- Install configuration: ""
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/create_wayponit_db.py
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/database
+[31mCMake Error at cmake_install.cmake:54 (file):
+  file INSTALL cannot find
+  "/home/alberto/Documents/sub_alberto/src/uuv_vision/scripts/create_waypoint_db.py":
+  No such file or directory.
+
+[0m

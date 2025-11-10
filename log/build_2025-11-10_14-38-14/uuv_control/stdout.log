@@ -1,0 +1,31 @@
+[35m[1mConsolidate compiler generated dependencies of target uuv_model_lib[0m
+[ 50%] Built target uuv_model_lib
+[ 75%] [32mBuilding CXX object CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o[0m
+[100%] [32m[1mLinking CXX executable dynamic_model_uuv[0m
+[100%] Built target dynamic_model_uuv
+-- Install configuration: ""
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model/uuv_dynamic_model.cpp
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model/uuv_dynamic_model.h
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model/uuv_datatypes.h
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/scripts
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/scripts/pid.py
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/pid
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/dynamic_model_uuv
+-- Set runtime path of "/home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/dynamic_model_uuv" to ""
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/ament_index/resource_index/package_run_dependencies/uuv_control
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/ament_index/resource_index/parent_prefix_path/uuv_control
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/environment/ament_prefix_path.sh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/environment/path.sh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/environment/path.dsv
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/local_setup.bash
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/local_setup.sh
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/local_setup.zsh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/local_setup.dsv
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/package.dsv
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/ament_index/resource_index/packages/uuv_control
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/cmake/uuv_controlConfig.cmake
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/cmake/uuv_controlConfig-version.cmake
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/package.xml

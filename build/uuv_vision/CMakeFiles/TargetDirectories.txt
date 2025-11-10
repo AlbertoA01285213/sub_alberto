@@ -1,0 +1,9 @@
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/uuv_vision_uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/test.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/edit_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/rebuild_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/list_install_components.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/install.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/install/local.dir
+/home/alberto/Documents/sub_alberto/build/uuv_vision/CMakeFiles/install/strip.dir

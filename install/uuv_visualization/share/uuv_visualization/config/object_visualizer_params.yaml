@@ -1,0 +1,11 @@
+obstacle_publisher_node:
+  ros__parameters:
+    
+    db_path: '/home/alberto/Documents/sub_alberto/src/uuv_visualization/data/obstacles.db'
+    
+    # El topic en el que se publicará el MarkerArray para RViz.
+    marker_topic: "/obstacle_markers"
+    
+    # El frame_id (marco de referencia) en el que se dibujarán los obstáculos.
+    # Debe coincidir con tu "Fixed Frame" en RViz (ej. 'map' o 'odom').
+    frame_id: "map"

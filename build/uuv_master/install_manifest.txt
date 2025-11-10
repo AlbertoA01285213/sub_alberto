@@ -1,0 +1,15 @@
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/ament_index/resource_index/package_run_dependencies/uuv_master
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/ament_index/resource_index/parent_prefix_path/uuv_master
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/environment/ament_prefix_path.sh
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/environment/ament_prefix_path.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/environment/path.sh
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/environment/path.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/local_setup.bash
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/local_setup.sh
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/local_setup.zsh
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/local_setup.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/package.dsv
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/ament_index/resource_index/packages/uuv_master
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/cmake/uuv_masterConfig.cmake
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/cmake/uuv_masterConfig-version.cmake
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/package.xml
