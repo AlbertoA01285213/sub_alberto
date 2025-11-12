@@ -34,26 +34,26 @@ class Init(Node):
         self.error_anterior_ = [0]*6
         self.integral_ = [0]*6
 
-        self.kp_[0] = 100.0
-        self.kp_[1] = 50.0
-        self.kp_[2] = 100.0
-        self.kp_[3] = 5.0
-        self.kp_[4] = 5.0
-        self.kp_[5] = 5.0
+        self.kp_[0] = 10.0
+        self.kp_[1] = 10.0
+        self.kp_[2] = 1.0
+        self.kp_[3] = 3.0
+        self.kp_[4] = 3.0
+        self.kp_[5] = 3.0
 
-        self.ki_[0] = 10.0
-        self.ki_[1] = 10.0
-        self.ki_[2] = 10.0
+        self.ki_[0] = 2.0
+        self.ki_[1] = 2.0
+        self.ki_[2] = 1.0
         self.ki_[3] = 1.0
         self.ki_[4] = 1.0
         self.ki_[5] = 1.0
 
-        self.kd_[0] = 300.0
-        self.kd_[1] = 300.0
-        self.kd_[2] = 300.0
-        self.kd_[3] = 10.0
-        self.kd_[4] = 10.0
-        self.kd_[5] = 10.0
+        self.kd_[0] = 1.0
+        self.kd_[1] = 1.0
+        self.kd_[2] = 0.5
+        self.kd_[3] = 1.0
+        self.kd_[4] = 1.0
+        self.kd_[5] = 1.0
 
         self.tiempo_anterior_ = self.get_clock().now().nanoseconds
         self.create_timer(0.1, self.calcularpid)

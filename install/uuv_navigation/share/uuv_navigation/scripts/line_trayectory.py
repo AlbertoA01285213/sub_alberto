@@ -6,56 +6,7 @@ from rclpy.node import Node
 from nav_msgs.msg import Path
 from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
-
-# --- Funciones utilitarias de quaterniones (sin dependencias externas) ---
-def quat_normalize(q):
-    x, y, z, w = q
-    n = math.sqrt(x*x + y*y + z*z + w*w)
-    if n == 0.0:
-        return (0.0, 0.0, 0.0, 1.0)
-    return (x/n, y/n, z/n, w/n)
-
-def quat_dot(q1, q2):
-    return q1[0]*q2[0] + q1[1]*q2[1] + q1[2]*q2[2] + q1[3]*q2[3]
-
-def quat_slerp(q0, q1, t):
-    """Spherical linear interpolation between q0 and q1 (each as (x,y,z,w))."""
-    # normalize
-    q0 = quat_normalize(q0)
-    q1 = quat_normalize(q1)
-
-    dot = quat_dot(q0, q1)
-
-    # If dot < 0, the quaternions have opposite handed-ness and slerp won't take
-    # the shorter path. Fix by reversing one quaternion.
-    if dot < 0.0:
-        q1 = (-q1[0], -q1[1], -q1[2], -q1[3])
-        dot = -dot
-
-    DOT_THRESHOLD = 0.9995
-    if dot > DOT_THRESHOLD:
-        # Very close, use linear interpolation to avoid numerical problems
-        x = q0[0] + t*(q1[0] - q0[0])
-        y = q0[1] + t*(q1[1] - q0[1])
-        z = q0[2] + t*(q1[2] - q0[2])
-        w = q0[3] + t*(q1[3] - q0[3])
-        return quat_normalize((x, y, z, w))
-
-    # theta_0 = angle between input quaternions
-    theta_0 = math.acos(dot)
-    sin_theta_0 = math.sin(theta_0)
-    theta = theta_0 * t
-    sin_theta = math.sin(theta)
-
-    s0 = math.cos(theta) - dot * sin_theta / sin_theta_0
-    s1 = sin_theta / sin_theta_0
-
-    x = (s0 * q0[0]) + (s1 * q1[0])
-    y = (s0 * q0[1]) + (s1 * q1[1])
-    z = (s0 * q0[2]) + (s1 * q1[2])
-    w = (s0 * q0[3]) + (s1 * q1[3])
-    return (x, y, z, w)
-
+from visualization_msgs.msg import Marker
 
 class Trayectory_generator(Node):
 
@@ -66,115 +17,125 @@ class Trayectory_generator(Node):
         self.declare_parameter('path_topic', 'robot_path')
         self.declare_parameter('pose_topic', 'pose')
         self.declare_parameter('step_distance', 0.1)
-        self.declare_parameter('generation_interval', 0.5)
         self.declare_parameter('db_path', '/home/alberto/Documents/sub_alberto/src/uuv_visualization/data/obstacles.db')
 
         path_topic = self.get_parameter('path_topic').get_parameter_value().string_value
         pose_topic = self.get_parameter('pose_topic').get_parameter_value().string_value
         self.step_distance = self.get_parameter('step_distance').get_parameter_value().double_value
-        interval = self.get_parameter('generation_interval').get_parameter_value().double_value
         self.db_path = self.get_parameter('db_path').get_parameter_value().string_value
 
-        # Verificación DB (si no te interesa, comenta)
+        # Verificación DB (opcional)
         if not os.path.exists(self.db_path):
             self.get_logger().fatal(f"No se encuentra la DB: {self.db_path}")
             rclpy.shutdown()
             return
 
-        # Estado: pose actual
-        self.pose_actual_x = 0.0
-        self.pose_actual_y = 0.0
-        self.pose_actual_z = 0.0
-        self.pose_actual_q = (0.0, 0.0, 0.0, 1.0)  # quaternion (x,y,z,w)
-
-        # Estado: waypoint objetivo
-        self.waypoint_x = 0.0
-        self.waypoint_y = 0.0
-        self.waypoint_z = 0.0
-        self.waypoint_q = (0.0, 0.0, 0.0, 1.0)
-
+        # Estado actual
         self.current_pose = None
+        self.new_waypoint_received = False
 
-        # Suscriptores y publicadores
+        # Último waypoint recibido
+        self.waypoint = Pose()
+
+        # ROS pubs/subs
         self.pose_subscriber = self.create_subscription(Pose, pose_topic, self.pose_callback, 10)
         self.waypoint_subscriber = self.create_subscription(Pose, 'waypoint', self.waypoint_callback, 10)
         self.path_publisher = self.create_publisher(Path, path_topic, 10)
-        self.timer = self.create_timer(interval, self.generate_path_callback)
+        self.marker_publisher = self.create_publisher(Marker, 'path_markers', 10)
 
         self.get_logger().info("Nodo generador de caminos iniciado.")
         self.get_logger().info(f"Escuchando pose en: {pose_topic}")
         self.get_logger().info(f"Publicando caminos en: {path_topic}")
 
-    def waypoint_callback(self, msg: Pose):
-        # Guardar posición objetivo
-        self.waypoint_x = msg.position.x
-        self.waypoint_y = msg.position.y
-        self.waypoint_z = msg.position.z
-
-        # Guardar quaternion objetivo si es válido; si viene (0,0,0,0) lo ignoramos
-        q = (msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w)
-        if q == (0.0, 0.0, 0.0, 0.0):
-            self.get_logger().warn("Waypoint recibido con quaternion (0,0,0,0). Manteniendo orientación anterior.")
-            return
-
-        self.waypoint_q = quat_normalize(q)
+    # ------------------ CALLBACKS ------------------
 
     def pose_callback(self, msg: Pose):
-        self.pose_actual_x = msg.position.x
-        self.pose_actual_y = msg.position.y
-        self.pose_actual_z = msg.position.z
-
-        q = (msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w)
-        # En caso de quaternion inválido, usar identidad
-        if q == (0.0, 0.0, 0.0, 0.0):
-            self.get_logger().warn("Pose actual con quaternion (0,0,0,0). Asignando identidad.")
-            q = (0.0, 0.0, 0.0, 1.0)
-        self.pose_actual_q = quat_normalize(q)
-
         self.current_pose = msg
+
+    def waypoint_callback(self, msg: Pose):
+        self.waypoint = msg
+        self.new_waypoint_received = True
+        self.get_logger().info("Nuevo waypoint recibido, generando trayectoria...")
+        self.generate_path_callback()
+
+    # ------------------ FUNCIONES ------------------
 
     def generate_path_callback(self):
         if self.current_pose is None:
-            # aún no hay pose actual
+            self.get_logger().warn("Aún no se ha recibido pose actual, no se puede generar trayectoria.")
+            return
+        if not self.new_waypoint_received:
             return
 
-        # Distancia posicional entre pose actual y waypoint
-        dx = self.waypoint_x - self.pose_actual_x
-        dy = self.waypoint_y - self.pose_actual_y
-        dz = self.waypoint_z - self.pose_actual_z
-        dist_pos = math.sqrt(dx*dx + dy*dy + dz*dz)
+        # Marcar como procesado
+        self.new_waypoint_received = False
 
-        # Definir número de pasos solo según distancia posicional
-        steps = max(1, int(dist_pos / self.step_distance))
+        # Extraer posiciones
+        x0, y0, z0 = self.current_pose.position.x, self.current_pose.position.y, self.current_pose.position.z
+        roll0, pitch0, yaw0 = euler_from_quaternion([
+            self.current_pose.orientation.x,
+            self.current_pose.orientation.y,
+            self.current_pose.orientation.z,
+            self.current_pose.orientation.w
+        ])
 
-        # Preparar mensaje Path
+        x1, y1, z1 = self.waypoint.position.x, self.waypoint.position.y, self.waypoint.position.z
+        roll1, pitch1, yaw1 = euler_from_quaternion([
+            self.waypoint.orientation.x,
+            self.waypoint.orientation.y,
+            self.waypoint.orientation.z,
+            self.waypoint.orientation.w
+        ])
+
+        # Calcular distancia y pasos
+        dx, dy, dz = x1 - x0, y1 - y0, z1 - z0
+        drx, dry, drz = roll1 - roll0, pitch1 - pitch0, yaw1 - yaw0
+        dist = math.sqrt(dx*dx + dy*dy + dz*dz + drx*drx + dry*dry + drz*drz)
+        steps = max(1, int(dist / self.step_distance))
+
+        # Construir Path
         path_msg = Path()
-        path_msg.header.frame_id = "map"
+        path_msg.header.frame_id = "world"
         path_msg.header.stamp = self.get_clock().now().to_msg()
 
-        # Interpolar posición + orientación (SLERP)
         for i in range(steps + 1):
             t = i / float(steps)
-            xi = self.pose_actual_x + dx * t
-            yi = self.pose_actual_y + dy * t
-            zi = self.pose_actual_z + dz * t
-
-            qi = quat_slerp(self.pose_actual_q, self.waypoint_q, t)
-            # Normalizamos por seguridad
-            qi = quat_normalize(qi)
+            xi = x0 + dx * t
+            yi = y0 + dy * t
+            zi = z0 + dz * t
+            rxi = roll0 + drx * t
+            ryi = pitch0 + dry * t
+            rzi = yaw0 + drz * t
+            q = quaternion_from_euler(rxi, ryi, rzi)
 
             pose_s = PoseStamped()
             pose_s.header = path_msg.header
             pose_s.pose.position = Point(x=xi, y=yi, z=zi)
-            pose_s.pose.orientation = Quaternion(x=qi[0], y=qi[1], z=qi[2], w=qi[3])
-
+            pose_s.pose.orientation = Quaternion(x=q[0], y=q[1], z=q[2], w=q[3])
             path_msg.poses.append(pose_s)
 
-        # Publicar el Path
         self.path_publisher.publish(path_msg)
-        # logging opcional
-        self.get_logger().debug(f"Publicado path con {len(path_msg.poses)} puntos (steps={steps}).")
 
+        # También enviar markers para RViz
+        marker = Marker()
+        marker.header = path_msg.header
+        marker.ns = "path_points"
+        marker.id = 0
+        marker.type = Marker.SPHERE_LIST
+        marker.action = Marker.ADD
+        marker.scale.x = 0.08
+        marker.scale.y = 0.08
+        marker.scale.z = 0.08
+        marker.color.r = 0.0
+        marker.color.g = 0.2
+        marker.color.b = 1.0
+        marker.color.a = 0.8
+        marker.points = [pose.pose.position for pose in path_msg.poses]
+        self.marker_publisher.publish(marker)
+
+        self.get_logger().info(f"Trayectoria publicada con {len(path_msg.poses)} puntos.")
+
+# ------------------ MAIN ------------------
 def main(args=None):
     rclpy.init(args=args)
     node = Trayectory_generator()
