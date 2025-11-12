@@ -13,7 +13,7 @@ Aun no lo perfecciono, hay algunas cosas que hacen referencia a mi computadora, 
 En este cambias la direccion a la de tu computadora, simplemente es redireccionar el root.
 <br>
 <br>
-Similarmente haces lo mismo con el config en uuv_navigation llamado "bezier_params.yaml.
+Similarmente haces lo mismo con el config en uuv_navigation llamado *bezier_params.yaml* y en el nodo de *line trayectory*
 
 El launch oficial aun no esta en uuv_master. ahora el launch grande esta en el paquete de **uuv_visualization**. Por lo tanto el comando es:
 ```bash
