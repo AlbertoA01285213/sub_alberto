@@ -36,9 +36,14 @@ install(DIRECTORY
 )
 
 # Nodos del paquete
-install(PROGRAMS scripts/bezier.py
+install(PROGRAMS scripts/bezier_trayectory.py
   DESTINATION lib/${PROJECT_NAME}
-  RENAME bezier
+  RENAME bezier_trayectory
+)
+
+install(PROGRAMS scripts/line_trayectory.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME line_trayectory
 )
 
 install(PROGRAMS scripts/los.py

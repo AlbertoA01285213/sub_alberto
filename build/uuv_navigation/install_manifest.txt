@@ -1,10 +1,12 @@
-/home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/scripts/bezier.py
+/home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/scripts/line_trayectory.py
+/home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/scripts/bezier_trayectory.py
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/scripts/mapeador.py
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/scripts/los.py
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/config/bezier_params.yaml
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/launch/launch.py
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/data/waypoints.db
-/home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/bezier
+/home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/bezier_trayectory
+/home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/line_trayectory
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/los
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/mapeador
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/ament_index/resource_index/package_run_dependencies/uuv_navigation

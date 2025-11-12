@@ -2,11 +2,14 @@
 import rclpy
 import sqlite3
 import os
+import math
+import random
 from rclpy.node import Node
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point, Vector3, Quaternion
 from std_msgs.msg import ColorRGBA
 from rclpy.qos import QoSProfile, DurabilityPolicy
+
 
 class ObstaclePublisher(Node):
 
@@ -94,10 +97,10 @@ class ObstaclePublisher(Node):
                 marker.scale.z = row['scale_z']
                 
                 # Color (Rojo semi-transparente)
-                marker.color.r = 1.0
-                marker.color.g = 0.0
-                marker.color.b = 0.0
-                marker.color.a = 0.8
+                marker.color.r = (random.randint(1,1000))/1000
+                marker.color.g = (random.randint(1,1000))/1000
+                marker.color.b = (random.randint(1,1000))/1000
+                marker.color.a = 0.6
 
                 self.get_logger().info(f"¡Publicando marker!")
                 

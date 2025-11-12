@@ -43,6 +43,18 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/uuv_mission" TYPE DIRECTORY FILES "/home/alberto/Documents/sub_alberto/src/uuv_mission/scripts")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/uuv_mission" TYPE DIRECTORY FILES "/home/alberto/Documents/sub_alberto/src/uuv_mission/missions")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_mission" TYPE PROGRAM RENAME "mission_handler" FILES "/home/alberto/Documents/sub_alberto/src/uuv_mission/scripts/mission_handler.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/alberto/Documents/sub_alberto/build/uuv_mission/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/uuv_mission")
 endif()
 

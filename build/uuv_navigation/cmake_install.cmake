@@ -59,7 +59,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_navigation" TYPE PROGRAM RENAME "bezier" FILES "/home/alberto/Documents/sub_alberto/src/uuv_navigation/scripts/bezier.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_navigation" TYPE PROGRAM RENAME "bezier_trayectory" FILES "/home/alberto/Documents/sub_alberto/src/uuv_navigation/scripts/bezier_trayectory.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_navigation" TYPE PROGRAM RENAME "line_trayectory" FILES "/home/alberto/Documents/sub_alberto/src/uuv_navigation/scripts/line_trayectory.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

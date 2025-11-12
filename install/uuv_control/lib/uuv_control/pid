@@ -18,7 +18,7 @@ class Init(Node):
         super().__init__('pid')
 
         # <-- CORRECCIÓN: Ahora 'Pose' está definido.
-        self.pose_sub = self.create_subscription(Pose, '/pose', self.pose_callback, 10)
+        self.pose_sub = self.create_subscription(Pose, 'pose', self.pose_callback, 10)
         self.objetivo_sub = self.create_subscription(Pose, 'pose_objetivo', self.pose_objetivo_callback, 10)
 
         self.thruster_pub = self.create_publisher(Float64MultiArray, '/forces', 10)

@@ -5,16 +5,21 @@
 
     <link name="uuv">
         <visual>
-            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <origin rpy="1.57 0.0 0.0" xyz="-0.35 2.03 -0.3"/>
             <geometry>
                 <mesh filename="package://uuv_visualization/meshes/UUV_binary.stl" scale="0.01 0.01 0.01"/>
             </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0"/>
+            </material>
         </visual>
     </link>
 
     <joint name="base_to_visual" type="fixed">
         <parent link="base_link"/>
         <child link="uuv"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <axis xyz="0 0 0"/>
     </joint>
 
 </robot>

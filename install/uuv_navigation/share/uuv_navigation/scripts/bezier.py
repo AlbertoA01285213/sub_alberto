@@ -111,7 +111,8 @@ class Trayectory_generator(Node):
         path_msg.header.frame_id = "map"
         path_msg.header.stamp = self.get_clock().now().to_msg()
 
-        for (x, y, z) in waypoints:
+        for i in range(len(waypoints)):
+            x, y, z =  waypoints[i]
             pose_s = PoseStamped()
             pose_s.header = path_msg.header
             pose_s.pose.position.x = x

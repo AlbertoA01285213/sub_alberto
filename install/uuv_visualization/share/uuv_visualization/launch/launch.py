@@ -58,11 +58,23 @@ def generate_launch_description():
         }]
     ) 
 
+    # bezier = Node(
+    #     package='uuv_navigation',
+    #     executable='bezier_trayectory',
+    #     name='bezier_trayectory'
+    # ) 
+
+    mission_handler = Node(
+        package='uuv_mission',
+        executable='mission_handler',
+        name='mission_handler'
+    )
+    
     bezier = Node(
         package='uuv_navigation',
-        executable='bezier',
-        name='bezier'
-    )  
+        executable='line_trayectory',
+        name='line_trayectory'
+    )   
 
     los = Node(
         package='uuv_navigation',
@@ -114,6 +126,7 @@ def generate_launch_description():
     return LaunchDescription([
         rviz_config_arg,
         uuv_tracker,
+        mission_handler,
         bezier,
         los,
         pid,
