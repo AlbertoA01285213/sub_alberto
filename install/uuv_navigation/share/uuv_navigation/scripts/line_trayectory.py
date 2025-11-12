@@ -6,7 +6,7 @@ import os
 from rclpy.node import Node
 from nav_msgs.msg import Path
 from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
-from tf_transformations import euler_from_quaternion
+from tf_transformations import euler_from_quaternion, quaternion_from_euler
 
 class Trayectory_generator(Node):
 
@@ -16,7 +16,7 @@ class Trayectory_generator(Node):
         self.declare_parameter('path_topic', 'robot_path')
         self.declare_parameter('pose_topic', 'pose')
         self.declare_parameter('step_distance', 0.1)
-        self.declare_parameter('generation_interval', 10.0)
+        self.declare_parameter('generation_interval', 0.5)
         self.declare_parameter('db_path', '/home/alberto/Documents/sub_alberto/src/uuv_visualization/data/obstacles.db')
 
         path_topic = self.get_parameter('path_topic').get_parameter_value().string_value
@@ -42,6 +42,9 @@ class Trayectory_generator(Node):
         self.waypoint_x = 0.0
         self.waypoint_y = 0.0
         self.waypoint_z = 0.0
+        self.waypoint_roll = 0.0
+        self.waypoint_pitch = 0.0
+        self.waypoint_yaw = 0.0
 
         self.current_pose = None
 
@@ -92,13 +95,8 @@ class Trayectory_generator(Node):
         if self.current_pose is None:
             self.get_logger().warn("Aún no se ha recibido pose, esperando...")
             return
-        
-        goal_point = Point(x=self.waypoint_x, y=self.waypoint_y, z=self.waypoint_z)
 
-        self.get_logger().info(
-            f"Generando camino desde ({self.pose_actual_x:.2f}, {self.pose_actual_y:.2f}, {self.pose_actual_z:.2f}) "
-            f"hacia ({goal_point.x:.2f}, {goal_point.y:.2f}, {goal_point.z:.2f})"
-        )
+        goal_point = Point(x=self.waypoint_x, y=self.waypoint_y, z=self.waypoint_z)
 
         waypoints = self.interpolate_line(
             self.pose_actual_x, self.pose_actual_y, self.pose_actual_z,
@@ -106,22 +104,53 @@ class Trayectory_generator(Node):
             self.step_distance
         )
 
+        dist = math.sqrt(
+            (self.waypoint_x - self.pose_actual_x)**2 +
+            (self.waypoint_y - self.pose_actual_y)**2 +
+            (self.waypoint_z - self.pose_actual_z)**2
+        )
+        steps = max(1, int(dist / self.step_distance))
+
+        # Interpolar orientación
+        orientations = self.interpolate_orientation(
+            self.pose_actual_roll, self.pose_actual_pitch, self.pose_actual_yaw,
+            self.waypoint_roll, self.waypoint_pitch, self.waypoint_yaw,
+            steps
+        )
+
         path_msg = Path()
         path_msg.header.frame_id = "map"
         path_msg.header.stamp = self.get_clock().now().to_msg()
 
-        for i in range(len(waypoints)):
-            x, y, z =  waypoints[i]
+        for i, (x, y, z) in enumerate(waypoints):
             pose_s = PoseStamped()
             pose_s.header = path_msg.header
             pose_s.pose.position.x = x
             pose_s.pose.position.y = y
             pose_s.pose.position.z = z
+
+            q = orientations[min(i, len(orientations)-1)]
+            pose_s.pose.orientation = Quaternion(x=q[0], y=q[1], z=q[2], w=q[3])
+
             path_msg.poses.append(pose_s)
-            
 
         self.path_publisher.publish(path_msg)
-        self.get_logger().info(f"Camino publicado con {len(waypoints)} puntos.")
+
+
+    def interpolate_orientation(self, roll0, pitch0, yaw0, roll1, pitch1, yaw1, steps):
+        roll_step = (roll1 - roll0) / steps
+        pitch_step = (pitch1 - pitch0) / steps
+        yaw_step = (yaw1 - yaw0) / steps
+
+        orientations = []
+        for i in range(steps + 1):
+            roll_i = roll0 + roll_step * i
+            pitch_i = pitch0 + pitch_step * i
+            yaw_i = yaw0 + yaw_step * i
+            q = quaternion_from_euler(roll_i, pitch_i, yaw_i)
+            orientations.append(q)
+        return orientations
+
 
     def interpolate_line(self, x0, y0, z0, goal_point, step):
         waypoints = []

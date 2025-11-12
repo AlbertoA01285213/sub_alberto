@@ -1,0 +1,44 @@
+mission_name: "test_run_1"
+
+actions:
+  - type: goto
+    waypoint: [0.0, 0.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 20
+
+  - type: goto
+    waypoint: [-2.5, 7.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [-5.0, 0.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [2.0, 5.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [-7.0, 5.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
+
+
+

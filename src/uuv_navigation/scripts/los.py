@@ -35,7 +35,7 @@ class LineOfSightNode(Node):
         self.path_subscriber = self.create_subscription(Path, path_topic, self.path_callback, 10)
         self.pose_subscriber = self.create_subscription(Pose, pose_topic, self.pose_callback, 10)
         self.target_publisher = self.create_publisher(Pose, target_topic, 10)
-        self.checkpoint_publisher = self.create_publisher(Bool, 'checkpoint', 10 )
+        self.checkpoint_publisher = self.create_publisher(Bool, 'checkpoint', 10)
 
         # --- Timer principal ---
         self.guidance_timer = self.create_timer(0.1, self.guidance_loop)
@@ -55,7 +55,7 @@ class LineOfSightNode(Node):
         self.current_path = msg
         self.current_target_index = 0
         self.path_in_progress = True
-        # self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
+        self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
 
     def pose_callback(self, msg: Pose):
         self.pose_actual_x = msg.position.x
@@ -72,11 +72,14 @@ class LineOfSightNode(Node):
         self.pose_actual_roll = roll
         self.pose_actual_pitch = pitch
         self.pose_actual_yaw = yaw
-
         self.current_pose = msg
 
+    def reset_checkpoint(self):
+        msg = Bool()
+        msg.data = False
+        self.checkpoint_publisher.publish(msg)
+
     def guidance_loop(self):
-        # self.checkpoint = 0
         if not self.path_in_progress or self.current_path is None or self.current_pose is None:
             return
 
@@ -85,48 +88,44 @@ class LineOfSightNode(Node):
 
         # Si ya terminamos la lista de waypoints
         if self.current_target_index >= len(self.current_path.poses):
-            # final_target_pose = self.current_path.poses[-1].pose
-            # self.target_publisher.publish(final_target_pose)
+            self.get_logger().info("¡Último waypoint alcanzado!")
+            msg = Bool()
+            msg.data = True
+            self.checkpoint_publisher.publish(msg)
+            self.create_timer(0.3, self.reset_checkpoint)
             self.path_in_progress = False
-            self.get_logger().info("Objetivo final alcanzado.")
+            self.current_path = None
             return
 
+        # --- Obtener waypoint actual ---
         target_pose = self.current_path.poses[self.current_target_index].pose
-        
-        # Distancia al waypoint actual
+
+        # --- Calcular distancia ---
         dx = self.pose_actual_x - target_pose.position.x
         dy = self.pose_actual_y - target_pose.position.y
         dz = self.pose_actual_z - target_pose.position.z
-        
-        dist_sq = dx*dx + dy*dy + dz*dz
+        dist_sq = dx * dx + dy * dy + dz * dz
 
-        # Si ya llegamos al waypoint
+        self.get_logger().info(f"Distancia al waypoint {self.current_target_index}: {math.sqrt(dist_sq):.3f} m")
+
+        # --- Verificar si alcanzamos el waypoint ---
         if dist_sq < self.acceptance_radius_sq:
-            # self.get_logger().info(f"Waypoint {self.current_target_index} alcanzado.")
+            self.get_logger().info(f"Waypoint {self.current_target_index} alcanzado.")
             self.current_target_index += 1
 
-            # Si era el último
             if self.current_target_index >= len(self.current_path.poses):
-                self.get_logger().info("¡Último waypoint alcanzado!")
-                # self.checkpoint = 1
+                self.get_logger().info("¡Trayectoria completa!")
                 msg = Bool()
                 msg.data = True
                 self.checkpoint_publisher.publish(msg)
                 self.path_in_progress = False
                 self.current_path = None
-                self.target_publisher.publish(target_pose)
                 return
-                       
+
             target_pose = self.current_path.poses[self.current_target_index].pose
-            # self.get_logger().info(f"Nuevo objetivo: waypoint {self.current_target_index}")
 
-        # Publicar target actual
+        # --- Publicar waypoint actual con orientación ---
         self.target_publisher.publish(target_pose)
-
-        # msg = Bool()
-        # msg.data = Bool(self.checkpoint)
-        # self.checkpoint_publisher.publish(msg)
-
 
 def main(args=None):
     rclpy.init(args=args)
@@ -138,7 +137,6 @@ def main(args=None):
     finally:
         node.destroy_node()
         rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()

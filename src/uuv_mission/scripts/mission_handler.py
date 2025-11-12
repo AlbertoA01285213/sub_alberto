@@ -11,7 +11,7 @@ class MissionHandler(Node):
     def __init__(self):
         super().__init__('mission_handler')
 
-        self.declare_parameter('mission_file', '/home/alberto/Documents/sub_alberto/src/uuv_mission/missions/mission_1.yaml')
+        self.declare_parameter('mission_file', '/home/alberto/Documents/sub_alberto/src/uuv_mission/missions/mission_2.yaml')
         mission_path = self.get_parameter('mission_file').value
 
         with open(mission_path, 'r') as f:
@@ -55,10 +55,14 @@ class MissionHandler(Node):
             msg.position.x = wp[0]
             msg.position.y = wp[1]
             msg.position.z = wp[2]
-            msg.orientation.w = 1.0
+            q = quaternion_from_euler(wp[3], wp[4], wp[5])
+            msg.orientation.x = q[0]
+            msg.orientation.y = q[1]
+            msg.orientation.z = q[2]
+            msg.orientation.w = q[3]
 
             self.wp_pub.publish(msg)
-            self.get_logger().info(f"Enviando waypoint {wp}")
+            # self.get_logger().info(f"Enviando waypoint {wp}")
 
             if self.checkpoint == 1:
                 self.checkpoint = 0
@@ -67,7 +71,7 @@ class MissionHandler(Node):
         elif action["type"] == "hold":
             duration = float(action["duration"])
             if not hasattr(self, "hold_start"):
-                self.get_logger().info(f"Holding for {duration} seconds")
+                # self.get_logger().info(f"Holding for {duration} seconds")
                 self.hold_start = time.perf_counter()
 
             if time.perf_counter() - self.hold_start >= duration:

@@ -1,5 +1,6 @@
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/scripts/mission_handler.py
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/missions/mission_1.yaml
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/missions/mission_2.yaml
 /home/alberto/Documents/sub_alberto/install/uuv_mission/lib/uuv_mission/mission_handler
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/ament_index/resource_index/package_run_dependencies/uuv_mission
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/ament_index/resource_index/parent_prefix_path/uuv_mission
