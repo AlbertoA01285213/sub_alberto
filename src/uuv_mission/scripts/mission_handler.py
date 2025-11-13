@@ -3,7 +3,7 @@ import rclpy
 from rclpy.node import Node
 import yaml
 from geometry_msgs.msg import Point, Pose
-from std_msgs.msg import Bool
+from std_msgs.msg import Bool, String, Float32
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
 import time
 
@@ -26,6 +26,7 @@ class MissionHandler(Node):
         self.create_subscription(Bool, 'checkpoint', self.checkpoint_callback, 10)
         self.create_subscription(Pose, 'pose', self.pose_callback, 10)
         self.wp_pub = self.create_publisher(Pose, 'waypoint', 10)
+        self.checkpoint_pub = self.create_publisher(Bool, 'checkpoint', 10)
 
         self.timer = self.create_timer(0.5, self.run)
 
@@ -68,8 +69,9 @@ class MissionHandler(Node):
                 self.checkpoint = 0
                 self.idx += 1
 
+
         elif action["type"] == "hold":
-            duration = float(action["duration"])
+            duration = action["duration"]
             if not hasattr(self, "hold_start"):
                 # self.get_logger().info(f"Holding for {duration} seconds")
                 self.hold_start = time.perf_counter()
@@ -77,6 +79,27 @@ class MissionHandler(Node):
             if time.perf_counter() - self.hold_start >= duration:
                 del self.hold_start
                 self.idx += 1
+
+
+        elif action["type"] == "publish":
+            information = action["message"]
+            msg_data_str = information[0]   # Esto es el string 'True'
+            topic_name_str = information[1] # Esto es el string 'checkpoint'
+
+            # Comparamos el string de Python con el string que esperamos
+            if topic_name_str == 'checkpoint':
+                # Creamos un mensaje Bool vacío
+                msg_to_publish = Bool()
+                # Asignamos el valor booleano a su atributo .data
+                msg_to_publish.data = (msg_data_str.lower() == 'true') # Convierte 'True' a True
+
+                # Publicamos el mensaje
+                self.checkpoint_pub.publish(msg_to_publish)
+                self.idx +=1
+            else:
+                self.get_logger().warn(f"Acción 'publish' para un tópico no implementado: {topic_name_str}")
+                self.idx += 1 # Avanzamos para no bloquear la misión
+
 
         elif action["type"] == "rotate":
             rotations = action["rotation"]

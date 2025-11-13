@@ -55,7 +55,7 @@ class LineOfSightNode(Node):
         self.current_path = msg
         self.current_target_index = 0
         self.path_in_progress = True
-        self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
+        # self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
 
     def pose_callback(self, msg: Pose):
         self.pose_actual_x = msg.position.x
@@ -106,11 +106,11 @@ class LineOfSightNode(Node):
         dz = self.pose_actual_z - target_pose.position.z
         dist_sq = dx * dx + dy * dy + dz * dz
 
-        self.get_logger().info(f"Distancia al waypoint {self.current_target_index}: {math.sqrt(dist_sq):.3f} m")
+        # self.get_logger().info(f"Distancia al waypoint {self.current_target_index}: {math.sqrt(dist_sq):.3f} m")
 
         # --- Verificar si alcanzamos el waypoint ---
         if dist_sq < self.acceptance_radius_sq:
-            self.get_logger().info(f"Waypoint {self.current_target_index} alcanzado.")
+            # self.get_logger().info(f"Waypoint {self.current_target_index} alcanzado.")
             self.current_target_index += 1
 
             if self.current_target_index >= len(self.current_path.poses):

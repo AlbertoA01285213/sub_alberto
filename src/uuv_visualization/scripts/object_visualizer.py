@@ -43,7 +43,7 @@ class ObstaclePublisher(Node):
         self.timer = self.create_timer(0.5, self.load_and_publish_obstacles_once)
 
         self.get_logger().info("Nodo publicador de obstáculos iniciado.")
-        self.get_logger().info(f"Publicando marcadores en: {marker_topic}")
+        # self.get_logger().info(f"Publicando marcadores en: {marker_topic}")
 
     def load_and_publish_obstacles_once(self):
         # Cancelar el timer para que solo se ejecute una vez
@@ -53,7 +53,7 @@ class ObstaclePublisher(Node):
             self.get_logger().fatal(f"¡Error! No se encuentra la base de datos: {self.db_path}")
             return
         
-        self.get_logger().info(f"Cargando obstáculos desde: {self.db_path}")
+        # self.get_logger().info(f"Cargando obstáculos desde: {self.db_path}")
         
         conn = None
         try:
@@ -102,7 +102,7 @@ class ObstaclePublisher(Node):
                 marker.color.b = (random.randint(1,1000))/1000
                 marker.color.a = 0.6
 
-                self.get_logger().info(f"¡Publicando marker!")
+                # self.get_logger().info(f"¡Publicando marker!")
                 
                 # Lifetime (0 = para siempre)
                 marker.lifetime = rclpy.duration.Duration().to_msg()
@@ -111,7 +111,7 @@ class ObstaclePublisher(Node):
                 
             # Publicar el array completo
             self.publisher.publish(marker_array)
-            self.get_logger().info(f"¡Publicados {len(marker_array.markers)} obstáculos estáticos!")
+            # self.get_logger().info(f"¡Publicados {len(marker_array.markers)} obstáculos estáticos!")
 
         except sqlite3.Error as e:
             self.get_logger().error(f"Error de SQLite al leer obstáculos: {e}")

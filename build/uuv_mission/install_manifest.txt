@@ -1,4 +1,5 @@
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/scripts/mission_handler.py
+/home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/missions/mission_3.yaml
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/missions/mission_1.yaml
 /home/alberto/Documents/sub_alberto/install/uuv_mission/share/uuv_mission/missions/mission_2.yaml
 /home/alberto/Documents/sub_alberto/install/uuv_mission/lib/uuv_mission/mission_handler

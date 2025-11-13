@@ -4,6 +4,7 @@ import math
 import os
 from rclpy.node import Node
 from nav_msgs.msg import Path
+from std_msgs.msg import Bool
 from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
 from visualization_msgs.msg import Marker
@@ -40,6 +41,7 @@ class Trayectory_generator(Node):
         # ROS pubs/subs
         self.pose_subscriber = self.create_subscription(Pose, pose_topic, self.pose_callback, 10)
         self.waypoint_subscriber = self.create_subscription(Pose, 'waypoint', self.waypoint_callback, 10)
+
         self.path_publisher = self.create_publisher(Path, path_topic, 10)
         self.marker_publisher = self.create_publisher(Marker, 'path_markers', 10)
 
@@ -53,10 +55,32 @@ class Trayectory_generator(Node):
         self.current_pose = msg
 
     def waypoint_callback(self, msg: Pose):
+        # Comprobar si realmente cambió respecto al último waypoint
+        dx = msg.position.x - self.waypoint.position.x
+        dy = msg.position.y - self.waypoint.position.y
+        dz = msg.position.z - self.waypoint.position.z
+
+        # Diferencia de orientación
+        q1 = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
+        q2 = [self.waypoint.orientation.x, self.waypoint.orientation.y, self.waypoint.orientation.z, self.waypoint.orientation.w]
+        dq = sum((a - b)**2 for a, b in zip(q1, q2))
+
+        # Umbrales de cambio mínimos (ajústalos según sensibilidad)
+        pos_threshold = 1e-3     # metros
+        ori_threshold = 1e-4     # diferencia en quaternion
+
+        # if abs(dx) < pos_threshold and abs(dy) < pos_threshold and abs(dz) < pos_threshold and dq < ori_threshold:
+        #     # El waypoint es esencialmente igual al anterior → ignorar
+        #     return
+
+        # Guardar el nuevo waypoint
         self.waypoint = msg
         self.new_waypoint_received = True
-        self.get_logger().info("Nuevo waypoint recibido, generando trayectoria...")
+
+        # Generar nueva trayectoria solo si es un waypoint diferente
+        self.get_logger().info("Nuevo waypoint detectado, generando trayectoria...")
         self.generate_path_callback()
+
 
     # ------------------ FUNCIONES ------------------
 
@@ -133,7 +157,7 @@ class Trayectory_generator(Node):
         marker.points = [pose.pose.position for pose in path_msg.poses]
         self.marker_publisher.publish(marker)
 
-        self.get_logger().info(f"Trayectoria publicada con {len(path_msg.poses)} puntos.")
+        # self.get_logger().info(f"Trayectoria publicada con {len(path_msg.poses)} puntos.")
 
 # ------------------ MAIN ------------------
 def main(args=None):

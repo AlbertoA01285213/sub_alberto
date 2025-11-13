@@ -1,6 +1,15 @@
 mission_name: "test_run_1"
 
 actions:
+  - type: publish
+    message: ['True', 'checkpoint'] # Mensaje, topico
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
+
   - type: goto
     waypoint: [0.0, 0.0, -2.0, 0, 0, 1.57]
 
