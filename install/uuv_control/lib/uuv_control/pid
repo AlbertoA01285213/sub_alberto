@@ -56,7 +56,7 @@ class Init(Node):
         self.kd_[5] = 5.2
 #1.57 0.60 1.30
         self.tiempo_anterior_ = self.get_clock().now().nanoseconds
-        self.create_timer(0.1, self.calcularpid)
+        self.create_timer(0.01, self.calcularpid)
 
     # <-- CORRECCIÓN: Añadido el tipo de mensaje (buena práctica)
     def pose_callback(self, msg: Pose):
@@ -117,7 +117,7 @@ class Init(Node):
             i = self.ki_[n] * self.integral_[n]
             d = self.kd_[n] * derivada
 
-            self.pose_output_[n] = p + i + d
+            self.pose_output_[n] = max(min(p + i + d, 100),-100)
             self.error_anterior_[n] = error
 
         self.tiempo_anterior_ = tiempo_actual

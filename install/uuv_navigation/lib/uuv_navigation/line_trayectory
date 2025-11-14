@@ -147,9 +147,9 @@ class Trayectory_generator(Node):
         marker.id = 0
         marker.type = Marker.SPHERE_LIST
         marker.action = Marker.ADD
-        marker.scale.x = 0.08
-        marker.scale.y = 0.08
-        marker.scale.z = 0.08
+        marker.scale.x = 0.5
+        marker.scale.y = 0.5
+        marker.scale.z = 0.5
         marker.color.r = 0.0
         marker.color.g = 0.2
         marker.color.b = 1.0

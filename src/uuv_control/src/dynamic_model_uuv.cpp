@@ -43,13 +43,15 @@ class DynamicModelSim : public rclcpp::Node {
             }
         });
 
+    thruster_input.fill(0.0);
+
     pose_path_pub = this->create_publisher<nav_msgs::msg::Path>(
         "uuv/pose_path", 10);
 
     tf_broadcaster = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
     pose_stamped_tmp_.header.frame_id = "world";
     pose_path.header.frame_id = "world";
-    pose_path.header.stamp = DynamicModelSim::now();
+    pose_path.header.stamp = this->get_clock()->now();
 
     updateTimer = this->create_wall_timer(
         10ms, std::bind(&DynamicModelSim::update, this));
@@ -110,6 +112,10 @@ class DynamicModelSim : public rclcpp::Node {
     q = out.nu[4];  // pitch rate
     r = out.nu[5];  // yaw rate
 
+    auto now = this->get_clock()->now();
+    pose_stamped_tmp_.header.stamp = now;
+    pose_stamped_tmp_.pose = pose;
+
     odom.twist.twist.linear.x = u;
     odom.twist.twist.linear.y = v;
     odom.twist.twist.linear.z = w;
@@ -118,8 +124,12 @@ class DynamicModelSim : public rclcpp::Node {
     odom.twist.twist.angular.y = q;
     odom.twist.twist.angular.z = r;
 
-    pose_stamped_tmp_.pose = pose;
+    const size_t MAX_PATH = 5000; // ajustar según memoria/tiempo
+    if(pose_path.poses.size() > MAX_PATH){
+      pose_path.poses.erase(pose_path.poses.begin(), pose_path.poses.begin() + (pose_path.poses.size() - MAX_PATH));
+    }
     pose_path.poses.push_back(pose_stamped_tmp_);
+    pose_path.header.stamp = now;
 
     odom.header = pose_stamped_tmp_.header;
     odomPub->publish(odom);

@@ -56,7 +56,7 @@ class Init(Node):
         self.kd_[5] = 5.2
 #1.57 0.60 1.30
         self.tiempo_anterior_ = self.get_clock().now().nanoseconds
-        self.create_timer(0.1, self.calcularpid)
+        self.create_timer(0.01, self.calcularpid)
 
     # <-- CORRECCIÓN: Añadido el tipo de mensaje (buena práctica)
     def pose_callback(self, msg: Pose):
@@ -150,3 +150,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
+
