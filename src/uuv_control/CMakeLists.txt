@@ -28,6 +28,10 @@ add_library(uuv_model_lib
   libs/model/uuv_dynamic_model.cpp
 )
 
+add_library(uuv_asmc_lib
+  libs/controller_asmc/6dof_asmc.cpp
+)
+
 target_include_directories(uuv_model_lib PUBLIC
   ${EIGEN3_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/libs/model
@@ -35,6 +39,8 @@ target_include_directories(uuv_model_lib PUBLIC
 
 # === Executable ===
 add_executable(dynamic_model_uuv src/dynamic_model_uuv.cpp)
+
+add_executable(asmc src/asmc.cpp)
 
 target_include_directories(dynamic_model_uuv PUBLIC
   ${EIGEN3_INCLUDE_DIRS}
@@ -51,8 +57,22 @@ ament_target_dependencies(dynamic_model_uuv
   tf2_ros
 )
 
+ament_target_dependencies(asmc
+  rclcpp
+  std_msgs
+  geometry_msgs
+  sensor_msgs
+  visualization_msgs
+  nav2_msgs
+  tf2_ros
+)
+
 target_link_libraries(dynamic_model_uuv
   uuv_model_lib
+)
+
+target_link_libraries(asmc
+  uuv_asmc_lib
 )
 
 install(TARGETS dynamic_model_uuv DESTINATION lib/${PROJECT_NAME})
