@@ -82,11 +82,17 @@ def generate_launch_description():
         name='los'
     )  
 
-    pid = Node(
+    # pid = Node(
+    #     package='uuv_control',
+    #     executable='pid',
+    #     name='pid'
+    # )   
+
+    asmc = Node(
         package='uuv_control',
-        executable='pid',
-        name='pid'
-    )   
+        executable='asmc',
+        name='asmc'
+    )  
 
     dynamic_model = Node(
         package='uuv_control',
@@ -126,12 +132,13 @@ def generate_launch_description():
     return LaunchDescription([
         rviz_config_arg,
         uuv_tracker,
-        # mission_handler,
-        # bezier,
-        # los,
-        pid,
+        mission_handler,
+        bezier,
+        los,
+        # pid,
+        asmc,
         dynamic_model,
         uuv_pose_tracker,
-        # object_visualizer_node,
+        object_visualizer_node,
         rviz_node,
     ])

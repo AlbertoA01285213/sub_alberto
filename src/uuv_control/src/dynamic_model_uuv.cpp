@@ -33,6 +33,9 @@ class DynamicModelSim : public rclcpp::Node {
     odomPub =
         this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
 
+    dynamicsPub = 
+        this->create_publisher<std_msgs::msg::Float64MultiArray>("/dynamics", 10);
+
     thrusterSub = this->create_subscription<std_msgs::msg::Float64MultiArray>(
         "/forces", 10,
         [this](const std_msgs::msg::Float64MultiArray &msg) {
@@ -126,12 +129,29 @@ class DynamicModelSim : public rclcpp::Node {
     pose_path_pub->publish(pose_path);
 
     tf_broadcast(pose);
+
+    auto dyn_msg = std_msgs::msg::Float64MultiArray();
+    
+    // Empaquetamos G (6x6 = 36 datos)
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 6; j++) {
+            dyn_msg.data.push_back(model.g_x_(i, j)); 
+        }
+    }
+
+    // Empaquetamos f (6 datos)
+    for (int i = 0; i < 6; i++) {
+        dyn_msg.data.push_back(model.f_x_(i));
+    }
+
+    dynamicsPub->publish(dyn_msg);
   }
 
  private:
   rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr posePub;
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pose_path_pub;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odomPub;
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr dynamicsPub;
   rclcpp::TimerBase::SharedPtr updateTimer;
 
   geometry_msgs::msg::PoseStamped pose_stamped_tmp_;

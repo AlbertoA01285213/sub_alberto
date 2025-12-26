@@ -23,7 +23,7 @@ class LineOfSightNode(Node):
         pose_topic = self.get_parameter('pose_topic').value
         target_topic = self.get_parameter('target_topic').value
         self.acceptance_radius = self.get_parameter('acceptance_radius').value
-        self.acceptance_radius_sq = self.acceptance_radius ** 2
+        self.acceptance_radius_sq = self.acceptance_radius ** 1
 
         # --- Estado Interno ---
         self.current_path = None

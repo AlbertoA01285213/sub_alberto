@@ -1,11 +1,15 @@
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model/uuv_dynamic_model.cpp
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model/uuv_dynamic_model.h
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/libs/model/uuv_datatypes.h
+/home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/scripts/asmc.py
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/scripts/pid.py
 /home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/pid
+/home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/asmc
 /home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/dynamic_model_uuv
+/home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/scripts/asmc.py
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/scripts/pid.py
 /home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/pid
+/home/alberto/Documents/sub_alberto/install/uuv_control/lib/uuv_control/asmc
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/ament_index/resource_index/package_run_dependencies/uuv_control
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/ament_index/resource_index/parent_prefix_path/uuv_control
 /home/alberto/Documents/sub_alberto/install/uuv_control/share/uuv_control/environment/ament_prefix_path.sh

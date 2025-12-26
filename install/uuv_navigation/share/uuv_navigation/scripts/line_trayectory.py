@@ -78,7 +78,7 @@ class Trayectory_generator(Node):
         self.new_waypoint_received = True
 
         # Generar nueva trayectoria solo si es un waypoint diferente
-        self.get_logger().info("Nuevo waypoint detectado, generando trayectoria...")
+        # self.get_logger().info("Nuevo waypoint detectado, generando trayectoria...")
         self.generate_path_callback()
 
 

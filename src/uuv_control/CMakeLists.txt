@@ -22,6 +22,7 @@ install(DIRECTORY libs DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY scripts DESTINATION share/${PROJECT_NAME})
 
 install(PROGRAMS scripts/pid.py DESTINATION lib/${PROJECT_NAME} RENAME pid)
+install(PROGRAMS scripts/asmc.py DESTINATION lib/${PROJECT_NAME} RENAME asmc)
 
 # === Library ===
 add_library(uuv_model_lib
@@ -65,6 +66,11 @@ install(DIRECTORY
 install(PROGRAMS scripts/pid.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME pid
+)
+
+install(PROGRAMS scripts/asmc.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME asmc
 )
 
 if(BUILD_TESTING)

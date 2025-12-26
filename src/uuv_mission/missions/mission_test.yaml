@@ -1,0 +1,106 @@
+mission_name: "test_run_1"
+
+actions:
+  - type: publish
+    message: ['True', 'checkpoint'] # Mensaje, topico
+
+  - type: hold
+    duration: 10
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
+
+  - type: goto
+    waypoint: [0.0, 0.0, -2.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 10
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 10
+
+  
+
+  - type: goto
+    waypoint: [1.0, 0.0, 0.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 10
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 10
+
+
+
+  - type: goto
+    waypoint: [0.0, 1.0, 0.0, 0, 0, 0.785]
+
+  - type: hold
+    duration: 10
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
+
+  - type: hold
+    duration: 10
+
+
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 0.785]
+  
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, 0]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, -0.785]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, -1.57]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, -2.355]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, -3.14]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, -3.925]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, 0.0, 0, 0, -4.71]
+
+  - type: hold
+    duration: 5
+
+
+
+
+
