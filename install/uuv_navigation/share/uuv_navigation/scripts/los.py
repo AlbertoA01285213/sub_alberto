@@ -2,7 +2,7 @@
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Path
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Pose, PoseStamped
 from tf_transformations import euler_from_quaternion
 from std_msgs.msg import Bool
 import math
@@ -23,7 +23,7 @@ class LineOfSightNode(Node):
         pose_topic = self.get_parameter('pose_topic').value
         target_topic = self.get_parameter('target_topic').value
         self.acceptance_radius = self.get_parameter('acceptance_radius').value
-        self.acceptance_radius_sq = self.acceptance_radius ** 1
+        self.acceptance_radius_sq = self.acceptance_radius ** 2
 
         # --- Estado Interno ---
         self.current_path = None
@@ -33,7 +33,7 @@ class LineOfSightNode(Node):
 
         # --- Suscriptores y publicadores ---
         self.path_subscriber = self.create_subscription(Path, path_topic, self.path_callback, 10)
-        self.pose_subscriber = self.create_subscription(Pose, pose_topic, self.pose_callback, 10)
+        self.pose_subscriber = self.create_subscription(PoseStamped, pose_topic, self.pose_callback, 10)
         self.target_publisher = self.create_publisher(Pose, target_topic, 10)
         self.checkpoint_publisher = self.create_publisher(Bool, 'checkpoint', 10)
 
@@ -57,16 +57,16 @@ class LineOfSightNode(Node):
         self.path_in_progress = True
         # self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
 
-    def pose_callback(self, msg: Pose):
-        self.pose_actual_x = msg.position.x
-        self.pose_actual_y = msg.position.y
-        self.pose_actual_z = msg.position.z
+    def pose_callback(self, msg: PoseStamped):
+        self.pose_actual_x = msg.pose.position.x
+        self.pose_actual_y = msg.pose.position.y
+        self.pose_actual_z = msg.pose.position.z
         
         roll, pitch, yaw = euler_from_quaternion([
-            msg.orientation.x,
-            msg.orientation.y,
-            msg.orientation.z,
-            msg.orientation.w
+            msg.pose.orientation.x,
+            msg.pose.orientation.y,
+            msg.pose.orientation.z,
+            msg.pose.orientation.w
         ])
         
         self.pose_actual_roll = roll

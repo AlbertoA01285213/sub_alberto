@@ -9,15 +9,24 @@ from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point, Vector3, Quaternion
 from std_msgs.msg import ColorRGBA
 from rclpy.qos import QoSProfile, DurabilityPolicy
+from ament_index_python.packages import get_package_share_directory
 
 
 class ObstaclePublisher(Node):
 
     def __init__(self):
         super().__init__('obstacle_publisher_node')
+
+        try:
+            pkg_share = get_package_share_directory('uuv_visualization')
+            # Construimos la ruta asumiendo que el archivo está en 'data/obstacles.db'
+            default_db_path = os.path.join(pkg_share, 'data', 'obstacles.db')
+        except Exception as e:
+            self.get_logger().error(f"No se pudo encontrar el paquete: {e}")
+            default_db_path = ""
         
         # --- Parámetros ---
-        self.declare_parameter('db_path', '/home/alberto/Documents/sub_alberto/src/uuv_visualization/data/obstacles.db')
+        self.declare_parameter('db_path', default_db_path)
         self.declare_parameter('marker_topic', '/obstacle_markers')
         self.declare_parameter('frame_id', 'world') # Frame al que están referidos los obstáculos
 

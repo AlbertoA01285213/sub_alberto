@@ -1,0 +1,30 @@
+[ 50%] Built target uuv_model_lib
+[35m[1mConsolidate compiler generated dependencies of target dynamic_model_uuv[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o[0m
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:170:53:[m[K [01;31m[Kerror: [m[Kstray ‘[01m[K#[m[K’ in program
+  170 | eometry_msgs::msg::Twist>::Shar[01;31m[K#[m[Kinclude <tf2/LinearMath/Quaternion.h>
+      |                                [01;31m[K^[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:170:49:[m[K [01;31m[Kerror: [m[K‘[01m[KShar[m[K’ in ‘[01m[Kclass rclcpp::Publisher<geometry_msgs::msg::Twist_<std::allocator<void> > >[m[K’ does not name a type
+  170 | er<geometry_msgs::msg::Twist>::[01;31m[KShar[m[K#include <tf2/LinearMath/Quaternion.h>
+      |                                [01;31m[K^~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:[m[K In constructor ‘[01m[KDynamicModelSim::DynamicModelSim()[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:37:50:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+   37 | te_publisher<geometry_msgs::msg[01;31m[K:[m[KTwist>("/velocity", 10);
+      |                                [01;31m[K^[m[K
+      |                                [32m[K::[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:55:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpose_stamped_tmp_[m[K’ was not declared in this scope
+   55 |     [01;31m[Kpose_stamped_tmp_[m[K.header.frame_id = "world";
+      |     [01;31m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:[m[K In member function ‘[01m[Kvoid DynamicModelSim::update()[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:88:23:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+   88 |     geometry_msgs::msg[01;31m[K:[m[KTwist vel;
+      |                       [01;31m[K^[m[K
+      |                       [32m[K::[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:135:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpose_stamped_tmp_[m[K’ was not declared in this scope
+  135 |     [01;31m[Kpose_stamped_tmp_[m[K.pose = pose;
+      |     [01;31m[K^~~~~~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/dynamic_model_uuv.dir/build.make:76: CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/dynamic_model_uuv.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

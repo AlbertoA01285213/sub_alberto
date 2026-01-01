@@ -1,0 +1,8 @@
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:3:10:[m[K [01;31m[Kfatal error: [m[Kignition/gazebo/components/Pose.hpp: No such file or directory
+    3 | #include [01;31m[K<ignition/gazebo/components/Pose.hpp>[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/SubmarineDynamics.dir/build.make:76: CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/SubmarineDynamics.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

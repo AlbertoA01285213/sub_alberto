@@ -1,0 +1,65 @@
+[0.035s] Invoking command in '/home/alberto/Documents/sub_alberto/build/uuv_control': CMAKE_PREFIX_PATH=/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/ros2_ws/install/docker_test:/opt/ros/humble:/home/alberto/install/catkin:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/catkin:/home/alberto/uuv/install/uuv /usr/bin/cmake --build /home/alberto/Documents/sub_alberto/build/uuv_control -- -j8 -l8
+[0.087s] [ 50%] Built target uuv_model_lib
+[0.117s] [ 75%] [32mBuilding CXX object CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o[0m
+[0.479s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:171:53:[m[K [01;31m[Kerror: [m[Kstray ‘[01m[K#[m[K’ in program
+[0.479s]   171 | eometry_msgs::msg::Twist>::Shar[01;31m[K#[m[Kinclude <tf2/LinearMath/Quaternion.h>
+[0.479s]       |                                [01;31m[K^[m[K
+[0.479s] 
+[2.500s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:171:49:[m[K [01;31m[Kerror: [m[K‘[01m[KShar[m[K’ in ‘[01m[Kclass rclcpp::Publisher<geometry_msgs::msg::Twist_<std::allocator<void> > >[m[K’ does not name a type
+[2.500s]   171 | er<geometry_msgs::msg::Twist>::[01;31m[KShar[m[K#include <tf2/LinearMath/Quaternion.h>
+[2.500s]       |                                [01;31m[K^~~~[m[K
+[2.500s] 
+[2.500s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:194:7:[m[K [01;31m[Kerror: [m[K‘[01m[KDynamicModelSim::DynamicModelSim[m[K’ has the same name as the class in which it is declared
+[2.500s]   194 | class [01;31m[KDynamicModelSim[m[K : public rclcpp::Node {
+[2.500s]       |       [01;31m[K^~~~~~~~~~~~~~~[m[K
+[2.502s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:384:2:[m[K [01;31m[Kerror: [m[K‘[01m[KedPtr[m[K’ does not name a type; did you mean ‘[01m[KWeakPtr[m[K’?
+[2.502s]   384 | }[01;31m[KedPtr[m[K velPub;
+[2.502s]       |  [01;31m[K^~~~~[m[K
+[2.502s]       |  [32m[KWeakPtr[m[K
+[2.546s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:[m[K In constructor ‘[01m[KDynamicModelSim::DynamicModelSim()[m[K’:
+[2.546s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:36:5:[m[K [01;31m[Kerror: [m[K‘[01m[KvelPub[m[K’ was not declared in this scope
+[2.547s]    36 |     [01;31m[KvelPub[m[K =
+[2.547s]       |     [01;31m[K^~~~~~[m[K
+[2.547s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:37:50:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+[2.547s]    37 | te_publisher<geometry_msgs::msg[01;31m[K:[m[KTwist>("/velocity", 10);
+[2.547s]       |                                [01;31m[K^[m[K
+[2.547s]       |                                [32m[K::[m[K
+[2.559s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:[m[K In member function ‘[01m[Kvoid DynamicModelSim::update()[m[K’:
+[2.559s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:89:23:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+[2.559s]    89 |     geometry_msgs::msg[01;31m[K:[m[KTwist vel;
+[2.559s]       |                       [01;31m[K^[m[K
+[2.559s]       |                       [32m[K::[m[K
+[2.559s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:128:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+[2.559s]   128 |     vel.[01;31m[Ktwist[m[K.twist.linear.x = u;
+[2.559s]       |         [01;31m[K^~~~~[m[K
+[2.559s]       |         [32m[KTwist_[m[K
+[2.559s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:129:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+[2.559s]   129 |     vel.[01;31m[Ktwist[m[K.twist.linear.y = v;
+[2.559s]       |         [01;31m[K^~~~~[m[K
+[2.559s]       |         [32m[KTwist_[m[K
+[2.560s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:130:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+[2.560s]   130 |     vel.[01;31m[Ktwist[m[K.twist.linear.z = w;
+[2.560s]       |         [01;31m[K^~~~~[m[K
+[2.560s]       |         [32m[KTwist_[m[K
+[2.560s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:132:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+[2.560s]   132 |     vel.[01;31m[Ktwist[m[K.twist.angular.x = p;
+[2.560s]       |         [01;31m[K^~~~~[m[K
+[2.560s]       |         [32m[KTwist_[m[K
+[2.560s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:133:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+[2.560s]   133 |     vel.[01;31m[Ktwist[m[K.twist.angular.y = q;
+[2.560s]       |         [01;31m[K^~~~~[m[K
+[2.560s]       |         [32m[KTwist_[m[K
+[2.560s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:134:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+[2.560s]   134 |     vel.[01;31m[Ktwist[m[K.twist.angular.z = r;
+[2.560s]       |         [01;31m[K^~~~~[m[K
+[2.560s]       |         [32m[KTwist_[m[K
+[2.560s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:143:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kheader[m[K’
+[2.560s]   143 |     vel.[01;31m[Kheader[m[K = pose_stamped_tmp_.header;
+[2.560s]       |         [01;31m[K^~~~~~[m[K
+[2.566s] [01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:144:5:[m[K [01;31m[Kerror: [m[K‘[01m[KvelPub[m[K’ was not declared in this scope
+[2.566s]   144 |     [01;31m[KvelPub[m[K->publish(vel);
+[2.566s]       |     [01;31m[K^~~~~~[m[K
+[4.854s] gmake[2]: *** [CMakeFiles/dynamic_model_uuv.dir/build.make:76: CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o] Error 1
+[4.854s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/dynamic_model_uuv.dir/all] Error 2
+[4.855s] gmake: *** [Makefile:146: all] Error 2
+[4.857s] Invoked command in '/home/alberto/Documents/sub_alberto/build/uuv_control' returned '2': CMAKE_PREFIX_PATH=/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/ros2_ws/install/docker_test:/opt/ros/humble:/home/alberto/install/catkin:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/catkin:/home/alberto/uuv/install/uuv /usr/bin/cmake --build /home/alberto/Documents/sub_alberto/build/uuv_control -- -j8 -l8

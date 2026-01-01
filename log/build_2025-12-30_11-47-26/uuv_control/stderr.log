@@ -1,0 +1,58 @@
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:170:53:[m[K [01;31m[Kerror: [m[Kstray ‘[01m[K#[m[K’ in program
+  170 | eometry_msgs::msg::Twist>::Shar[01;31m[K#[m[Kinclude <tf2/LinearMath/Quaternion.h>
+      |                                [01;31m[K^[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:170:49:[m[K [01;31m[Kerror: [m[K‘[01m[KShar[m[K’ in ‘[01m[Kclass rclcpp::Publisher<geometry_msgs::msg::Twist_<std::allocator<void> > >[m[K’ does not name a type
+  170 | er<geometry_msgs::msg::Twist>::[01;31m[KShar[m[K#include <tf2/LinearMath/Quaternion.h>
+      |                                [01;31m[K^~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:193:7:[m[K [01;31m[Kerror: [m[K‘[01m[KDynamicModelSim::DynamicModelSim[m[K’ has the same name as the class in which it is declared
+  193 | class [01;31m[KDynamicModelSim[m[K : public rclcpp::Node {
+      |       [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:383:2:[m[K [01;31m[Kerror: [m[K‘[01m[KedPtr[m[K’ does not name a type; did you mean ‘[01m[KWeakPtr[m[K’?
+  383 | }[01;31m[KedPtr[m[K velPub;
+      |  [01;31m[K^~~~~[m[K
+      |  [32m[KWeakPtr[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:[m[K In constructor ‘[01m[KDynamicModelSim::DynamicModelSim()[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:36:5:[m[K [01;31m[Kerror: [m[K‘[01m[KvelPub[m[K’ was not declared in this scope
+   36 |     [01;31m[KvelPub[m[K =
+      |     [01;31m[K^~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:37:50:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+   37 | te_publisher<geometry_msgs::msg[01;31m[K:[m[KTwist>("/velocity", 10);
+      |                                [01;31m[K^[m[K
+      |                                [32m[K::[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:[m[K In member function ‘[01m[Kvoid DynamicModelSim::update()[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:89:23:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+   89 |     geometry_msgs::msg[01;31m[K:[m[KTwist vel;
+      |                       [01;31m[K^[m[K
+      |                       [32m[K::[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:128:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+  128 |     vel.[01;31m[Ktwist[m[K.twist.linear.x = u;
+      |         [01;31m[K^~~~~[m[K
+      |         [32m[KTwist_[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:129:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+  129 |     vel.[01;31m[Ktwist[m[K.twist.linear.y = v;
+      |         [01;31m[K^~~~~[m[K
+      |         [32m[KTwist_[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:130:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+  130 |     vel.[01;31m[Ktwist[m[K.twist.linear.z = w;
+      |         [01;31m[K^~~~~[m[K
+      |         [32m[KTwist_[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:132:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+  132 |     vel.[01;31m[Ktwist[m[K.twist.angular.x = p;
+      |         [01;31m[K^~~~~[m[K
+      |         [32m[KTwist_[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:133:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+  133 |     vel.[01;31m[Ktwist[m[K.twist.angular.y = q;
+      |         [01;31m[K^~~~~[m[K
+      |         [32m[KTwist_[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:134:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing Twist = struct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct geometry_msgs::msg::Twist_<std::allocator<void> >[m[K’} has no member named ‘[01m[Ktwist[m[K’; did you mean ‘[01m[KTwist_[m[K’?
+  134 |     vel.[01;31m[Ktwist[m[K.twist.angular.z = r;
+      |         [01;31m[K^~~~~[m[K
+      |         [32m[KTwist_[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_control/src/dynamic_model_uuv.cpp:143:5:[m[K [01;31m[Kerror: [m[K‘[01m[KvelPub[m[K’ was not declared in this scope
+  143 |     [01;31m[KvelPub[m[K->publish(vel);
+      |     [01;31m[K^~~~~~[m[K
+gmake[2]: *** [CMakeFiles/dynamic_model_uuv.dir/build.make:76: CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/dynamic_model_uuv.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

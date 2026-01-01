@@ -1,0 +1,62 @@
+[ 33%] [32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o[0m
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:23:[m[K [01;31m[Kerror: [m[K‘[01m[Kgeometry_msgs[m[K’ was not declared in this scope
+   99 |     rclcpp::Publisher<[01;31m[Kgeometry_msgs[m[K::msg::Twist>::SharedPtr velocity_pub_;
+      |                       [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:48:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+   99 | isher<geometry_msgs::msg::Twist[01;31m[K>[m[K::SharedPtr velocity_pub_;
+      |                                [01;31m[K^[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:51:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ at end of member declaration
+   99 | er<geometry_msgs::msg::Twist>::[01;31m[KSharedPtr[m[K velocity_pub_;
+      |                                [01;31m[K^~~~~~~~~[m[K
+      |                                         [32m[K;[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:61:[m[K [01;31m[Kerror: [m[K‘[01m[Kvelocity_pub_[m[K’ does not name a type
+   99 | y_msgs::msg::Twist>::SharedPtr [01;31m[Kvelocity_pub_[m[K;
+      |                                [01;31m[K^~~~~~~~~~~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:[m[K In constructor ‘[01m[KSubmarineDynamics::SubmarineDynamics()[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kvelocity_pub_[m[K’ was not declared in this scope
+   31 |         [01;31m[Kvelocity_pub_[m[K = ros_node_->create_publisher<geometry_msgs::msg::Twist>("/velocity", 10);
+      |         [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:53:[m[K [01;31m[Kerror: [m[K‘[01m[Kgeometry_msgs[m[K’ was not declared in this scope
+   31 |  = ros_node_->create_publisher<[01;31m[Kgeometry_msgs[m[K::msg::Twist>("/velocity", 10);
+      |                                [01;31m[K^~~~~~~~~~~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:36:[m[K [01;31m[Kerror: [m[Kparse error in template argument list
+   31 |     velocity_pub_ = ros_node_->[01;31m[Kcreate_publisher<geometry_msgs::msg::Twist>[m[K("/velocity", 10);
+      |                                [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:79:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Krclcpp::Node::create_publisher<<expression error> >(const char [10], int)[m[K’
+   31 | [01;31m[Ksher<geometry_msgs::msg::Twist>("/velocity", 10)[m[K;
+      | [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~[m[K
+
+In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/node.hpp:1321[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/single_threaded_executor.hpp:28[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:22[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+                 from [01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:7[m[K:
+[01m[K/opt/ros/humble/include/rclcpp/rclcpp/node_impl.hpp:73:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT, class PublisherT> std::shared_ptr<PublisherT> rclcpp::Node::create_publisher(const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)[m[K’
+   73 | [01;36m[KNode[m[K::create_publisher(
+      | [01;36m[K^~~~[m[K
+[01m[K/opt/ros/humble/include/rclcpp/rclcpp/node_impl.hpp:73:1:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:79:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+   31 | [01;31m[Ksher<geometry_msgs::msg::Twist>("/velocity", 10)[m[K;
+      | [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:[m[K In member function ‘[01m[Kvirtual void SubmarineDynamics::PreUpdate(const ignition::gazebo::v6::UpdateInfo&, ignition::gazebo::v6::EntityComponentManager&)[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:63:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kgeometry_msgs[m[K’ has not been declared
+   63 |         [01;31m[Kgeometry_msgs[m[K::msg::Twist vel_msg;
+      |         [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:64:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kvel_msg[m[K’ was not declared in this scope
+   64 |         [01;31m[Kvel_msg[m[K.linear.x = state.nu(0);
+      |         [01;31m[K^~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:64:28:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate[m[K’ was not declared in this scope; did you mean ‘[01m[K_xstate[m[K’?
+   64 |         vel_msg.linear.x = [01;31m[Kstate[m[K.nu(0);
+      |                            [01;31m[K^~~~~[m[K
+      |                            [32m[K_xstate[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:70:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kvelocity_pub_[m[K’ was not declared in this scope
+   70 |         [01;31m[Kvelocity_pub_[m[K->publish(vel_msg);
+      |         [01;31m[K^~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/SubmarineDynamics.dir/build.make:76: CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/SubmarineDynamics.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

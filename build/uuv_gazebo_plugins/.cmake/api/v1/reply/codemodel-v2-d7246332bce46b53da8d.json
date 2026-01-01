@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-087c17599755e5ae9d41.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10.2"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "uuv_gazebo_plugins",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "SubmarineDynamics::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SubmarineDynamics-d95089d11cc12c356851.json",
+					"name" : "SubmarineDynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-22582abcb72d085f6c2b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uuv_gazebo_plugins_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uuv_gazebo_plugins_uninstall-f75e6d0420981bcfbde0.json",
+					"name" : "uuv_gazebo_plugins_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins",
+		"source" : "/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

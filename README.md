@@ -20,6 +20,20 @@ El launch oficial aun no esta en uuv_master. ahora el launch grande esta en el p
 ros2 launch uuv_navigation launch.py
 ```
 
+Se agrego una adaptacion para gazebo. Esto para poder incluir la camara a los calculos. No funciona del todo bien pero de algo sirve. Para correrlo:
+```bash
+pkill -9 ruby && pkill -9 parameter_brid && pkill -9 static_transform
+ros2 launch uuv_visualization gazebo_launch.py mission_file:=mission_test.yaml
+```
+
+Si se desea abrir la terminal y ver mensajes dentro del gazebo:
+```bash
+export IGN_PARTITION=uuv_sim
+ign topic -l
+ign topic -e -t /topico
+
+```
+
 Ademas, es posible que necesites instalar varias librerias como "eigen3" solo que no me acuerdo de los comandos, nomas hazle caso a lo que la terminal te diga. Si lo haces, dime que librerias ocupas instalar para anotarlas aqui pls.
 
 ## WiP

@@ -6,7 +6,7 @@ from math import pi, fabs
 
 # Mensajes estándar
 from std_msgs.msg import Float64MultiArray
-from geometry_msgs.msg import Pose, Twist
+from geometry_msgs.msg import Pose, PoseStamped, Twist
 from nav_msgs.msg import Odometry
 # Nota: tf_transformations requiere instalar: sudo apt install ros-<distro>-tf-transformations
 from tf_transformations import euler_from_quaternion
@@ -72,7 +72,7 @@ class ASMCSubmarineNode(Node):
         self.declare_parameter('K_min', [0.1] * 6)
         self.declare_parameter('mu', [0.05] * 6)
 
-        dt = 0.1 # 10Hz
+        dt = 0.2 # 50Hz
 
         # Inicializar controladores para cada eje
         l = self.get_parameter('lambda').value
@@ -96,10 +96,10 @@ class ASMCSubmarineNode(Node):
         self.max_tau = [127.0, 34.0, 118.0, 28.0, 9.6, 36.6]
 
         # 3. Suscriptores y Publicadores
-        self.pose_sub = self.create_subscription(Pose, 'pose', self.pose_callback, 10)
+        self.pose_sub = self.create_subscription(PoseStamped, 'pose', self.pose_callback, 10)
         self.objetivo_sub = self.create_subscription(Pose, 'pose_objetivo', self.pose_objetivo_callback, 10)
 
-        self.vel_sub = self.create_subscription(Odometry, '/odom', self.velocity_callback, 10)
+        self.vel_sub = self.create_subscription(Twist, '/velocity', self.velocity_callback, 10)
         self.velocidad_actual = np.zeros(6)
 
         # Recibimos un MultiArray para dynamics
@@ -110,10 +110,10 @@ class ASMCSubmarineNode(Node):
         # 4. Timer de control
         self.create_timer(dt, self.control_loop)
 
-    def pose_callback(self, msg: Pose):
-        quat = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
+    def pose_callback(self, msg: PoseStamped):
+        quat = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
         r, p, y = euler_from_quaternion(quat)
-        self.pose_actual = np.array([msg.position.x, msg.position.y, msg.position.z, r, p, y])
+        self.pose_actual = np.array([msg.pose.position.x, msg.pose.position.y, msg.pose.position.z, r, p, y])
 
     def pose_objetivo_callback(self, msg: Pose):
         quat = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
@@ -124,20 +124,15 @@ class ASMCSubmarineNode(Node):
             self.controllers[i].update_setpoint(self.pose_objetivo[i])
 
     def velocity_callback(self, msg: Twist):
-        # 1. Extraer Pose (Posición y Orientación)
-        p = msg.pose.pose.position
-        o = msg.pose.pose.orientation
-        quat = [o.x, o.y, o.z, o.w]
-        r, p_angle, y = euler_from_quaternion(quat)
-        
-        self.pose_actual = np.array([p.x, p.y, p.z, r, p_angle, y])
-
-        # 2. Extraer Velocidad (Linear y Angular)
-        # IMPORTANTE: Estas velocidades ya están en el "Body Frame"
-        v = msg.twist.twist.linear
-        a = msg.twist.twist.angular
-        
-        self.velocidad_actual = np.array([v.x, v.y, v.z, a.x, a.y, a.z])
+        # El plugin envía Twist directamente (Body Frame)
+        self.velocidad_actual = np.array([
+            msg.linear.x, 
+            msg.linear.y, 
+            msg.linear.z, 
+            msg.angular.x, 
+            msg.angular.y, 
+            msg.angular.z
+        ])
         
     def dynamics_callback(self, msg: Float64MultiArray):
         # Asumiendo que los primeros 36 son la matriz G (6x6) y los siguientes 6 son el vector F

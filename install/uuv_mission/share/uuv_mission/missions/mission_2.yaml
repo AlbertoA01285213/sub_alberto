@@ -9,9 +9,9 @@ actions:
 
   - type: goto
     waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]
-
+    
   - type: goto
-    waypoint: [0.0, 0.0, -2.0, 0, 0, 1.57]
+    waypoint: [0.0, 0.0, -2.0, 0, 0, 0]
 
   - type: hold
     duration: 10

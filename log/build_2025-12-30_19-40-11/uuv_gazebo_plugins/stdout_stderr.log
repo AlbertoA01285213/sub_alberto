@@ -1,0 +1,22 @@
+[35m[1mConsolidate compiler generated dependencies of target SubmarineDynamics[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o[0m
+[ 66%] [32m[1mLinking CXX shared library libSubmarineDynamics.so[0m
+[100%] Built target SubmarineDynamics
+-- Install configuration: ""
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/lib/uuv_gazebo_plugins/libSubmarineDynamics.so
+-- Set runtime path of "/home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/lib/uuv_gazebo_plugins/libSubmarineDynamics.so" to ""
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/ament_index/resource_index/package_run_dependencies/uuv_gazebo_plugins
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/ament_index/resource_index/parent_prefix_path/uuv_gazebo_plugins
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/ament_prefix_path.sh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/ament_prefix_path.dsv
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/path.sh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/path.dsv
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.bash
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.sh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.zsh
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.dsv
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/package.dsv
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/ament_index/resource_index/packages/uuv_gazebo_plugins
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/cmake/uuv_gazebo_pluginsConfig.cmake
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/cmake/uuv_gazebo_pluginsConfig-version.cmake
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/package.xml

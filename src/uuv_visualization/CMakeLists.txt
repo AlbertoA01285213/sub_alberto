@@ -51,6 +51,11 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(DIRECTORY
+  worlds
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # Nodos del paquete
 install(PROGRAMS scripts/object_visualizer.py
   DESTINATION lib/${PROJECT_NAME}

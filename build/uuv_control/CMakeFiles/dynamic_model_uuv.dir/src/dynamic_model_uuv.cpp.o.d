@@ -697,6 +697,9 @@ CMakeFiles/dynamic_model_uuv.dir/src/dynamic_model_uuv.cpp.o: \
  /opt/ros/humble/include/tf2_msgs/tf2_msgs/msg/detail/tf_message__type_support.hpp \
  /opt/ros/humble/include/tf2_msgs/tf2_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
  /opt/ros/humble/include/tf2_ros/tf2_ros/qos.hpp \
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+ /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
  /home/alberto/Documents/sub_alberto/src/uuv_control/libs/model/uuv_dynamic_model.h \
  /usr/include/eigen3/Eigen/Dense /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \

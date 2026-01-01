@@ -14,6 +14,7 @@
 #include "std_msgs/msg/float64.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 #include "tf2_ros/transform_broadcaster.h"
+#include "geometry_msgs/msg/twist.hpp"
 
 
 #include "uuv_dynamic_model.h"
@@ -29,10 +30,11 @@ class DynamicModelSim : public rclcpp::Node {
     subname_ = this->declare_parameter<std::string>("subname", "uuv");
 
     posePub =
-        this->create_publisher<geometry_msgs::msg::Pose>("/pose", 10);
+        this->create_publisher<geometry_msgs::msg::PoseStamped>("/pose", 10);
     odomPub =
         this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
-
+    velPub =
+        this->create_publisher<geometry_msgs::msg::Twist>("/velocity", 10);
     dynamicsPub = 
         this->create_publisher<std_msgs::msg::Float64MultiArray>("/dynamics", 10);
 
@@ -54,8 +56,9 @@ class DynamicModelSim : public rclcpp::Node {
     pose_path.header.frame_id = "world";
     pose_path.header.stamp = DynamicModelSim::now();
 
-    updateTimer = this->create_wall_timer(
-        10ms, std::bind(&DynamicModelSim::update, this));
+    // updateTimer = this->create_wall_timer(10ms, std::bind(&DynamicModelSim::update, this));
+    // Este timer respeta el 'use_sim_time' automáticamente
+    updateTimer = this->create_wall_timer(std::chrono::milliseconds(10), std::bind(&DynamicModelSim::update, this));
   }
 
  protected:
@@ -81,26 +84,30 @@ class DynamicModelSim : public rclcpp::Node {
     double pitch = normalize_angle(out.eta[4]);  // position in y
     double yaw = normalize_angle(out.eta[5]);  // position in y
 
-    geometry_msgs::msg::Pose pose;
+    geometry_msgs::msg::PoseStamped pose;
     nav_msgs::msg::Odometry odom;
+    geometry_msgs::msg::Twist vel;
 
-    pose.position.x = x;
-    pose.position.y = y;
-    pose.position.z = z;
+    pose.header.stamp = this->get_clock()->now();
+    pose.header.frame_id = "uuv";
+
+    pose.pose.position.x = x;
+    pose.pose.position.y = y;
+    pose.pose.position.z = z;
 
     tf2::Quaternion qq;
     qq.setRPY(roll, pitch, yaw);
 
-    pose.orientation.w = qq.getW();
-    pose.orientation.x = qq.getX();
-    pose.orientation.y = qq.getY();
-    pose.orientation.z = qq.getZ();
+    pose.pose.orientation.w = qq.getW();
+    pose.pose.orientation.x = qq.getX();
+    pose.pose.orientation.y = qq.getY();
+    pose.pose.orientation.z = qq.getZ();
     //  = q[0];
     // pose.orientation.y = q[1];
     // pose.orientation.z = q[2];
     // pose.orientation.w = q[3];
 
-    odom.pose.pose = pose;
+    odom.pose.pose = pose.pose;
 
     posePub->publish(pose);
 
@@ -121,14 +128,27 @@ class DynamicModelSim : public rclcpp::Node {
     odom.twist.twist.angular.y = q;
     odom.twist.twist.angular.z = r;
 
-    pose_stamped_tmp_.pose = pose;
+    vel.linear.x = u;
+    vel.linear.y = v;
+    vel.linear.z = w;
+
+    vel.angular.x = p;
+    vel.angular.y = q;
+    vel.angular.z = r;
+
+    pose_stamped_tmp_.header.stamp = this->get_clock()->now();
+    pose_path.header.stamp = pose_stamped_tmp_.header.stamp;
+
+    pose_stamped_tmp_.pose = pose.pose;
     pose_path.poses.push_back(pose_stamped_tmp_);
 
     odom.header = pose_stamped_tmp_.header;
     odomPub->publish(odom);
     pose_path_pub->publish(pose_path);
 
-    tf_broadcast(pose);
+    velPub->publish(vel);
+
+    tf_broadcast(pose.pose);
 
     auto dyn_msg = std_msgs::msg::Float64MultiArray();
     
@@ -148,14 +168,15 @@ class DynamicModelSim : public rclcpp::Node {
   }
 
  private:
-  rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr posePub;
+  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr posePub;
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pose_path_pub;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odomPub;
+  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velPub;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr dynamicsPub;
   rclcpp::TimerBase::SharedPtr updateTimer;
 
   geometry_msgs::msg::PoseStamped pose_stamped_tmp_;
-    nav_msgs::msg::Path pose_path;
+  nav_msgs::msg::Path pose_path;
 
   rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr thrusterSub;
   std::array<double, 6> thruster_input;

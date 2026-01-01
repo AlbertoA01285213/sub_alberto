@@ -2,17 +2,34 @@
 import rclpy
 from rclpy.node import Node
 import yaml
-from geometry_msgs.msg import Point, Pose
+from geometry_msgs.msg import Point, PoseStamped
 from std_msgs.msg import Bool, String, Float32
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
 import time
+import os
+from ament_index_python.packages import get_package_share_directory
 
 class MissionHandler(Node):
     def __init__(self):
         super().__init__('mission_handler')
 
-        self.declare_parameter('mission_file', '/home/alberto/Documents/sub_alberto/src/uuv_mission/missions/mission_2.yaml')
+        try:
+            default_path = os.path.join(
+                get_package_share_directory('uuv_mission'), 
+                'missions', 'mission_test.yaml'
+            )
+        except:
+            default_path = ""
+
+        self.declare_parameter('mission_file', default_path)
         mission_path = self.get_parameter('mission_file').value
+
+        self.get_logger().info(f"Cargando misión desde: {mission_path}")
+
+        # 3. Validar si el archivo existe antes de abrirlo
+        if not os.path.exists(mission_path):
+            self.get_logger().error(f"¡ARCHIVO DE MISIÓN NO ENCONTRADO!: {mission_path}")
+            return
 
         with open(mission_path, 'r') as f:
             self.mission = yaml.safe_load(f)
@@ -24,8 +41,8 @@ class MissionHandler(Node):
         self.checkpoint = 0  # ✅ inicializado
 
         self.create_subscription(Bool, 'checkpoint', self.checkpoint_callback, 10)
-        self.create_subscription(Pose, 'pose', self.pose_callback, 10)
-        self.wp_pub = self.create_publisher(Pose, 'waypoint', 10)
+        self.create_subscription(PoseStamped, 'pose', self.pose_callback, 10)
+        self.wp_pub = self.create_publisher(PoseStamped, 'waypoint', 10)
         self.checkpoint_pub = self.create_publisher(Bool, 'checkpoint', 10)
 
         self.timer = self.create_timer(0.5, self.run)
@@ -33,11 +50,11 @@ class MissionHandler(Node):
     def checkpoint_callback(self, msg: Bool):
         self.checkpoint = msg.data  # ✅ corregido
 
-    def pose_callback(self, msg: Pose):
-        self.pose_actual[0] = msg.position.x
-        self.pose_actual[1] = msg.position.y
-        self.pose_actual[2] = msg.position.z
-        quat = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
+    def pose_callback(self, msg: PoseStamped):
+        self.pose_actual[0] = msg.pose.position.x
+        self.pose_actual[1] = msg.pose.position.y
+        self.pose_actual[2] = msg.pose.position.z
+        quat = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
         roll, pitch, yaw = euler_from_quaternion(quat)
         self.pose_actual[3] = roll
         self.pose_actual[4] = pitch
@@ -52,15 +69,20 @@ class MissionHandler(Node):
 
         if action["type"] == "goto":
             wp = action["waypoint"]
-            msg = Pose()
-            msg.position.x = wp[0]
-            msg.position.y = wp[1]
-            msg.position.z = wp[2]
+            msg = PoseStamped()
+
+            msg.header.stamp = self.get_clock().now().to_msg()
+            msg.header.frame_id = "world"
+
+            msg.pose.position.x = wp[0]
+            msg.pose.position.y = wp[1]
+            msg.pose.position.z = wp[2]
+
             q = quaternion_from_euler(wp[3], wp[4], wp[5])
-            msg.orientation.x = q[0]
-            msg.orientation.y = q[1]
-            msg.orientation.z = q[2]
-            msg.orientation.w = q[3]
+            msg.pose.orientation.x = q[0]
+            msg.pose.orientation.y = q[1]
+            msg.pose.orientation.z = q[2]
+            msg.pose.orientation.w = q[3]
 
             self.wp_pub.publish(msg)
             # self.get_logger().info(f"Enviando waypoint {wp}")
@@ -110,14 +132,18 @@ class MissionHandler(Node):
                 self.pose_actual[5] + rotations[2]
             )
 
-            msg = Pose()
-            msg.position.x = self.pose_actual[0]
-            msg.position.y = self.pose_actual[1]
-            msg.position.z = self.pose_actual[2]
-            msg.orientation.x = qx
-            msg.orientation.y = qy
-            msg.orientation.z = qz
-            msg.orientation.w = qw
+            msg = PoseStamped()
+
+            msg.header.stamp = self.get_clock().now().to_msg()
+            msg.header.frame_id = "world"
+            
+            msg.pose.position.x = self.pose_actual[0]
+            msg.pose.position.y = self.pose_actual[1]
+            msg.pose.position.z = self.pose_actual[2]
+            msg.pose.orientation.x = qx
+            msg.pose.orientation.y = qy
+            msg.pose.orientation.z = qz
+            msg.pose.orientation.w = qw
 
             self.wp_pub.publish(msg)
 

@@ -1,0 +1,10 @@
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/uuv_gazebo_plugins_uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/SubmarineDynamics.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/test.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/edit_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/rebuild_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/list_install_components.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/install.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/install/local.dir
+/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins/CMakeFiles/install/strip.dir

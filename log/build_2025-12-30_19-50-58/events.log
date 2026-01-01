@@ -1,0 +1,150 @@
+[0.000000] (-) TimerEvent: {}
+[0.000343] (-) JobUnselected: {'identifier': 'uuv_control'}
+[0.000578] (-) JobUnselected: {'identifier': 'uuv_master'}
+[0.000629] (-) JobUnselected: {'identifier': 'uuv_mission'}
+[0.000644] (-) JobUnselected: {'identifier': 'uuv_navigation'}
+[0.000655] (-) JobUnselected: {'identifier': 'uuv_vision'}
+[0.000665] (-) JobUnselected: {'identifier': 'uuv_visualization'}
+[0.000677] (uuv_gazebo_plugins) JobQueued: {'identifier': 'uuv_gazebo_plugins', 'dependencies': OrderedDict()}
+[0.000691] (uuv_gazebo_plugins) JobStarted: {'identifier': 'uuv_gazebo_plugins'}
+[0.008860] (uuv_gazebo_plugins) JobProgress: {'identifier': 'uuv_gazebo_plugins', 'progress': 'cmake'}
+[0.009445] (uuv_gazebo_plugins) JobProgress: {'identifier': 'uuv_gazebo_plugins', 'progress': 'build'}
+[0.010020] (uuv_gazebo_plugins) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins', '--', '-j8', '-l8'], 'cwd': '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alberto'), ('LC_TIME', 'es_MX.UTF-8'), ('ROS_PACKAGE_PATH', '/home/alberto/install/catkin/share:/home/alberto/ros2_ws/install/catkin/share'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs/lib:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/lib:/home/alberto/Documents/kia_gd_ws/install/ur_controllers/lib:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs/lib:/home/alberto/install/vectornav/lib:/home/alberto/install/vectornav_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alberto'), ('OLDPWD', '/home/alberto/Documents/sub_alberto'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_MX.UTF-8'), ('MANAGERPID', '1112'), ('SYSTEMD_EXEC_PID', '1679'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '3404852'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alberto/Documents/sub_alberto/install:/home/alberto/Documents/kia_gd_ws/install:/home/alberto/install:/home/alberto/ros2_ws/install:/home/alberto/uuv/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alberto'), ('JOURNAL_STREAM', '8:12080'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alberto/install/catkin/lib/x86_64-linux-gnu/pkgconfig:/home/alberto/install/catkin/lib/pkgconfig:/home/alberto/ros2_ws/install/catkin/lib/x86_64-linux-gnu/pkgconfig:/home/alberto/ros2_ws/install/catkin/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alberto'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/bin:/home/alberto/install/catkin/bin:/home/alberto/ros2_ws/install/catkin/bin:/opt/ros/humble/bin:/home/alberto/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alberto/.dotnet/tools'), ('SESSION_MANAGER', 'local/Alberto:@/tmp/.ICE-unix/1308,unix/Alberto:/tmp/.ICE-unix/1308'), ('INVOCATION_ID', '2bc7ccba33a9442d8cf391266e6053ea'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_MX.UTF-8'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('DOTNET_BUNDLE_EXTRACT_BASE_DIR', '/home/alberto/.cache/dotnet_bundle_extract'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'es_MX.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.VECDI3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/docker_test:/home/alberto/uuv/install/uuv:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_MX.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:dfc0d4a0-2ed0-4ae2-aa6e-815cf749d5ef'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_MX.UTF-8'), ('LC_IDENTIFICATION', 'es_MX.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint/lib/python3.10/site-packages:/home/alberto/install/vectornav_msgs/local/lib/python3.10/dist-packages:/home/alberto/install/sub/local/lib/python3.10/dist-packages:/home/alberto/install/catkin/lib/python3/dist-packages:/home/alberto/ros2_ws/install/sub/local/lib/python3.10/dist-packages:/home/alberto/ros2_ws/install/docker_test/lib/python3.10/site-packages:/home/alberto/ros2_ws/install/catkin/lib/python3/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_MX.UTF-8'), ('LC_PAPER', 'es_MX.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/ros2_ws/install/docker_test:/opt/ros/humble:/home/alberto/install/catkin:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/catkin:/home/alberto/uuv/install/uuv')]), 'shell': False}
+[0.067866] (uuv_gazebo_plugins) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o\x1b[0m\n'}
+[0.099825] (-) TimerEvent: {}
+[0.200143] (-) TimerEvent: {}
+[0.300477] (-) TimerEvent: {}
+[0.400727] (-) TimerEvent: {}
+[0.500995] (-) TimerEvent: {}
+[0.601260] (-) TimerEvent: {}
+[0.701519] (-) TimerEvent: {}
+[0.801784] (-) TimerEvent: {}
+[0.902044] (-) TimerEvent: {}
+[1.002310] (-) TimerEvent: {}
+[1.102588] (-) TimerEvent: {}
+[1.202871] (-) TimerEvent: {}
+[1.303175] (-) TimerEvent: {}
+[1.403450] (-) TimerEvent: {}
+[1.503744] (-) TimerEvent: {}
+[1.604087] (-) TimerEvent: {}
+[1.704332] (-) TimerEvent: {}
+[1.804607] (-) TimerEvent: {}
+[1.904892] (-) TimerEvent: {}
+[2.005156] (-) TimerEvent: {}
+[2.105393] (-) TimerEvent: {}
+[2.205649] (-) TimerEvent: {}
+[2.305931] (-) TimerEvent: {}
+[2.406204] (-) TimerEvent: {}
+[2.506437] (-) TimerEvent: {}
+[2.606701] (-) TimerEvent: {}
+[2.707006] (-) TimerEvent: {}
+[2.807282] (-) TimerEvent: {}
+[2.907519] (-) TimerEvent: {}
+[3.007847] (-) TimerEvent: {}
+[3.108159] (-) TimerEvent: {}
+[3.208446] (-) TimerEvent: {}
+[3.308751] (-) TimerEvent: {}
+[3.409047] (-) TimerEvent: {}
+[3.509333] (-) TimerEvent: {}
+[3.609708] (-) TimerEvent: {}
+[3.710076] (-) TimerEvent: {}
+[3.810355] (-) TimerEvent: {}
+[3.910664] (-) TimerEvent: {}
+[4.010948] (-) TimerEvent: {}
+[4.111289] (-) TimerEvent: {}
+[4.211538] (-) TimerEvent: {}
+[4.311833] (-) TimerEvent: {}
+[4.412219] (-) TimerEvent: {}
+[4.512510] (-) TimerEvent: {}
+[4.612767] (-) TimerEvent: {}
+[4.699335] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:23:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgeometry_msgs\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[4.699507] (uuv_gazebo_plugins) StderrLine: {'line': b'   99 |     rclcpp::Publisher<\x1b[01;31m\x1b[Kgeometry_msgs\x1b[m\x1b[K::msg::Twist>::SharedPtr velocity_pub_;\n'}
+[4.699576] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                       \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.699636] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:48:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Ktemplate argument 1 is invalid\n'}
+[4.699699] (uuv_gazebo_plugins) StderrLine: {'line': b'   99 | isher<geometry_msgs::msg::Twist\x1b[01;31m\x1b[K>\x1b[m\x1b[K::SharedPtr velocity_pub_;\n'}
+[4.699763] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                                \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[4.699827] (uuv_gazebo_plugins) StderrLine: {'line': b'\n'}
+[4.699891] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:51:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected \xe2\x80\x98\x1b[01m\x1b[K;\x1b[m\x1b[K\xe2\x80\x99 at end of member declaration\n'}
+[4.699957] (uuv_gazebo_plugins) StderrLine: {'line': b'   99 | er<geometry_msgs::msg::Twist>::\x1b[01;31m\x1b[KSharedPtr\x1b[m\x1b[K velocity_pub_;\n'}
+[4.700022] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                                \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[4.700087] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                                         \x1b[32m\x1b[K;\x1b[m\x1b[K\n'}
+[4.702667] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:99:61:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvelocity_pub_\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[4.702864] (uuv_gazebo_plugins) StderrLine: {'line': b'   99 | y_msgs::msg::Twist>::SharedPtr \x1b[01;31m\x1b[Kvelocity_pub_\x1b[m\x1b[K;\n'}
+[4.702941] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                                \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.703003] (uuv_gazebo_plugins) StderrLine: {'line': b'\n'}
+[4.712871] (-) TimerEvent: {}
+[4.722249] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[KSubmarineDynamics::SubmarineDynamics()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[4.722395] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvelocity_pub_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[4.722439] (uuv_gazebo_plugins) StderrLine: {'line': b'   31 |         \x1b[01;31m\x1b[Kvelocity_pub_\x1b[m\x1b[K = ros_node_->create_publisher<geometry_msgs::msg::Twist>("/velocity", 10);\n'}
+[4.722479] (uuv_gazebo_plugins) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.730818] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:53:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgeometry_msgs\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[4.731038] (uuv_gazebo_plugins) StderrLine: {'line': b'   31 |  = ros_node_->create_publisher<\x1b[01;31m\x1b[Kgeometry_msgs\x1b[m\x1b[K::msg::Twist>("/velocity", 10);\n'}
+[4.731082] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                                \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.731120] (uuv_gazebo_plugins) StderrLine: {'line': b'\n'}
+[4.731165] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:36:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kparse error in template argument list\n'}
+[4.731205] (uuv_gazebo_plugins) StderrLine: {'line': b'   31 |     velocity_pub_ = ros_node_->\x1b[01;31m\x1b[Kcreate_publisher<geometry_msgs::msg::Twist>\x1b[m\x1b[K("/velocity", 10);\n'}
+[4.731242] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                                \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.731280] (uuv_gazebo_plugins) StderrLine: {'line': b'\n'}
+[4.731315] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:79:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kno matching function for call to \xe2\x80\x98\x1b[01m\x1b[Krclcpp::Node::create_publisher<<expression error> >(const char [10], int)\x1b[m\x1b[K\xe2\x80\x99\n'}
+[4.731352] (uuv_gazebo_plugins) StderrLine: {'line': b'   31 | \x1b[01;31m\x1b[Ksher<geometry_msgs::msg::Twist>("/velocity", 10)\x1b[m\x1b[K;\n'}
+[4.731388] (uuv_gazebo_plugins) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.731423] (uuv_gazebo_plugins) StderrLine: {'line': b'\n'}
+[4.731458] (uuv_gazebo_plugins) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/node.hpp:1321\x1b[m\x1b[K,\n'}
+[4.731493] (uuv_gazebo_plugins) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors/single_threaded_executor.hpp:28\x1b[m\x1b[K,\n'}
+[4.731527] (uuv_gazebo_plugins) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:22\x1b[m\x1b[K,\n'}
+[4.731562] (uuv_gazebo_plugins) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155\x1b[m\x1b[K,\n'}
+[4.731596] (uuv_gazebo_plugins) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:7\x1b[m\x1b[K:\n'}
+[4.731631] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/node_impl.hpp:73:1:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Kcandidate: \xe2\x80\x98\x1b[01m\x1b[Ktemplate<class MessageT, class AllocatorT, class PublisherT> std::shared_ptr<PublisherT> rclcpp::Node::create_publisher(const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)\x1b[m\x1b[K\xe2\x80\x99\n'}
+[4.731670] (uuv_gazebo_plugins) StderrLine: {'line': b'   73 | \x1b[01;36m\x1b[KNode\x1b[m\x1b[K::create_publisher(\n'}
+[4.731706] (uuv_gazebo_plugins) StderrLine: {'line': b'      | \x1b[01;36m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[4.731749] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/node_impl.hpp:73:1:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  template argument deduction/substitution failed:\n'}
+[4.731788] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:31:79:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Ktemplate argument 1 is invalid\n'}
+[4.731823] (uuv_gazebo_plugins) StderrLine: {'line': b'   31 | \x1b[01;31m\x1b[Ksher<geometry_msgs::msg::Twist>("/velocity", 10)\x1b[m\x1b[K;\n'}
+[4.731857] (uuv_gazebo_plugins) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.731894] (uuv_gazebo_plugins) StderrLine: {'line': b'\n'}
+[4.735634] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvirtual void SubmarineDynamics::PreUpdate(const ignition::gazebo::v6::UpdateInfo&, ignition::gazebo::v6::EntityComponentManager&)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[4.735759] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:63:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgeometry_msgs\x1b[m\x1b[K\xe2\x80\x99 has not been declared\n'}
+[4.735803] (uuv_gazebo_plugins) StderrLine: {'line': b'   63 |         \x1b[01;31m\x1b[Kgeometry_msgs\x1b[m\x1b[K::msg::Twist vel_msg;\n'}
+[4.735840] (uuv_gazebo_plugins) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.742889] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:64:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvel_msg\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[4.743048] (uuv_gazebo_plugins) StderrLine: {'line': b'   64 |         \x1b[01;31m\x1b[Kvel_msg\x1b[m\x1b[K.linear.x = state.nu(0);\n'}
+[4.743091] (uuv_gazebo_plugins) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~\x1b[m\x1b[K\n'}
+[4.749642] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:64:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstate\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[K_xstate\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[4.749789] (uuv_gazebo_plugins) StderrLine: {'line': b'   64 |         vel_msg.linear.x = \x1b[01;31m\x1b[Kstate\x1b[m\x1b[K.nu(0);\n'}
+[4.749835] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[4.749886] (uuv_gazebo_plugins) StderrLine: {'line': b'      |                            \x1b[32m\x1b[K_xstate\x1b[m\x1b[K\n'}
+[4.758726] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:70:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvelocity_pub_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[4.758863] (uuv_gazebo_plugins) StderrLine: {'line': b'   70 |         \x1b[01;31m\x1b[Kvelocity_pub_\x1b[m\x1b[K->publish(vel_msg);\n'}
+[4.758906] (uuv_gazebo_plugins) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.813005] (-) TimerEvent: {}
+[4.913388] (-) TimerEvent: {}
+[5.013695] (-) TimerEvent: {}
+[5.113978] (-) TimerEvent: {}
+[5.214304] (-) TimerEvent: {}
+[5.314555] (-) TimerEvent: {}
+[5.414833] (-) TimerEvent: {}
+[5.515114] (-) TimerEvent: {}
+[5.615373] (-) TimerEvent: {}
+[5.715638] (-) TimerEvent: {}
+[5.815986] (-) TimerEvent: {}
+[5.916335] (-) TimerEvent: {}
+[6.016621] (-) TimerEvent: {}
+[6.116883] (-) TimerEvent: {}
+[6.217233] (-) TimerEvent: {}
+[6.317491] (-) TimerEvent: {}
+[6.417766] (-) TimerEvent: {}
+[6.518037] (-) TimerEvent: {}
+[6.618293] (-) TimerEvent: {}
+[6.718657] (-) TimerEvent: {}
+[6.819007] (-) TimerEvent: {}
+[6.919268] (-) TimerEvent: {}
+[7.019548] (-) TimerEvent: {}
+[7.119820] (-) TimerEvent: {}
+[7.220188] (-) TimerEvent: {}
+[7.320533] (-) TimerEvent: {}
+[7.326798] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/SubmarineDynamics.dir/build.make:76: CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o] Error 1\n'}
+[7.326971] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/SubmarineDynamics.dir/all] Error 2\n'}
+[7.327045] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[7.328838] (uuv_gazebo_plugins) CommandEnded: {'returncode': 2}
+[7.336395] (uuv_gazebo_plugins) JobEnded: {'identifier': 'uuv_gazebo_plugins', 'rc': 2}
+[7.346794] (-) EventReactorShutdown: {}

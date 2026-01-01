@@ -1,0 +1,311 @@
+[0.000000] (-) TimerEvent: {}
+[0.000148] (-) JobUnselected: {'identifier': 'uuv_control'}
+[0.000168] (-) JobUnselected: {'identifier': 'uuv_master'}
+[0.000186] (-) JobUnselected: {'identifier': 'uuv_mission'}
+[0.000305] (-) JobUnselected: {'identifier': 'uuv_navigation'}
+[0.000316] (-) JobUnselected: {'identifier': 'uuv_vision'}
+[0.000327] (-) JobUnselected: {'identifier': 'uuv_visualization'}
+[0.000351] (uuv_gazebo_plugins) JobQueued: {'identifier': 'uuv_gazebo_plugins', 'dependencies': OrderedDict()}
+[0.000517] (uuv_gazebo_plugins) JobStarted: {'identifier': 'uuv_gazebo_plugins'}
+[0.008741] (uuv_gazebo_plugins) JobProgress: {'identifier': 'uuv_gazebo_plugins', 'progress': 'cmake'}
+[0.009116] (uuv_gazebo_plugins) Command: {'cmd': ['/usr/bin/cmake', '/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins', '-DCMAKE_INSTALL_PREFIX=/home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins'], 'cwd': '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alberto'), ('LC_TIME', 'es_MX.UTF-8'), ('ROS_PACKAGE_PATH', '/home/alberto/install/catkin/share:/home/alberto/ros2_ws/install/catkin/share'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs/lib:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/lib:/home/alberto/Documents/kia_gd_ws/install/ur_controllers/lib:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs/lib:/home/alberto/install/vectornav/lib:/home/alberto/install/vectornav_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alberto'), ('OLDPWD', '/home/alberto/Documents/sub_alberto'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_MX.UTF-8'), ('MANAGERPID', '1112'), ('SYSTEMD_EXEC_PID', '1679'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '3404852'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alberto/Documents/sub_alberto/install:/home/alberto/Documents/kia_gd_ws/install:/home/alberto/install:/home/alberto/ros2_ws/install:/home/alberto/uuv/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alberto'), ('JOURNAL_STREAM', '8:12080'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alberto/install/catkin/lib/x86_64-linux-gnu/pkgconfig:/home/alberto/install/catkin/lib/pkgconfig:/home/alberto/ros2_ws/install/catkin/lib/x86_64-linux-gnu/pkgconfig:/home/alberto/ros2_ws/install/catkin/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alberto'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/bin:/home/alberto/install/catkin/bin:/home/alberto/ros2_ws/install/catkin/bin:/opt/ros/humble/bin:/home/alberto/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alberto/.dotnet/tools'), ('SESSION_MANAGER', 'local/Alberto:@/tmp/.ICE-unix/1308,unix/Alberto:/tmp/.ICE-unix/1308'), ('INVOCATION_ID', '2bc7ccba33a9442d8cf391266e6053ea'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_MX.UTF-8'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('DOTNET_BUNDLE_EXTRACT_BASE_DIR', '/home/alberto/.cache/dotnet_bundle_extract'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'es_MX.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.VECDI3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/docker_test:/home/alberto/uuv/install/uuv:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_MX.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:dfc0d4a0-2ed0-4ae2-aa6e-815cf749d5ef'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_MX.UTF-8'), ('LC_IDENTIFICATION', 'es_MX.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint/lib/python3.10/site-packages:/home/alberto/install/vectornav_msgs/local/lib/python3.10/dist-packages:/home/alberto/install/sub/local/lib/python3.10/dist-packages:/home/alberto/install/catkin/lib/python3/dist-packages:/home/alberto/ros2_ws/install/sub/local/lib/python3.10/dist-packages:/home/alberto/ros2_ws/install/docker_test/lib/python3.10/site-packages:/home/alberto/ros2_ws/install/catkin/lib/python3/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_MX.UTF-8'), ('LC_PAPER', 'es_MX.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/ros2_ws/install/docker_test:/opt/ros/humble:/home/alberto/install/catkin:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/catkin:/home/alberto/uuv/install/uuv')]), 'shell': False}
+[0.055122] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.097307] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.099825] (-) TimerEvent: {}
+[0.103316] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.159505] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.164881] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.164996] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.165278] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.167630] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.199945] (-) TimerEvent: {}
+[0.229161] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.235210] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.235380] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.235723] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.239118] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.300037] (-) TimerEvent: {}
+[0.400243] (-) TimerEvent: {}
+[0.500474] (-) TimerEvent: {}
+[0.555999] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.600582] (-) TimerEvent: {}
+[0.650432] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.696435] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.700652] (-) TimerEvent: {}
+[0.702531] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.711447] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.723205] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.739311] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.783848] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.788070] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.800766] (-) TimerEvent: {}
+[0.866143] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.894504] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[0.900880] (-) TimerEvent: {}
+[0.932718] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.944162] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.000975] (-) TimerEvent: {}
+[1.001690] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.002265] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.063985] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.064857] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.101099] (-) TimerEvent: {}
+[1.108588] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[1.126170] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-gazebo6 -- found version 6.17.0\n'}
+[1.131835] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-gazebo6\n'}
+[1.134941] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for sdformat12 -- found version 12.8.0\n'}
+[1.135022] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of sdformat12\n'}
+[1.139715] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'tinyxml2'\n"}
+[1.151393] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found tinyxml2, version 9.0.0\n'}
+[1.183691] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.184050] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-math6\n'}
+[1.188548] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-utils1 -- found version 1.5.1\n'}
+[1.188939] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-utils1\n'}
+[1.193016] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1 -- found version 1.4.0\n'}
+[1.193390] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-plugin1\n'}
+[1.193828] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-plugin1> component [loader]\n'}
+[1.197332] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1-loader -- found version 1.4.0\n'}
+[1.197554] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-plugin1-loader\n'}
+[1.197806] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-plugin1> component [register]\n'}
+[1.200849] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1-register -- found version 1.4.0\n'}
+[1.201159] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-plugin1-register\n'}
+[1.201217] (-) TimerEvent: {}
+[1.205139] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-transport11 -- found version 11.4.1\n'}
+[1.205417] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-transport11\n'}
+[1.227088] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") \n'}
+[1.237208] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Config-file not installed for ZeroMQ -- checking for pkg-config\n'}
+[1.241378] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libzmq >= 4'\n"}
+[1.253051] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libzmq , version 4.3.4\n'}
+[1.283451] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found ZeroMQ: TRUE (Required is at least version "4") \n'}
+[1.289625] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'uuid'\n"}
+[1.301370] (-) TimerEvent: {}
+[1.306968] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found uuid, version 2.37.2\n'}
+[1.338339] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found UUID: TRUE  \n'}
+[1.338720] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-utils1 -- found version 1.5.1\n'}
+[1.338934] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-utils1\n'}
+[1.339009] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-utils1> component [cli]\n'}
+[1.342548] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-utils1-cli -- found version 1.5.1\n'}
+[1.342880] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-utils1-cli\n'}
+[1.346393] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-msgs8 -- found version 8.7.0\n'}
+[1.346703] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-msgs8\n'}
+[1.362373] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found suitable version "3.12.4", minimum required is "3") \n'}
+[1.362879] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.369804] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-transport11> component [log]\n'}
+[1.373243] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-transport11-log -- found version 11.4.1\n'}
+[1.373636] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-transport11-log\n'}
+[1.373865] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-transport11> component [parameters]\n'}
+[1.376969] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-transport11-parameters -- found version 11.4.1\n'}
+[1.377199] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-transport11-parameters\n'}
+[1.377918] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-msgs8 -- found version 8.7.0\n'}
+[1.380857] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.380989] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common4\n'}
+[1.381497] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for dlfcn.h - found\n'}
+[1.382424] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for libdl - found\n'}
+[1.383300] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found DL: TRUE  \n'}
+[1.391128] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-common4> component [profiler]\n'}
+[1.394247] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4-profiler -- found version 4.7.0\n'}
+[1.394512] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common4-profiler\n'}
+[1.394817] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-common4> component [events]\n'}
+[1.398150] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4-events -- found version 4.7.0\n'}
+[1.398420] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common4-events\n'}
+[1.398670] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.399050] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-common4> component [av]\n'}
+[1.401447] (-) TimerEvent: {}
+[1.402578] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4-av -- found version 4.7.0\n'}
+[1.402959] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common4-av\n'}
+[1.407560] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libswscale'\n"}
+[1.421009] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libswscale, version 5.9.100\n'}
+[1.451686] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found SWSCALE: TRUE  \n'}
+[1.455942] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libavdevice >= 56.4.100'\n"}
+[1.467295] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libavdevice , version 58.13.100\n'}
+[1.497504] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found AVDEVICE: TRUE (Required is at least version "56.4.100") \n'}
+[1.501546] (-) TimerEvent: {}
+[1.501717] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libavformat'\n"}
+[1.515469] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libavformat, version 58.76.100\n'}
+[1.552416] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found AVFORMAT: TRUE  \n'}
+[1.558147] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libavcodec'\n"}
+[1.575292] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libavcodec, version 58.134.100\n'}
+[1.601788] (-) TimerEvent: {}
+[1.614435] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found AVCODEC: TRUE  \n'}
+[1.621727] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libavutil'\n"}
+[1.637694] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libavutil, version 56.70.100\n'}
+[1.675173] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found AVUTIL: TRUE  \n'}
+[1.681396] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-fuel_tools7 -- found version 7.3.1\n'}
+[1.681872] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-fuel_tools7\n'}
+[1.701893] (-) TimerEvent: {}
+[1.758053] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  \n'}
+[1.766012] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'jsoncpp'\n"}
+[1.778356] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found jsoncpp, version 1.9.5\n'}
+[1.801997] (-) TimerEvent: {}
+[1.808329] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found JSONCPP: TRUE  \n'}
+[1.813368] (uuv_gazebo_plugins) StdoutLine: {'line': b"-- Checking for module 'libzip'\n"}
+[1.825663] (uuv_gazebo_plugins) StdoutLine: {'line': b'--   Found libzip, version 1.7.3\n'}
+[1.863225] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found ZIP: TRUE  \n'}
+[1.863727] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.864167] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.864570] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-msgs8 -- found version 8.7.0\n'}
+[1.869757] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-gui6 -- found version 6.8.0\n'}
+[1.870166] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-gui6\n'}
+[1.892791] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.892952] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.893284] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1 -- found version 1.4.0\n'}
+[1.893500] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-transport11 -- found version 11.4.1\n'}
+[1.896721] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-rendering6 -- found version 6.6.3\n'}
+[1.897026] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-rendering6\n'}
+[1.897388] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.897640] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-math6\n'}
+[1.897732] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-math6> component [eigen3]\n'}
+[1.900968] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6-eigen3 -- found version 6.15.1\n'}
+[1.901174] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-math6-eigen3\n'}
+[1.902085] (-) TimerEvent: {}
+[1.902466] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.902786] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common4\n'}
+[1.902904] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for dlfcn.h - found\n'}
+[1.902946] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for libdl - found\n'}
+[1.911123] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-common4> component [graphics]\n'}
+[1.914203] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4-graphics -- found version 4.7.0\n'}
+[1.914553] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common4-graphics\n'}
+[1.914701] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.915037] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-utils1 -- found version 1.5.1\n'}
+[1.915475] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-common4> component [events]\n'}
+[1.916069] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1 -- found version 1.4.0\n'}
+[1.916396] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-plugin1\n'}
+[1.916507] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-plugin1> component [all]\n'}
+[1.919810] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for all libraries of ignition-plugin1 -- found version 1.4.0\n'}
+[1.920191] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1 -- found version 1.4.0\n'}
+[1.921897] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-msgs8 -- found version 8.7.0\n'}
+[1.939789] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-physics5 -- found version 5.3.2\n'}
+[1.940016] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-physics5\n'}
+[1.940265] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.940577] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1 -- found version 1.4.0\n'}
+[1.940797] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-utils1 -- found version 1.5.1\n'}
+[1.941730] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-physics5> component [heightmap]\n'}
+[1.944661] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-physics5-heightmap -- found version 5.3.2\n'}
+[1.944878] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-physics5-heightmap\n'}
+[1.945036] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.945493] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-physics5> component [mesh]\n'}
+[1.948923] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-physics5-mesh -- found version 5.3.2\n'}
+[1.949227] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-physics5-mesh\n'}
+[1.949473] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.949900] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-physics5> component [sdf]\n'}
+[1.953901] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-physics5-sdf -- found version 5.3.2\n'}
+[1.954193] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-physics5-sdf\n'}
+[1.954448] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for sdformat12 -- found version 12.8.0\n'}
+[1.958206] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[1.958521] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6\n'}
+[1.975487] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") \n'}
+[1.976118] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.976397] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-common4 -- found version 4.7.0\n'}
+[1.976689] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-transport11 -- found version 11.4.1\n'}
+[1.976989] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-rendering6 -- found version 6.6.3\n'}
+[1.977294] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-msgs8 -- found version 8.7.0\n'}
+[1.977590] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for sdformat12 -- found version 12.8.0\n'}
+[1.978032] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [air_pressure]\n'}
+[1.981939] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-air_pressure -- found version 6.8.1\n'}
+[1.982261] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-air_pressure\n'}
+[1.982649] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [altimeter]\n'}
+[1.986060] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-altimeter -- found version 6.8.1\n'}
+[1.986449] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-altimeter\n'}
+[1.986858] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [imu]\n'}
+[1.990230] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-imu -- found version 6.8.1\n'}
+[1.990566] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-imu\n'}
+[1.990942] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [force_torque]\n'}
+[1.994261] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-force_torque -- found version 6.8.1\n'}
+[1.994606] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-force_torque\n'}
+[1.994950] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [logical_camera]\n'}
+[1.998092] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-logical_camera -- found version 6.8.1\n'}
+[1.998418] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-logical_camera\n'}
+[1.998764] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [magnetometer]\n'}
+[2.001907] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-magnetometer -- found version 6.8.1\n'}
+[2.002153] (-) TimerEvent: {}
+[2.002332] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-magnetometer\n'}
+[2.002720] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [navsat]\n'}
+[2.006057] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-navsat -- found version 6.8.1\n'}
+[2.006348] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-navsat\n'}
+[2.006701] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [rendering]\n'}
+[2.009864] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-rendering -- found version 6.8.1\n'}
+[2.010111] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-rendering\n'}
+[2.010542] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [lidar]\n'}
+[2.013552] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-lidar -- found version 6.8.1\n'}
+[2.013773] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-lidar\n'}
+[2.014047] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[2.014524] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [gpu_lidar]\n'}
+[2.017447] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-gpu_lidar -- found version 6.8.1\n'}
+[2.017719] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-gpu_lidar\n'}
+[2.017985] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[2.018437] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [camera]\n'}
+[2.021916] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-camera -- found version 6.8.1\n'}
+[2.022276] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-camera\n'}
+[2.022522] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[2.023069] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [boundingbox_camera]\n'}
+[2.026021] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-boundingbox_camera -- found version 6.8.1\n'}
+[2.026317] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-boundingbox_camera\n'}
+[2.026674] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [segmentation_camera]\n'}
+[2.029893] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-segmentation_camera -- found version 6.8.1\n'}
+[2.030099] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-segmentation_camera\n'}
+[2.030488] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [depth_camera]\n'}
+[2.033374] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-depth_camera -- found version 6.8.1\n'}
+[2.033645] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-depth_camera\n'}
+[2.033913] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[2.034358] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [rgbd_camera]\n'}
+[2.037789] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-rgbd_camera -- found version 6.8.1\n'}
+[2.038106] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-rgbd_camera\n'}
+[2.038378] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[2.038861] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for <ignition-sensors6> component [thermal_camera]\n'}
+[2.041826] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6-thermal_camera -- found version 6.8.1\n'}
+[2.042063] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Searching for dependencies of ignition-sensors6-thermal_camera\n'}
+[2.042378] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-sensors6 -- found version 6.8.1\n'}
+[2.043132] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-rendering6 -- found version 6.6.3\n'}
+[2.043461] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[2.046617] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-utils1 -- found version 1.5.1\n'}
+[2.063278] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-plugin1 -- found version 1.4.0\n'}
+[2.063465] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Looking for ignition-transport11 -- found version 11.4.1\n'}
+[2.102231] (-) TimerEvent: {}
+[2.134789] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.145041] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Generating done\n'}
+[2.148780] (uuv_gazebo_plugins) StdoutLine: {'line': b'-- Build files have been written to: /home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins\n'}
+[2.160616] (uuv_gazebo_plugins) CommandEnded: {'returncode': 0}
+[2.161174] (uuv_gazebo_plugins) JobProgress: {'identifier': 'uuv_gazebo_plugins', 'progress': 'build'}
+[2.161750] (uuv_gazebo_plugins) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins', '--', '-j8', '-l8'], 'cwd': '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'alberto'), ('LC_TIME', 'es_MX.UTF-8'), ('ROS_PACKAGE_PATH', '/home/alberto/install/catkin/share:/home/alberto/ros2_ws/install/catkin/share'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands/lib:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs/lib:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/lib:/home/alberto/Documents/kia_gd_ws/install/ur_controllers/lib:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs/lib:/home/alberto/install/vectornav/lib:/home/alberto/install/vectornav_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alberto'), ('OLDPWD', '/home/alberto/Documents/sub_alberto'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_MX.UTF-8'), ('MANAGERPID', '1112'), ('SYSTEMD_EXEC_PID', '1679'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '3404852'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/alberto/Documents/sub_alberto/install:/home/alberto/Documents/kia_gd_ws/install:/home/alberto/install:/home/alberto/ros2_ws/install:/home/alberto/uuv/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alberto'), ('JOURNAL_STREAM', '8:12080'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/alberto/install/catkin/lib/x86_64-linux-gnu/pkgconfig:/home/alberto/install/catkin/lib/pkgconfig:/home/alberto/ros2_ws/install/catkin/lib/x86_64-linux-gnu/pkgconfig:/home/alberto/ros2_ws/install/catkin/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'alberto'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/bin:/home/alberto/install/catkin/bin:/home/alberto/ros2_ws/install/catkin/bin:/opt/ros/humble/bin:/home/alberto/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alberto/.dotnet/tools'), ('SESSION_MANAGER', 'local/Alberto:@/tmp/.ICE-unix/1308,unix/Alberto:/tmp/.ICE-unix/1308'), ('INVOCATION_ID', '2bc7ccba33a9442d8cf391266e6053ea'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_MX.UTF-8'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('DOTNET_BUNDLE_EXTRACT_BASE_DIR', '/home/alberto/.cache/dotnet_bundle_extract'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'es_MX.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.VECDI3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/docker_test:/home/alberto/uuv/install/uuv:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_MX.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:dfc0d4a0-2ed0-4ae2-aa6e-815cf749d5ef'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_MX.UTF-8'), ('LC_IDENTIFICATION', 'es_MX.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/alberto/Documents/sub_alberto/build/uuv_gazebo_plugins'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs/local/lib/python3.10/dist-packages:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint/lib/python3.10/site-packages:/home/alberto/install/vectornav_msgs/local/lib/python3.10/dist-packages:/home/alberto/install/sub/local/lib/python3.10/dist-packages:/home/alberto/install/catkin/lib/python3/dist-packages:/home/alberto/ros2_ws/install/sub/local/lib/python3.10/dist-packages:/home/alberto/ros2_ws/install/docker_test/lib/python3.10/site-packages:/home/alberto/ros2_ws/install/catkin/lib/python3/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_MX.UTF-8'), ('LC_PAPER', 'es_MX.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_tutorials:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_simple_clients:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_gripper_commands:/home/alberto/Documents/kia_gd_ws/install/ur_ros_rtde_msgs:/home/alberto/Documents/kia_gd_ws/install/ur:/home/alberto/Documents/kia_gd_ws/install/ur_calibration:/home/alberto/Documents/kia_gd_ws/install/ur_robot_driver:/home/alberto/Documents/kia_gd_ws/install/ur_moveit_config:/home/alberto/Documents/kia_gd_ws/install/ur_bringup:/home/alberto/Documents/kia_gd_ws/install/ur_controllers:/home/alberto/Documents/kia_gd_ws/install/ur_dashboard_msgs:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_moveit_config:/home/alberto/Documents/kia_gd_ws/install/simple_ur10e_description:/home/alberto/Documents/kia_gd_ws/install/kia_gd:/home/alberto/Documents/sub_alberto/install/uuv_visualization:/home/alberto/Documents/sub_alberto/install/uuv_vision:/home/alberto/Documents/sub_alberto/install/uuv_navigation:/home/alberto/Documents/sub_alberto/install/uuv_mission:/home/alberto/Documents/sub_alberto/install/uuv_master:/home/alberto/Documents/sub_alberto/install/uuv_control:/home/alberto/install/vectornav:/home/alberto/install/vectornav_msgs:/home/alberto/install/uuv_teleop:/home/alberto/install/uuv_description:/home/alberto/install/sub:/home/alberto/install/pid:/home/alberto/Documents/kia_gd_ws/install/ros_tcp_endpoint:/home/alberto/ros2_ws/install/docker_test:/opt/ros/humble:/home/alberto/install/catkin:/home/alberto/ros2_ws/install/sub:/home/alberto/ros2_ws/install/pid:/home/alberto/ros2_ws/install/catkin:/home/alberto/uuv/install/uuv')]), 'shell': False}
+[2.202338] (-) TimerEvent: {}
+[2.202744] (uuv_gazebo_plugins) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o\x1b[0m\n'}
+[2.202953] (uuv_gazebo_plugins) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/uuv_dynamic_model.cpp.o\x1b[0m\n'}
+[2.302436] (-) TimerEvent: {}
+[2.402741] (-) TimerEvent: {}
+[2.413952] (uuv_gazebo_plugins) StderrLine: {'line': b'\x1b[01m\x1b[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:3:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kignition/gazebo/components/Pose.hpp: No such file or directory\n'}
+[2.414115] (uuv_gazebo_plugins) StderrLine: {'line': b'    3 | #include \x1b[01;31m\x1b[K<ignition/gazebo/components/Pose.hpp>\x1b[m\x1b[K\n'}
+[2.414165] (uuv_gazebo_plugins) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.414219] (uuv_gazebo_plugins) StderrLine: {'line': b'compilation terminated.\n'}
+[2.416183] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/SubmarineDynamics.dir/build.make:76: CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o] Error 1\n'}
+[2.416299] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake[2]: *** Waiting for unfinished jobs....\n'}
+[2.502835] (-) TimerEvent: {}
+[2.603108] (-) TimerEvent: {}
+[2.703376] (-) TimerEvent: {}
+[2.807242] (-) TimerEvent: {}
+[2.907595] (-) TimerEvent: {}
+[3.007915] (-) TimerEvent: {}
+[3.108195] (-) TimerEvent: {}
+[3.208448] (-) TimerEvent: {}
+[3.308734] (-) TimerEvent: {}
+[3.409011] (-) TimerEvent: {}
+[3.509263] (-) TimerEvent: {}
+[3.609534] (-) TimerEvent: {}
+[3.709831] (-) TimerEvent: {}
+[3.810117] (-) TimerEvent: {}
+[3.910389] (-) TimerEvent: {}
+[4.010677] (-) TimerEvent: {}
+[4.110972] (-) TimerEvent: {}
+[4.211271] (-) TimerEvent: {}
+[4.311559] (-) TimerEvent: {}
+[4.411837] (-) TimerEvent: {}
+[4.512095] (-) TimerEvent: {}
+[4.612352] (-) TimerEvent: {}
+[4.712628] (-) TimerEvent: {}
+[4.812881] (-) TimerEvent: {}
+[4.913204] (-) TimerEvent: {}
+[5.013532] (-) TimerEvent: {}
+[5.041489] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/SubmarineDynamics.dir/all] Error 2\n'}
+[5.041651] (uuv_gazebo_plugins) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[5.043378] (uuv_gazebo_plugins) CommandEnded: {'returncode': 2}
+[5.049400] (uuv_gazebo_plugins) JobEnded: {'identifier': 'uuv_gazebo_plugins', 'rc': 2}
+[5.059855] (-) EventReactorShutdown: {}

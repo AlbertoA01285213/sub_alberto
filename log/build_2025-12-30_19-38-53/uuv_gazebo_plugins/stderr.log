@@ -1,0 +1,15 @@
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:32:10:[m[K [01;31m[Kerror: [m[K‘[01m[Kvoid SubmarineDynamics::Configure(const Entity&, const std::shared_ptr<const sdf::v12::Element>&, ignition::gazebo::v6::EntityComponentManager&, ignition::gazebo::v6::EventManager&)[m[K’ marked ‘[01m[Koverride[m[K’, but does not override
+   32 |     void [01;31m[KConfigure[m[K(const Entity &_entity, const std::shared_ptr<const sdf::Element> &,
+      |          [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:[m[K In member function ‘[01m[Kvoid SubmarineDynamics::Configure(const Entity&, const std::shared_ptr<const sdf::v12::Element>&, ignition::gazebo::v6::EntityComponentManager&, ignition::gazebo::v6::EventManager&)[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:33:43:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[K_ecm[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   33 |        [01;35m[KEntityComponentManager &_ecm[m[K, EventManager &) override {
+      |        [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~^~~~[m[K
+
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:[m[K In member function ‘[01m[Kvirtual void SubmarineDynamics::PreUpdate(const ignition::gazebo::v6::UpdateInfo&, ignition::gazebo::v6::EntityComponentManager&)[m[K’:
+[01m[K/home/alberto/Documents/sub_alberto/src/uuv_gazebo_plugins/src/SubmarineDynamics.cpp:39:30:[m[K [01;31m[Kerror: [m[K‘[01m[Kdt[m[K’ was not declared in this scope
+   39 |         m_dynamicModel.setDt([01;31m[Kdt[m[K);
+      |                              [01;31m[K^~[m[K
+gmake[2]: *** [CMakeFiles/SubmarineDynamics.dir/build.make:76: CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/SubmarineDynamics.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

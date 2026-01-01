@@ -5,7 +5,7 @@ import os
 from rclpy.node import Node
 from nav_msgs.msg import Path
 from std_msgs.msg import Bool
-from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
+from geometry_msgs.msg import PoseStamped, Pose, PoseStamped, Point, Quaternion
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
 from visualization_msgs.msg import Marker
 
@@ -36,11 +36,11 @@ class Trayectory_generator(Node):
         self.new_waypoint_received = False
 
         # Último waypoint recibido
-        self.waypoint = Pose()
+        self.waypoint = PoseStamped()
 
         # ROS pubs/subs
-        self.pose_subscriber = self.create_subscription(Pose, pose_topic, self.pose_callback, 10)
-        self.waypoint_subscriber = self.create_subscription(Pose, 'waypoint', self.waypoint_callback, 10)
+        self.pose_subscriber = self.create_subscription(PoseStamped, pose_topic, self.pose_callback, 10)
+        self.waypoint_subscriber = self.create_subscription(PoseStamped, 'waypoint', self.waypoint_callback, 10)
 
         self.path_publisher = self.create_publisher(Path, path_topic, 10)
         self.marker_publisher = self.create_publisher(Marker, 'path_markers', 10)
@@ -51,18 +51,18 @@ class Trayectory_generator(Node):
 
     # ------------------ CALLBACKS ------------------
 
-    def pose_callback(self, msg: Pose):
+    def pose_callback(self, msg: PoseStamped):
         self.current_pose = msg
 
-    def waypoint_callback(self, msg: Pose):
+    def waypoint_callback(self, msg: PoseStamped):
         # Comprobar si realmente cambió respecto al último waypoint
-        dx = msg.position.x - self.waypoint.position.x
-        dy = msg.position.y - self.waypoint.position.y
-        dz = msg.position.z - self.waypoint.position.z
+        dx = msg.pose.position.x - self.waypoint.pose.position.x
+        dy = msg.pose.position.y - self.waypoint.pose.position.y
+        dz = msg.pose.position.z - self.waypoint.pose.position.z
 
         # Diferencia de orientación
-        q1 = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
-        q2 = [self.waypoint.orientation.x, self.waypoint.orientation.y, self.waypoint.orientation.z, self.waypoint.orientation.w]
+        q1 = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
+        q2 = [self.waypoint.pose.orientation.x, self.waypoint.pose.orientation.y, self.waypoint.pose.orientation.z, self.waypoint.pose.orientation.w]
         dq = sum((a - b)**2 for a, b in zip(q1, q2))
 
         # Umbrales de cambio mínimos (ajústalos según sensibilidad)
@@ -95,20 +95,20 @@ class Trayectory_generator(Node):
         self.new_waypoint_received = False
 
         # Extraer posiciones
-        x0, y0, z0 = self.current_pose.position.x, self.current_pose.position.y, self.current_pose.position.z
+        x0, y0, z0 = self.current_pose.pose.position.x, self.current_pose.pose.position.y, self.current_pose.pose.position.z
         roll0, pitch0, yaw0 = euler_from_quaternion([
-            self.current_pose.orientation.x,
-            self.current_pose.orientation.y,
-            self.current_pose.orientation.z,
-            self.current_pose.orientation.w
+            self.current_pose.pose.orientation.x,
+            self.current_pose.pose.orientation.y,
+            self.current_pose.pose.orientation.z,
+            self.current_pose.pose.orientation.w
         ])
 
-        x1, y1, z1 = self.waypoint.position.x, self.waypoint.position.y, self.waypoint.position.z
+        x1, y1, z1 = self.waypoint.pose.position.x, self.waypoint.pose.position.y, self.waypoint.pose.position.z
         roll1, pitch1, yaw1 = euler_from_quaternion([
-            self.waypoint.orientation.x,
-            self.waypoint.orientation.y,
-            self.waypoint.orientation.z,
-            self.waypoint.orientation.w
+            self.waypoint.pose.orientation.x,
+            self.waypoint.pose.orientation.y,
+            self.waypoint.pose.orientation.z,
+            self.waypoint.pose.orientation.w
         ])
 
         # Calcular distancia y pasos

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import TransformStamped, Pose
+from geometry_msgs.msg import TransformStamped, Pose, PoseStamped
 from tf2_ros import TransformBroadcaster
 
 class PoseToTfPublisher(Node):
@@ -23,7 +23,7 @@ class PoseToTfPublisher(Node):
 
         # --- Suscripción ---
         self.pose_subscriber = self.create_subscription(
-            Pose,
+            PoseStamped,
             pose_topic,
             self.pose_callback,
             10
@@ -31,7 +31,7 @@ class PoseToTfPublisher(Node):
 
         self.get_logger().info(f"Nodo iniciado. Escuchando {pose_topic}")
 
-    def pose_callback(self, msg: Pose):
+    def pose_callback(self, msg: PoseStamped):
 
         # Crear transformada vacía
         t = TransformStamped()
@@ -42,15 +42,15 @@ class PoseToTfPublisher(Node):
         t.child_frame_id = self.child_frame
 
         # Posición
-        t.transform.translation.x = msg.position.x
-        t.transform.translation.y = msg.position.y
-        t.transform.translation.z = msg.position.z
+        t.transform.translation.x = msg.pose.position.x
+        t.transform.translation.y = msg.pose.position.y
+        t.transform.translation.z = msg.pose.position.z
 
         # Orientación
-        t.transform.rotation.x = msg.orientation.x
-        t.transform.rotation.y = msg.orientation.y
-        t.transform.rotation.z = msg.orientation.z
-        t.transform.rotation.w = msg.orientation.w
+        t.transform.rotation.x = msg.pose.orientation.x
+        t.transform.rotation.y = msg.pose.orientation.y
+        t.transform.rotation.z = msg.pose.orientation.z
+        t.transform.rotation.w = msg.pose.orientation.w
 
         # Publicar transformada
         self.tf_broadcaster.sendTransform(t)
