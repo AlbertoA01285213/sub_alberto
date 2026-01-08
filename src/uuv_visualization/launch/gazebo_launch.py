@@ -7,27 +7,50 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
+    # Forzar el uso de X11 para evitar que la GUI se congele en Wayland
+    set_qt_platform = SetEnvironmentVariable('QT_QPA_PLATFORM', 'xcb')
     
     pkg_share_uuv_viz = get_package_share_directory('uuv_visualization')
+    pkg_uuv_plugins = get_package_share_directory('uuv_gazebo_plugins')
+
+    viz_install_path = os.path.join(pkg_share_uuv_viz, '..')
+
+        # Submarino y Mundo
+    set_res_viz = AppendEnvironmentVariable(
+            'IGN_GAZEBO_RESOURCE_PATH', viz_install_path)
+    set_mod_viz = AppendEnvironmentVariable(
+            'IGN_GAZEBO_MODEL_PATH', viz_install_path)
+
+        # Plugins
+    set_plugin_path = AppendEnvironmentVariable(
+        'IGN_GAZEBO_SYSTEM_PLUGIN_PATH',
+        os.path.join(pkg_uuv_plugins, '../../lib/uuv_gazebo_plugins')
+        )
     
     # --- 1. Definiciones de archivos ---
     urdf_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'sub_cam.urdf')
-    default_rviz_config_path = os.path.join(pkg_share_uuv_viz, 'rviz', 'gazebo_visualization.rviz')
-
-    package_path = os.path.join(pkg_share_uuv_viz, '..')
-
-    set_resource_path = AppendEnvironmentVariable(
-        'IGN_GAZEBO_RESOURCE_PATH',
-        package_path
-    )
-
-    set_model_path = AppendEnvironmentVariable(
-        'IGN_GAZEBO_MODEL_PATH',
-        package_path
-    )
-
     with open(urdf_file_path, 'r') as f:
         robot_description_content = f.read()
+
+    urdf_octagon_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'octagon.urdf')
+    with open(urdf_octagon_file_path, 'r') as f:
+        octagon_description_content = f.read()
+
+    urdf_mesa_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'mesa.urdf')
+    with open(urdf_mesa_file_path, 'r') as f:
+        mesa_description_content = f.read()
+
+    urdf_path_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'path.urdf')
+    with open(urdf_path_file_path, 'r') as f:
+        path_description_content = f.read()
+
+    urdf_slalom_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'slalom.urdf')
+    with open(urdf_slalom_file_path, 'r') as f:
+        slalom_description_content = f.read()
+
+    urdf_tagging_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'tagging.urdf')
+    with open(urdf_tagging_file_path, 'r') as f:
+        tagging_description_content = f.read()
 
     # Variables de entorno para solucionar el problema del "Black Screen"
     set_partition = SetEnvironmentVariable('IGN_PARTITION', 'uuv_sim')
@@ -57,32 +80,88 @@ def generate_launch_description():
         output='screen',
     )
 
+    spawn_octagon = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'octagon',
+            '-string', octagon_description_content,
+            '-x', '5.0', '-y', '0.0', '-z', '0.0' # Posición en el mundo
+        ],
+        output='screen',
+    )
+
+    spawn_mesa = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'mesa',
+            '-string', mesa_description_content,
+            '-x', '5.0', '-y', '0.0', '-z', '-2.0' # Posición en el mundo
+        ],
+        output='screen',
+    )
+
+    spawn_path = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'path',
+            '-string', path_description_content,
+            '-x', '5.0', '-y', '5.0', '-z', '-2.0' # Posición en el mundo
+        ],
+        output='screen',
+    )
+
+    spawn_slalom = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'slalom',
+            '-string', slalom_description_content,
+            '-x', '10.0', '-y', '0.0', '-z', '-2.0' # Posición en el mundo
+        ],
+        output='screen',
+    )
+
+    spawn_tagging = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'tagging',
+            '-string', tagging_description_content,
+            '-x', '10.0', '-y', '5.0', '-z', '-2.0' # Posición en el mundo
+        ],
+        output='screen',
+    )
+
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         additional_env={'IGN_PARTITION': 'uuv_sim'},
         arguments=[
             '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
-            '/camera@sensor_msgs/msg/Image[ignition.msgs.Image',
-            '/model/uuv/marker@ignition.msgs.Marker]ros_gz_bridge.msg.Marker',
+            # '/camera@sensor_msgs/msg/Image[ignition.msgs.Image',
+            # '/model/uuv/marker@ignition.msgs.Marker]ros_gz_bridge.msg.Marker',
+            '/model/uuv/link/camera_link/sensor/zed2_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image',
             # Recibir la pose desde Gazebo
             # '/model/uuv/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose',
             # Enviar las fuerzas desde el ASMC hacia el Plugin
             # '/forces@std_msgs/msg/Float64MultiArray]ignition.msgs.Float_V',
             # '/model/uuv/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
         ],
-        # remappings=[
-            # ('/model/uuv/pose', '/pose'),
-            # ('/model/uuv/odometry', '/pose'),
-        # ],
+        remappings=[
+            ('/model/uuv/link/camera_link/sensor/zed2_camera/image', '/camera'),
+            ('/model/uuv/link/camera_link/sensor/zed2_camera/camera_info', '/camera_info'),
+        ],
         output='screen'
     )
         
-    rviz_config_arg = DeclareLaunchArgument(
-        name='rviz_config',
-        default_value=default_rviz_config_path,
-        description='Ruta absoluta al archivo de configuración de RViz2'
-    )
+    # rviz_config_arg = DeclareLaunchArgument(
+    #     name='rviz_config',
+    #     default_value=default_rviz_config_path,
+    #     description='Ruta absoluta al archivo de configuración de RViz2'
+    # )
 
     # --- 3. Nodos de Control y Navegación ---
     
@@ -95,6 +174,51 @@ def generate_launch_description():
             'use_sim_time': True, # Cambiado a True para Gazebo
             'robot_description': robot_description_content,
         }]
+    ) 
+
+    octagon_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='octagon_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': True, 'robot_description': octagon_description_content}],
+        remappings=[('/robot_description', '/octagon_description')]
+    ) 
+
+    mesa_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='mesa_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': True, 'robot_description': mesa_description_content}],
+        remappings=[('/robot_description', '/mesa_description')]
+    ) 
+
+    path_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='path_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': True, 'robot_description': path_description_content}],
+        remappings=[('/robot_description', '/path_description')]
+    ) 
+
+    slalom_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='slalom_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': True, 'robot_description': slalom_description_content}],
+        remappings=[('/robot_description', '/slalom_description')]
+    ) 
+
+    tagging_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='tagging_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': True, 'robot_description': tagging_description_content}],
+        remappings=[('/robot_description', '/tagging_description')]
     ) 
 
     mission_file_arg = DeclareLaunchArgument(
@@ -172,6 +296,13 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}]
     )
 
+    dashboard = Node(
+        package='uuv_visualization',
+        executable='dashboard',
+        name='dashboard',
+        parameters=[{'use_sim_time': True}]
+    )
+
     clean_zombies = ExecuteProcess(
         cmd=['pkill', '-9', 'ruby', ';', 'pkill', '-9', 'parameter_brid', ';', 'pkill', '-9', 'static_transform'],
         shell=True
@@ -179,24 +310,36 @@ def generate_launch_description():
 
     # --- 4. Retornar la descripción (Asegúrate de incluir TODO aquí) ---
     return LaunchDescription([
+        set_qt_platform,
         # clean_zombies,
         set_partition,
         set_ip,
         set_plugin_path,
-        set_resource_path,
-        set_model_path,
-        rviz_config_arg,
+        set_res_viz,
+        set_mod_viz,
+        # rviz_config_arg,
         gazebo,
-        spawn_robot, # Agregado
+        spawn_robot,
+        spawn_octagon,
+        spawn_mesa,
+        spawn_path,
+        spawn_slalom,
+        spawn_tagging,
         bridge,      # Agregado
         uuv_state_publisher,
+        octagon_state_publisher,
+        mesa_state_publisher,
+        path_state_publisher,
+        slalom_state_publisher,
+        tagging_state_publisher,
         mission_file_arg,
         mission_handler,
         trayectory_node,
         los,
         asmc,
-        # dynamic_model,
+        # dynamic_model,rviz_config_arg
         # uuv_pose_tracker_node,
         object_visualizer_node,
+        # dashboard,
         # rviz_node,
     ])

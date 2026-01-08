@@ -75,6 +75,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/uuv_visualization" TYPE DIRECTORY FILES "/home/alberto/Documents/sub_alberto/src/uuv_visualization/www")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_visualization" TYPE PROGRAM RENAME "object_visualizer" FILES "/home/alberto/Documents/sub_alberto/src/uuv_visualization/scripts/object_visualizer.py")
 endif()
 
@@ -84,6 +88,14 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_visualization" TYPE PROGRAM RENAME "uuv_tracker" FILES "/home/alberto/Documents/sub_alberto/src/uuv_visualization/scripts/uuv_tracker.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_visualization" TYPE PROGRAM RENAME "dashboard" FILES "/home/alberto/Documents/sub_alberto/src/uuv_visualization/scripts/dashboard.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_visualization" TYPE FILE FILES "/home/alberto/Documents/sub_alberto/src/uuv_visualization/scripts/index.html")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

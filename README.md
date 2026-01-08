@@ -15,6 +15,11 @@ En este cambias la direccion a la de tu computadora, simplemente es redirecciona
 <br>
 Similarmente haces lo mismo con el config en uuv_navigation llamado *bezier_params.yaml* y en el nodo de *line trayectory*
 
+Ademas ocupas las siguientes librerias: pip install fastapi uvicorn opencv-python cv_bridge
+
+pip install "opencv-python<4.9.0" "numpy<2.0"
+pip install websockets
+
 El launch oficial aun no esta en uuv_master. ahora el launch grande esta en el paquete de **uuv_visualization**. Por lo tanto el comando es:
 ```bash
 ros2 launch uuv_navigation launch.py

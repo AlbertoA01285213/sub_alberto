@@ -56,6 +56,11 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(DIRECTORY
+  www
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # Nodos del paquete
 install(PROGRAMS scripts/object_visualizer.py
   DESTINATION lib/${PROJECT_NAME}
@@ -70,6 +75,15 @@ install(PROGRAMS scripts/trayectory_visualizer.py
 install(PROGRAMS scripts/uuv_tracker.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME uuv_tracker
+)
+
+install(PROGRAMS scripts/dashboard.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME dashboard
+)
+
+install(FILES scripts/index.html
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 

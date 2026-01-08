@@ -1,0 +1,162 @@
+{
+    "asset": {
+        "generator": "SOLIDWORKSGLTF",
+        "version": "2.0"
+    },
+    "scene": 0,
+    "scenes": [
+        {
+            "name": "Predeterminado",
+            "nodes": [
+                0,
+                1
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "matrix": [
+                0.9515701008267649,
+                -0.2933464125559801,
+                -0.09199035521769264,
+                0.0,
+                0.260536119174094,
+                0.9283150269045367,
+                -0.265239781007547,
+                0.0,
+                0.16320316730456794,
+                0.22842743500675655,
+                0.9597841596515286,
+                0.0,
+                0.46523584029776976,
+                0.4043426913359275,
+                2.9328380161361842,
+                1.0
+            ],
+            "camera": 0,
+            "name": "current camera"
+        },
+        {
+            "mesh": 0,
+            "name": "Tagging"
+        }
+    ],
+    "cameras": [
+        {
+            "type": "orthographic",
+            "orthographic": {
+                "xmag": 0.5896200872220034,
+                "ymag": 0.45561552194427535,
+                "zfar": 4.179011336950777,
+                "znear": 2.1864760540134833
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 1,
+                        "NORMAL": 2
+                    },
+                    "indices": 0,
+                    "material": 0,
+                    "mode": 4
+                }
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 2532,
+            "type": "SCALAR",
+            "min": [
+                0
+            ],
+            "max": [
+                1223
+            ]
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1224,
+            "type": "VEC3",
+            "min": [
+                -0.3063499927520752,
+                -0.800000011920929,
+                -0.00634999992325902
+            ],
+            "max": [
+                0.3063499927520752,
+                0.3063499927520752,
+                0.4000000059604645
+            ]
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1224,
+            "type": "VEC3",
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "defaultplastic",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.5989418101001601,
+                    0.6455552910764322,
+                    0.8591735777059335,
+                    1.0
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.16999999880790712
+            }
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 10128,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 10128,
+            "byteLength": 14688,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 24816,
+            "byteLength": 14688,
+            "byteStride": 12,
+            "target": 34962
+        }
+    ],
+    "buffers": [
+        {
+            "uri": "Tagging.bin",
+            "byteLength": 39504
+        }
+    ]
+}

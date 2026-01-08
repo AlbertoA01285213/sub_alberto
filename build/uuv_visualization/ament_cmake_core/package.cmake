@@ -5,7 +5,7 @@ set(uuv_visualization_BUILD_DEPENDS "rclcpp" "std_msgs" "geometry_msgs" "sensor_
 set(uuv_visualization_BUILDTOOL_DEPENDS "ament_cmake")
 set(uuv_visualization_BUILD_EXPORT_DEPENDS "rclcpp" "std_msgs" "geometry_msgs" "sensor_msgs" "visualization_msgs" "nav2_msgs")
 set(uuv_visualization_BUILDTOOL_EXPORT_DEPENDS )
-set(uuv_visualization_EXEC_DEPENDS "rclcpp" "std_msgs" "geometry_msgs" "sensor_msgs" "visualization_msgs" "nav2_msgs")
+set(uuv_visualization_EXEC_DEPENDS "rclpy" "python3-numpy" "python3-opencv" "rclcpp" "std_msgs" "geometry_msgs" "sensor_msgs" "visualization_msgs" "nav2_msgs")
 set(uuv_visualization_TEST_DEPENDS "ament_lint_auto" "ament_lint_common")
 set(uuv_visualization_GROUP_DEPENDS )
 set(uuv_visualization_MEMBER_OF_GROUPS )

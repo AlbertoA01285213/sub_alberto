@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UUV Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; display: flex; }
+        .panel { padding: 20px; border: 1px solid #444; margin: 10px; border-radius: 10px; }
+        img { width: 640px; border: 2px solid cyan; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h2>Cámara Submarina</h2>
+        <img src="http://localhost:8000/video_feed">
+    </div>
+    <div class="panel">
+        <h2>Telemetría</h2>
+        <p>X: <span id="pos_x">0</span></p>
+        <p>Y: <span id="pos_y">0</span></p>
+        <p>Z: <span id="pos_z">0</span></p>
+    </div>
+
+    <script>
+        const ws = new WebSocket("ws://localhost:8000/ws");
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            document.getElementById("pos_x").innerText = data.pose.x;
+            document.getElementById("pos_y").innerText = data.pose.y;
+            document.getElementById("pos_z").innerText = data.pose.z;
+        };
+    </script>
+</body>
+</html>

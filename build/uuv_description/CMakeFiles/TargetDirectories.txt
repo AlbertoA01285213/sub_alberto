@@ -1,0 +1,9 @@
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/uuv_description_uninstall.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/test.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/edit_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/rebuild_cache.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/list_install_components.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/install.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/install/local.dir
+/home/alberto/Documents/sub_alberto/build/uuv_description/CMakeFiles/install/strip.dir

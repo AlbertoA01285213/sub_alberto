@@ -1,1 +1,1 @@
-geometry_msgs:nav2_msgs:rclcpp:sensor_msgs:std_msgs:visualization_msgs
+geometry_msgs:nav2_msgs:python3-numpy:python3-opencv:rclcpp:rclpy:sensor_msgs:std_msgs:visualization_msgs

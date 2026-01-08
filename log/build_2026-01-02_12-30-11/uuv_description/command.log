@@ -1,0 +1,2 @@
+Invoking command in '/home/alberto/Documents/sub_alberto/build/uuv_description': /usr/bin/cmake /home/alberto/Documents/sub_alberto/src/uuv_description -DCMAKE_INSTALL_PREFIX=/home/alberto/Documents/sub_alberto/install/uuv_description
+Invoked command in '/home/alberto/Documents/sub_alberto/build/uuv_description' returned '1': /usr/bin/cmake /home/alberto/Documents/sub_alberto/src/uuv_description -DCMAKE_INSTALL_PREFIX=/home/alberto/Documents/sub_alberto/install/uuv_description

@@ -1,1 +1,1 @@
-rclcpp;std_msgs;geometry_msgs;sensor_msgs;visualization_msgs;nav2_msgs;ament_lint_auto;ament_lint_common
+rclcpp;std_msgs;geometry_msgs;sensor_msgs;visualization_msgs;nav2_msgs;rclpy;python3-numpy;python3-opencv;ament_lint_auto;ament_lint_common
