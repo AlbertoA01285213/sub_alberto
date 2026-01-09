@@ -56,10 +56,6 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(DIRECTORY
-  www
-  DESTINATION share/${PROJECT_NAME}
-)
 
 # Nodos del paquete
 install(PROGRAMS scripts/object_visualizer.py

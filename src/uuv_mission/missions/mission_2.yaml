@@ -1,11 +1,11 @@
-mission_name: "test_run_1"
+mission_name: "mission_2"
 
 actions:
   - type: publish
     message: ['True', 'checkpoint'] # Mensaje, topico
 
   - type: hold
-    duration: 5
+    duration: 1
 
   - type: goto
     waypoint: [0.0, 0.0, 0.0, 0, 0, 1.57]

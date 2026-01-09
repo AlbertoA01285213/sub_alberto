@@ -1,10 +1,12 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable, AppendEnvironmentVariable, ExecuteProcess
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os
 from ament_index_python.packages import get_package_share_directory
+
 
 def generate_launch_description():
     # Forzar el uso de X11 para evitar que la GUI se congele en Wayland
@@ -227,17 +229,20 @@ def generate_launch_description():
         description='Nombre del archivo yaml de la misión'
     )
 
-    # Crear la ruta completa dinámicamente
-    mission_path = [
-        os.path.join(get_package_share_directory('uuv_mission'), 'missions', ''),
+    # Use PathJoinSubstitution to create a single string path
+    mission_path = PathJoinSubstitution([
+        FindPackageShare('uuv_mission'),
+        'missions',
         LaunchConfiguration('mission_file')
-    ]
+    ])
 
     # --- En la definición del nodo mission_handler ---
     mission_handler = Node(
         package='uuv_mission',
         executable='mission_handler',
         name='mission_handler',
+        output='screen',  # <--- ADD THIS LINE
+        emulate_tty=True, # <--- AND THIS for better formatting
         parameters=[{
             'use_sim_time': True,
             'mission_file': mission_path  # <--- AQUÍ PASAMOS EL PARÁMETRO

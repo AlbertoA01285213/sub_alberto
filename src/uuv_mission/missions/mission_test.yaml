@@ -5,7 +5,7 @@ actions:
     message: ['True', 'checkpoint'] # Mensaje, topico
 
   - type: hold
-    duration: 5
+    duration: 1
 
   - type: goto
     waypoint: [0.0, 0.0, 0.0, 0, 0, 0]
