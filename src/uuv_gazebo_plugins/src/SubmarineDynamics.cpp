@@ -83,7 +83,7 @@ public:
 
         math::Pose3d nextPose(
             state.eta(0),   // X_enu = X_ned (Norte = Este en este contexto simplificado)
-            -state.eta(1),  // Y_enu = -Y_ned (Este a Izquierda)
+            state.eta(1),  // Y_enu = -Y_ned (Este a Izquierda)
             state.eta(2),  // Z_enu = -Z_ned (Bajar en NED es negativo en Gazebo)
             state.eta(3),   // Roll
             state.eta(4),  // Pitch

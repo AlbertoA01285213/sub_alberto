@@ -23,7 +23,7 @@
 
   <link name="uuv_link">
     <visual>
-      <origin rpy="1.57 0.0 0.0" xyz="-0.35 2.03 -0.3"/>
+      <origin rpy="1.57 0.0 1.57" xyz="-2.0 -0.3 0.0"/>
       <geometry>
         <mesh filename="package://uuv_visualization/meshes/UUV_binary.stl" scale="0.01 0.01 0.01"/>
       </geometry>
@@ -43,6 +43,7 @@
 
   <link name="camera_link">
     <visual>
+      <origin rpy="0.0 0.0 0.0" xyz="-0.65 0.1 -0.17"/>
       <geometry>
         <box size="0.05 0.05 0.05"/>
       </geometry>
@@ -74,12 +75,34 @@
   </gazebo>
 
   <gazebo reference="camera_link">
-    <sensor name="zed2_camera" type="camera">
+    <sensor name="zed2_camera_left" type="camera">
       <pose>0 0 0 0 0 0</pose>
       <always_on>1</always_on>
       <update_rate>30</update_rate>
       <visualize>true</visualize>
-      <topic>camera</topic>
+      <topic>camera/left</topic>
+      <camera>
+        <horizontal_fov>1.92</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>720</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="camera_link">
+    <sensor name="zed2_camera_right" type="camera">
+      <pose>0 0.1 0 0 0 0</pose>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>true</visualize>
+      <topic>camera/right</topic>
       <camera>
         <horizontal_fov>1.92</horizontal_fov>
         <image>

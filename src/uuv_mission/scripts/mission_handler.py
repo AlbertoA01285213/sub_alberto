@@ -74,9 +74,9 @@ class MissionHandler(Node):
             msg.header.stamp = self.get_clock().now().to_msg()
             msg.header.frame_id = "world"
 
-            msg.pose.position.x = wp[0]
-            msg.pose.position.y = wp[1]
-            msg.pose.position.z = wp[2]
+            msg.pose.position.x = float(wp[0])
+            msg.pose.position.y = float(wp[1])
+            msg.pose.position.z = float(wp[2])
 
             q = quaternion_from_euler(wp[3], wp[4], wp[5])
             msg.pose.orientation.x = q[0]

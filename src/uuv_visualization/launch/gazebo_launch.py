@@ -145,16 +145,16 @@ def generate_launch_description():
             '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
             # '/camera@sensor_msgs/msg/Image[ignition.msgs.Image',
             # '/model/uuv/marker@ignition.msgs.Marker]ros_gz_bridge.msg.Marker',
-            '/model/uuv/link/camera_link/sensor/zed2_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image',
-            # Recibir la pose desde Gazebo
+            '/camera/left@sensor_msgs/msg/Image[ignition.msgs.Image',
+            '/camera/right@sensor_msgs/msg/Image[ignition.msgs.Image',
             # '/model/uuv/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose',
             # Enviar las fuerzas desde el ASMC hacia el Plugin
             # '/forces@std_msgs/msg/Float64MultiArray]ignition.msgs.Float_V',
             # '/model/uuv/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
         ],
         remappings=[
-            ('/model/uuv/link/camera_link/sensor/zed2_camera/image', '/camera'),
-            ('/model/uuv/link/camera_link/sensor/zed2_camera/camera_info', '/camera_info'),
+            ('/camera/left', '/camera/left'),
+            ('/camera/right', '/camera/right'),
         ],
         output='screen'
     )
@@ -225,7 +225,7 @@ def generate_launch_description():
 
     mission_file_arg = DeclareLaunchArgument(
         'mission_file',
-        default_value='mission_2.yaml',
+        default_value='mission_test.yaml',
         description='Nombre del archivo yaml de la misión'
     )
 

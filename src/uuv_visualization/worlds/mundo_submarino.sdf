@@ -12,14 +12,6 @@
     <include>
       <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/sun</uri>
     </include>
-<!-- 
-    <light type="directional" name="sun">
-      <cast_shadows>true</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <direction>-0.5 0.1 -0.9</direction>
-    </light> -->
 
     <model name="water_plane">
       <static>true</static>
@@ -44,5 +36,40 @@
     <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster" />
     <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
       <render_engine>ogre2</render_engine> </plugin>
+
+    <gui fullscreen='0'>
+      <plugin filename="ImageDisplay" name="Image Display">
+        <ignition-gui>
+          <property key="state" type="string">floating</property> <property key="width" type="double">400</property>  <property key="height" type="double">300</property>
+          <property key="x" type="double">0</property>       <property key="y" type="double">0</property>
+          <property key="showTitleBar" type="bool">true</property>
+        </ignition-gui>
+        <topic>camera/left</topic>
+      </plugin>
+
+      <plugin filename="GzScene3D" name="3D View">
+        <ignition-gui>
+          <title>3D View</title>
+          <property key="state" type="string">docked</property>
+        </ignition-gui>
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+      </plugin>
+
+      <plugin filename="WorldControl" name="World control">
+        <ignition-gui>
+          <title>World control</title>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="x" type="double">250</property>
+          <property key="y" type="double">500</property>
+          <property key="width" type="double">400</property>
+          <property key="height" type="double">100</property>
+        </ignition-gui>
+      </plugin>
+    </gui>
   </world>
 </sdf>

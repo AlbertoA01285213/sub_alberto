@@ -17,13 +17,13 @@ actions:
     duration: 10
 
   - type: goto
-    waypoint: [0.0, 0.0, -2.0, 0, 0, 0.785]
+    waypoint: [0.0, 0.0, -2.0, 0, 0, 0.0]
   
-  # - type: hold
-  #   duration: 5
+  - type: hold
+    duration: 5
 
-  # - type: goto
-  #   waypoint: [0.0, 0.0, -2.0, 0, 0, 0]
+  - type: goto
+    waypoint: [5.0, 0.0, -2.0, 0, 0, 0]
 
   # - type: hold
   #   duration: 5
