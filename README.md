@@ -4,26 +4,34 @@ Este es mi copia del repositorio del submarino. Sirve para tener una idea de que
 
 
 ## Como correrlo
-Aun no lo perfecciono, hay algunas cosas que hacen referencia a mi computadora, mas que nada las direcciones con los parametros. La primera modificacion que debes de hacer es en: 
+Aun no lo perfecciono, hay algunas cosas que hacen referencia a mi computadora, mas que nada las direcciones con los parametros. Es decir, busca donde diga algo como /home/alberto/... y cambia 'alberto' a tu username. La primera modificacion que debes de hacer es en: 
 <br>
 <br>
 */sub_alberto/src/uuv_visualization/config/object_visualizer_params.yaml*
+*/sub_alberto/src/uuv_navigation/scripts/line_trayectory.yaml*
 <br>
 <br>
 En este cambias la direccion a la de tu computadora, simplemente es redireccionar el root.
 <br>
 <br>
-Similarmente haces lo mismo con el config en uuv_navigation llamado *bezier_params.yaml* y en el nodo de *line trayectory*
+Similarmente haces lo mismo con el config en uuv_navigation llamado *bezier_params.yaml*
+
+Agrega dos carpetas vacías dentro de **uuv_vision**: una que se llame *database* y otra *scripts*
 
 Ademas ocupas las siguientes librerias: pip install fastapi uvicorn opencv-python cv_bridge
 
 pip install "opencv-python<4.9.0" "numpy<2.0"
 pip install websockets
 
-El launch oficial aun no esta en uuv_master. ahora el launch grande esta en el paquete de **uuv_visualization**. Por lo tanto el comando es:
+El launch oficial aun no esta en uuv_master. Ahora el launch grande esta en el paquete de **uuv_visualization**. Por lo tanto el comando es:
 ```bash
-ros2 launch uuv_navigation launch.py
+ros2 launch uuv_navigation gazebo_launch.py
 ```
+Por default se corre con el mission file 2. Estos archivos se encuentran en **uuv_mission**, y son algoritmos que marcan pasos que seguirá el sub en misiones específicas. Por ahora son sólo pruebas, aunque en la simulación sí se pueden ver las estaciones de las misiones. Para correr la simulación con otro archivo:
+```bash
+ros2 launch uuv_navigation gazebo_launch.py mission_file:=mission_x.yaml
+```
+y sustituye *x* por el número de la misión del nombre del archivo. 
 
 Se agrego una adaptacion para gazebo. Esto para poder incluir la camara a los calculos. No funciona del todo bien pero de algo sirve. Para correrlo:
 ```bash
