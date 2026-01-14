@@ -82,50 +82,71 @@ class LineOfSightNode(Node):
     def guidance_loop(self):
         if not self.path_in_progress or self.current_path is None or self.current_pose is None:
             return
-
-        if not self.current_path.poses:
+        
+        if self.current_target_index >= len(self.current_path.poses):
+            self.finalizar_trayectoria()
             return
 
         # Si ya terminamos la lista de waypoints
-        if self.current_target_index >= len(self.current_path.poses):
-            self.get_logger().info("¡Último waypoint alcanzado!")
-            msg = Bool()
-            msg.data = True
-            self.checkpoint_publisher.publish(msg)
-            self.create_timer(0.3, self.reset_checkpoint)
-            self.path_in_progress = False
-            self.current_path = None
-            return
+        # if self.current_target_index >= len(self.current_path.poses):
+        #     self.get_logger().info("¡Último waypoint alcanzado!")
+        #     msg = Bool()
+        #     msg.data = True
+        #     self.checkpoint_publisher.publish(msg)
+        #     self.create_timer(0.3, self.reset_checkpoint)
+        #     self.path_in_progress = False
+        #     self.current_path = None
+        #     return
 
         # --- Obtener waypoint actual ---
-        target_pose = self.current_path.poses[self.current_target_index].pose
+        while self.current_target_index < len(self.current_path.poses):
+            target_pose = self.current_path.poses[self.current_target_index].pose
+            
+            # Calcular distancia Euclidea (X, Y, Z)
+            dx = self.pose_actual_x - target_pose.position.x
+            dy = self.pose_actual_y - target_pose.position.y
+            dz = self.pose_actual_z - target_pose.position.z
+            dist_sq = dx**2 + dy**2 + dz**2
 
-        # --- Calcular distancia ---
-        dx = self.pose_actual_x - target_pose.position.x
-        dy = self.pose_actual_y - target_pose.position.y
-        dz = self.pose_actual_z - target_pose.position.z
-        dist_sq = dx * dx + dy * dy + dz * dz
+            # Calcular diferencia de YAW (para misiones de rotación)
+            _, _, target_yaw = euler_from_quaternion([
+                target_pose.orientation.x, target_pose.orientation.y,
+                target_pose.orientation.z, target_pose.orientation.w
+            ])
+            yaw_error = abs(self.pose_actual_yaw - target_yaw)
+            # Normalizar error de ángulo
+            if yaw_error > math.pi: yaw_error = 2*math.pi - yaw_error
+
+            # SI estamos cerca en posición Y en ángulo, pasamos al siguiente punto
+            # (Si es solo rotación, dist_sq será 0, pero yaw_error mantendrá el punto activo)
+            if dist_sq < self.acceptance_radius_sq and yaw_error < 0.15: # 0.15 rad approx 8 deg
+                self.current_target_index += 1
+            else:
+                # Si el punto actual está lejos, este es nuestro objetivo
+                break
 
         # self.get_logger().info(f"Distancia al waypoint {self.current_target_index}: {math.sqrt(dist_sq):.3f} m")
 
         # --- Verificar si alcanzamos el waypoint ---
-        if dist_sq < self.acceptance_radius_sq:
-            # self.get_logger().info(f"Waypoint {self.current_target_index} alcanzado.")
-            self.current_target_index += 1
+        if self.current_target_index >= len(self.current_path.poses):
+            self.finalizar_trayectoria()
+        else:
+            # 4. PUBLICAR SIEMPRE el objetivo actual
+            current_target = self.current_path.poses[self.current_target_index].pose
+            self.target_publisher.publish(current_target)
 
-            if self.current_target_index >= len(self.current_path.poses):
-                self.get_logger().info("¡Trayectoria completa!")
-                msg = Bool()
-                msg.data = True
-                self.checkpoint_publisher.publish(msg)
-                self.path_in_progress = False
-                self.current_path = None
-                return
-
-            target_pose = self.current_path.poses[self.current_target_index].pose
-
-        # --- Publicar waypoint actual con orientación ---
-        self.target_publisher.publish(target_pose)
+    def finalizar_trayectoria(self):
+        """Función limpia para avisar que terminamos"""
+        self.get_logger().info("🎯 Trayectoria completa. Enviando Checkpoint.")
+        
+        msg = Bool()
+        msg.data = True
+        self.checkpoint_publisher.publish(msg)
+        
+        # Resetear estado para no repetir el mensaje en el siguiente ciclo
+        self.path_in_progress = False
+        self.current_path = None
+        self.current_target_index = 0
 
 def main(args=None):
     rclpy.init(args=args)

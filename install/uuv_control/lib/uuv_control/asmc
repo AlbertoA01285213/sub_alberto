@@ -175,13 +175,13 @@ class ASMCSubmarineNode(Node):
             self.controllers[i].update_setpoint(error_ori_global[i-3], 0.0)
             ua_vec[i] = self.controllers[i].calculate_aux_control(0.0, self.velocidad_actual[i])
         
-        self.get_logger().info("Control loop")
+        # self.get_logger().info("Control loop")
         
 
         # 2. Ley de Control de Manipulación
         try:
             # self.get_logger().info(f"G: {len(self.g)}")
-            self.get_logger().info(f"G: {abs(np.linalg.det(self.g))}")
+            # self.get_logger().info(f"G: {abs(np.linalg.det(self.g))}")
             # Evitar división por cero o matrices singulares
             # if abs(np.linalg.det(self.g)) > 1e-5:
             #     self.get_logger().info("Ley de control")
@@ -198,7 +198,7 @@ class ASMCSubmarineNode(Node):
             #     thrust_msg.data = u.tolist()
             #     self.thruster_pub.publish(thrust_msg)
 
-            self.get_logger().info("Ley de control")
+            # self.get_logger().info("Ley de control")
 
             # u = G^-1 * (q_dd - f - ua)
             u = np.linalg.inv(self.g) @ (self.q_dot_dot_d - self.f - ua_vec)

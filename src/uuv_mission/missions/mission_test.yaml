@@ -1,42 +1,50 @@
 mission_name: "mission_test"
 
 actions:
-  - type: publish
-    message: ['True', 'checkpoint'] # Mensaje, topico
-
   - type: hold
     duration: 1
 
   - type: goto
-    waypoint: [0.0, 0.0, -2.0, 0.0, 0.0, 0.0]
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.0]
 
   - type: hold
     duration: 5
 
   - type: goto
-    waypoint: [0.0, -5.0, -2.0, 0.0, 0.0, 0.785]
+    waypoint: [3.0, 0.0, -1.4, 0.0, 0.0, 0.785]
 
   - type: hold
     duration: 5
 
   - type: goto
-    waypoint: [5.0, -5.0, -2.0, 0.0, 0.0, 1.57]
+    waypoint: [3.0, 2.0, -1.4, 0.0, 0.0, 0.785]
 
   - type: hold
     duration: 5
 
   - type: goto
-    waypoint: [13.0, -5.0, -2.0, 0.0, 0.0, 2.355]
-
-
-  - type: hold
-    duration: 5
-
-  - type: goto
-    waypoint: [13.0, 0.0, -2.0, 0.0, 0.0, 3.14]
+    waypoint: [3.0, 2.0, -1.4, 0.0, 0.0, -0.785]
 
   - type: hold
     duration: 5
 
   - type: goto
-    waypoint: [13.0, 0.0, 0.0, 0.0, 0.0, 3.14]
+    waypoint: [11.5, -2.0, -1.4, 0.0, 0.0, -0.611]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [11.5, -2.0, -1.4, 0.0, 0.0, 0.450]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [16.0, 3.0, -1.4, 0.0, 0.0, 0.175]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [16.0, 3.0, 0.0, 0.0, 0.0, 0.175]

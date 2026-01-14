@@ -1,0 +1,112 @@
+#
+# Bunkspeed OBJ Material File
+# http://www.bunkspeed.com
+#
+
+newmtl red_low_gloss_plastic
+Kd 0.6941177 0.09803922 0.09803922
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl red_low_gloss_plastic
+Kd 0.6941177 0.09803922 0.09803922
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl red_low_gloss_plastic
+Kd 0.6941177 0.09803922 0.09803922
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885
+
+newmtl white_low_gloss_plastic
+Kd 1 1 1
+Ks 1 1 1
+pr 0.525
+pm 0
+d 1
+illum 2
+Ns 1.357885

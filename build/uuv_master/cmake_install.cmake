@@ -43,6 +43,14 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/uuv_master" TYPE DIRECTORY FILES "/home/alberto/Documents/sub_alberto/src/uuv_master/scripts")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_master" TYPE PROGRAM RENAME "master" FILES "/home/alberto/Documents/sub_alberto/src/uuv_master/scripts/master.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/alberto/Documents/sub_alberto/build/uuv_master/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/uuv_master")
 endif()
 

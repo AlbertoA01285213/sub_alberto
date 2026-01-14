@@ -25,7 +25,22 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(DIRECTORY
+  models
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # Nodos del paquete
+
+install(PROGRAMS scripts/picture.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME picture
+)
+
+install(PROGRAMS scripts/analizer.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME analizer
+)
 
 
 if(BUILD_TESTING)

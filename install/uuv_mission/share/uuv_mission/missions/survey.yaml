@@ -1,0 +1,82 @@
+mission_name: "survey"
+
+actions:
+  - type: publish
+    message: ['True', 'checkpoint'] # Mensaje, topico
+
+  - type: hold
+    duration: 1
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.0]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.785]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 1.571]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 2.356]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 3.142]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 3.927]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 4.712]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 5.498]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.0]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: end

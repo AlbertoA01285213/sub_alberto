@@ -15,6 +15,9 @@ def generate_launch_description():
     pkg_share_uuv_viz = get_package_share_directory('uuv_visualization')
     pkg_uuv_plugins = get_package_share_directory('uuv_gazebo_plugins')
 
+    pkg_uuv_description = get_package_share_directory('uuv_description')
+    description_models_path = os.path.join(pkg_uuv_description, '..')
+
     viz_install_path = os.path.join(pkg_share_uuv_viz, '..')
 
         # Submarino y Mundo
@@ -28,6 +31,11 @@ def generate_launch_description():
         'IGN_GAZEBO_SYSTEM_PLUGIN_PATH',
         os.path.join(pkg_uuv_plugins, '../../lib/uuv_gazebo_plugins')
         )
+    
+    set_ign_resource_path = AppendEnvironmentVariable(
+        name='IGN_GAZEBO_RESOURCE_PATH',
+        value=description_models_path
+    )
     
     # --- 1. Definiciones de archivos ---
     urdf_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'sub_cam.urdf')
@@ -82,61 +90,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    spawn_octagon = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'octagon',
-            '-string', octagon_description_content,
-            '-x', '5.0', '-y', '0.0', '-z', '0.0' # Posición en el mundo
-        ],
-        output='screen',
-    )
-
-    spawn_mesa = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'mesa',
-            '-string', mesa_description_content,
-            '-x', '5.0', '-y', '0.0', '-z', '-2.0' # Posición en el mundo
-        ],
-        output='screen',
-    )
-
-    spawn_path = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'path',
-            '-string', path_description_content,
-            '-x', '5.0', '-y', '5.0', '-z', '-2.0' # Posición en el mundo
-        ],
-        output='screen',
-    )
-
-    spawn_slalom = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'slalom',
-            '-string', slalom_description_content,
-            '-x', '10.0', '-y', '0.0', '-z', '-2.0' # Posición en el mundo
-        ],
-        output='screen',
-    )
-
-    spawn_tagging = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'tagging',
-            '-string', tagging_description_content,
-            '-x', '10.0', '-y', '5.0', '-z', '-2.0' # Posición en el mundo
-        ],
-        output='screen',
-    )
-
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -178,54 +131,9 @@ def generate_launch_description():
         }]
     ) 
 
-    octagon_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='octagon_state_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': True, 'robot_description': octagon_description_content}],
-        remappings=[('/robot_description', '/octagon_description')]
-    ) 
-
-    mesa_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='mesa_state_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': True, 'robot_description': mesa_description_content}],
-        remappings=[('/robot_description', '/mesa_description')]
-    ) 
-
-    path_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='path_state_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': True, 'robot_description': path_description_content}],
-        remappings=[('/robot_description', '/path_description')]
-    ) 
-
-    slalom_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='slalom_state_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': True, 'robot_description': slalom_description_content}],
-        remappings=[('/robot_description', '/slalom_description')]
-    ) 
-
-    tagging_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='tagging_state_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': True, 'robot_description': tagging_description_content}],
-        remappings=[('/robot_description', '/tagging_description')]
-    ) 
-
     mission_file_arg = DeclareLaunchArgument(
         'mission_file',
-        default_value='mission_test.yaml',
+        default_value='survey.yaml',
         description='Nombre del archivo yaml de la misión'
     )
 
@@ -290,7 +198,14 @@ def generate_launch_description():
         executable='object_visualizer',
         name='object_visualizer',
         parameters=[{'use_sim_time': True}]
-    )  
+    ) 
+
+    picture_node = Node(
+        package='uuv_vision',
+        executable='picture',
+        name='picture',
+        parameters=[{'use_sim_time': True}]
+    )    
     
     rviz_node = Node(
         package='rviz2',
@@ -322,26 +237,18 @@ def generate_launch_description():
         set_plugin_path,
         set_res_viz,
         set_mod_viz,
+        set_ign_resource_path,
         # rviz_config_arg,
         gazebo,
         spawn_robot,
-        spawn_octagon,
-        spawn_mesa,
-        spawn_path,
-        spawn_slalom,
-        spawn_tagging,
         bridge,      # Agregado
         uuv_state_publisher,
-        octagon_state_publisher,
-        mesa_state_publisher,
-        path_state_publisher,
-        slalom_state_publisher,
-        tagging_state_publisher,
         mission_file_arg,
         mission_handler,
         trayectory_node,
         los,
         asmc,
+        picture_node,
         # dynamic_model,rviz_config_arg
         # uuv_pose_tracker_node,
         object_visualizer_node,

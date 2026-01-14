@@ -1,23 +1,37 @@
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/model.sdf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/model.config
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/meshes/mesa.obj
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/meshes/mesa.gltf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/meshes/mesa.dae
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/meshes/mesa.mtl
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/model.sdf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/model.config
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/meshes/3 point beige.hdr
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/meshes/tagging.gltf
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/meshes/tagging.obj
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/meshes/softbox.png
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/meshes/tagging.dae
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/tagging/meshes/tagging.mtl
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/slalom/model.sdf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/slalom/model.config
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/slalom/meshes/slalom.gltf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/slalom/meshes/slalom.dae
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/slalom/meshes/slalom.mtl
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/slalom/meshes/slalom.obj
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/3 point beige.hdr
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/model.sdf
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/softbox.png
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/model.config
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/meshes/octagon.obj
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/meshes/octagon.gltf
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/meshes/octagon.mtl
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_octagon/meshes/octagon.dae
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/path/model.sdf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/path/model.config
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/path/meshes/path.dae
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/path/meshes/path_obj.mtl
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/path/meshes/path.gltf
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/path/meshes/path_obj.obj
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/ament_index/resource_index/package_run_dependencies/uuv_description
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/ament_index/resource_index/parent_prefix_path/uuv_description
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/environment/ament_prefix_path.sh

@@ -58,3 +58,6 @@ Esto aun es un work in progress. Por lo tanto, hay varias cosas que deben de cam
 - Vision
 - No se que mas poner, pero muchas cosas mas.
 
+
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/Documents/sub_alberto/src
+ros2 run image_view video_recorder --ros-args -r image:=/camera/left

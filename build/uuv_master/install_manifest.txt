@@ -1,3 +1,5 @@
+/home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/scripts/master.py
+/home/alberto/Documents/sub_alberto/install/uuv_master/lib/uuv_master/master
 /home/alberto/Documents/sub_alberto/install/uuv_master/share/ament_index/resource_index/package_run_dependencies/uuv_master
 /home/alberto/Documents/sub_alberto/install/uuv_master/share/ament_index/resource_index/parent_prefix_path/uuv_master
 /home/alberto/Documents/sub_alberto/install/uuv_master/share/uuv_master/environment/ament_prefix_path.sh
