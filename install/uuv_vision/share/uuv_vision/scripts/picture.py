@@ -38,9 +38,10 @@ class Picture(Node):
         self.latest_right = right_msg
 
     def trigger_callback(self, msg):
-        if msg.data == 1 and self.latest_left is not None:
+        tomar_foto = msg.data
+        if tomar_foto == 1 and self.latest_left is not None:
             self.img_left_pub.publish(self.latest_left)
-            self.img_left_pub.publish(self.latest_right)
+            self.img_right_pub.publish(self.latest_right)
             self.get_logger().info("Foto enviada al analizador")
 
             try:
@@ -51,22 +52,24 @@ class Picture(Node):
                 
                 # CORRECCIÓN: Ruta completa con nombre de archivo y extensión .jpg
                 filename = f"captura_uuv_{self.count}.jpg"
-                save_path = os.path.join(os.path.expanduser('~'), 'Desktop', filename)
+                save_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'Fotos_sub', filename)
                 
                 cv2.imwrite(save_path, conc_img)
                 self.get_logger().info(f"Imagen guardada en: {save_path}")
                 
                 self.count += 1
+                tomar_foto = 0
             except Exception as e:
                 self.get_logger().error(f"Error al guardar imagen: {e}")
+
 
     def run(self):
         cv_img_l = self.bridge.imgmsg_to_cv2(self.latest_left, desired_encoding='bgr8')
         filename = f"captura_uuv_{self.count}.jpg"
         save_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'Fotos_sub', filename)
         
-        cv2.imwrite(save_path, cv_img_l)
-        self.get_logger().info(f"Imagen guardada en: {save_path}")
+        # cv2.imwrite(save_path, cv_img_l)
+        # self.get_logger().info(f"Imagen guardada en: {save_path}")
         
         self.count += 1
 

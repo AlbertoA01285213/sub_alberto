@@ -137,7 +137,7 @@ class LineOfSightNode(Node):
 
     def finalizar_trayectoria(self):
         """Función limpia para avisar que terminamos"""
-        self.get_logger().info("🎯 Trayectoria completa. Enviando Checkpoint.")
+        # self.get_logger().info("Trayectoria completa. Enviando Checkpoint.")
         
         msg = Bool()
         msg.data = True

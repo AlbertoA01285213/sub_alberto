@@ -121,7 +121,7 @@ class MissionHandler(Node):
             msg.pose.orientation.w = q[3]
 
             self.wp_pub.publish(msg)
-            self.get_logger().info(f"Waypoint {wp[0]}, {wp[1]}, {wp[2]}, {wp[3]}, {wp[4]}, {wp[5]}")
+            # self.get_logger().info(f"Waypoint {wp[0]}, {wp[1]}, {wp[2]}, {wp[3]}, {wp[4]}, {wp[5]}")
 
             if self.checkpoint == 1:
                 self.checkpoint = 0

@@ -1,5 +1,6 @@
 /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/picture.py
 /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/analizer.py
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/models/best.pt
 /home/alberto/Documents/sub_alberto/install/uuv_vision/lib/uuv_vision/picture
 /home/alberto/Documents/sub_alberto/install/uuv_vision/lib/uuv_vision/analizer
 /home/alberto/Documents/sub_alberto/install/uuv_vision/share/ament_index/resource_index/package_run_dependencies/uuv_vision
