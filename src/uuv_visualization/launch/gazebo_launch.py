@@ -162,6 +162,13 @@ def generate_launch_description():
         executable='line_trayectory',
         name='line_trayectory',
         parameters=[{'use_sim_time': True}]
+    )
+
+    bezier_trayectory_node = Node(
+        package='uuv_navigation',
+        executable='bezier',
+        name='bezier',
+        parameters=[{'use_sim_time': True}]
     )   
 
     los = Node(
@@ -253,6 +260,7 @@ def generate_launch_description():
         mission_file_arg,
         mission_handler,
         trayectory_node,
+        bezier_trayectory_node,
         los,
         asmc,
         picture_node,
