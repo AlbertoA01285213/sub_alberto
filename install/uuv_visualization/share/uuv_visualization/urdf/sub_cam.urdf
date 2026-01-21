@@ -105,6 +105,11 @@
       <topic>camera/right</topic>
       <camera>
         <horizontal_fov>1.92</horizontal_fov>
+        <distortion>
+          <k1>-0.15</k1>
+          <k2>0.01</k2>
+          <center>0.5 0.5</center>
+        </distortion>
         <image>
           <width>1920</width>
           <height>1080</height>

@@ -55,6 +55,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/uuv_vision" TYPE DIRECTORY FILES "/home/alberto/Documents/sub_alberto/src/uuv_vision/images")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/uuv_vision" TYPE PROGRAM RENAME "picture" FILES "/home/alberto/Documents/sub_alberto/src/uuv_vision/scripts/picture.py")
 endif()
 

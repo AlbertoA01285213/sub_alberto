@@ -30,6 +30,11 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(DIRECTORY
+  images
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # Nodos del paquete
 
 install(PROGRAMS scripts/picture.py

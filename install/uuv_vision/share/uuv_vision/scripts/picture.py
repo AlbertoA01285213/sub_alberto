@@ -52,8 +52,9 @@ class Picture(Node):
                 
                 # CORRECCIÓN: Ruta completa con nombre de archivo y extensión .jpg
                 filename = f"captura_uuv_{self.count}.jpg"
-                save_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'Fotos_sub', filename)
+                # save_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'Fotos_sub', filename)
                 
+                save_path = os.path.join(get_package_share_directory('uuv_vision'), 'images', filename)
                 cv2.imwrite(save_path, conc_img)
                 self.get_logger().info(f"Imagen guardada en: {save_path}")
                 

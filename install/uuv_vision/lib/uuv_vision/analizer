@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import rclpy
+import numpy as np
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
@@ -37,10 +38,22 @@ class YoloSegmenterNode(Node):
         self.is_processing = False
 
         # --- Parámetros ---
-        self.focal_lenght = 676.0
+        self.focal_lenght = 672.0
+        self.focal_pixels = 672.2
         self.baseline = 0.1
+        self.img_width = 1920
+        self.img_height = 1080
         self.img_center_x = 960.0 # Ajusta esto a la mitad de tu resolución real
         self.img_center_y = 540.0
+
+        self.camera_matrix = np.array([
+            [self.focal_pixels, 0, self.img_width/2],
+            [0, self.focal_pixels, self.img_height/2],
+            [0, 0, 1]
+        ], dtype=np.float32)
+
+        self.dist_coeffs = np.array([-0.15, 0.01, 0, 0, 0], dtype=np.float32)
+
         self.distancia_limite = 20.0
         self.count = 0
         self.target_names = ['slalom', 'tagging', 'octagon', 'mesa', 'path']
@@ -79,6 +92,9 @@ class YoloSegmenterNode(Node):
                 self.queue_right.clear()
 
             self.get_logger().info("Iniciando analisis")
+
+            # img_l = self.undistort_image(img_l)
+            # img_r = self.undistort_image(img_r)
 
             # 1. Inferencia
             res_l = self.model(img_l, verbose=False)[0]
@@ -129,7 +145,8 @@ class YoloSegmenterNode(Node):
                     os.makedirs(folder_path)
 
                 filename = f"analisis_{self.count:04d}.jpg"
-                save_path = os.path.join(folder_path, filename)
+                # save_path = os.path.join(folder_path, filename)
+                save_path = os.path.join(get_package_share_directory('uuv_vision'), 'images', filename)
                 cv2.imwrite(save_path, debug_img)
                 self.get_logger().info(f"✅ Imagen guardada: {filename} con {detecciones_reales} objetos.")
                 self.count += 1
@@ -139,25 +156,68 @@ class YoloSegmenterNode(Node):
         finally:
             self.is_processing = False
 
+    
+    def undistort_image(self, raw_img):
+        h, w = raw_img.shape[:2]
+        # Obtenemos una nueva matriz de cámara óptima para no perder bordes
+        new_camera_matrix, roi = cv2.getOptimalNewCameraMatrix(
+            self.camera_matrix, self.dist_coeffs, (w, h), 1, (w, h)
+        )
+        undistorted = cv2.undistort(raw_img, self.camera_matrix, self.dist_coeffs, None, new_camera_matrix)
+        
+        # Opcional: Recortar la imagen si quedan bordes negros (roi)
+        # x, y, w_roi, h_roi = roi
+        # undistorted = undistorted[y:y+h_roi, x:x+w_roi]
+        
+        return undistorted
+    
     def get_filtered_detections(self, result):
         filtered = {}
-        if result.boxes is None: return filtered
-        for box in result.boxes:
+        if result.masks is None: 
+            return filtered
+            
+        # Recorremos cajas y máscaras al mismo tiempo
+        for box, mask in zip(result.boxes, result.masks):
             label = self.model.names[int(box.cls[0])]
+            
             if label in self.target_names:
-                if label not in filtered: filtered[label] = []
+                if label not in filtered: 
+                    filtered[label] = []
+                
+                # Obtenemos los puntos del polígono de la máscara
+                polygon = mask.xy[0] # Lista de puntos (x, y)
+                
+                # Calculamos el centroide usando Momentos de OpenCV
+                M = cv2.moments(polygon)
+                if M["m00"] != 0:
+                    cx = int(M["m10"] / M["m00"])
+                    cy = int(M["m01"] / M["m00"])
+                else:
+                    # Fallback al centro de la caja si la máscara falla
+                    cx, cy = int(box.xywh[0][0]), int(box.xywh[0][1])
+
+                pts = polygon.astype(np.int32).reshape((-1, 1, 2))
+                hull = cv2.convexHull(pts)
+                hull = hull.reshape(-1, 2)
+                ext_left  = tuple(hull[hull[:, 0].argmin()])
+                ext_right = tuple(hull[hull[:, 0].argmax()])
+                ext_top   = tuple(hull[hull[:, 1].argmin()])
+                ext_bot   = tuple(hull[hull[:, 1].argmax()])
+
                 x, y, w, h = box.xywh[0].tolist()
                 filtered[label].append({
-                    'center': (x, y),
+                    'center': (cx, cy), # <-- ¡Ahora es el centroide!
                     'conf': box.conf[0].item(),
-                    'bbox': (int(x - w/2), int(y - h/2), int(w), int(h))
+                    'bbox': (int(x - w/2), int(y - h/2), int(w), int(h)),
+                    'polygon': polygon, # Guardamos el polígono para dibujar
+                    'extremes': (ext_left, ext_right, ext_top, ext_bot)
                 })
         return filtered
 
     def calculate_3d_position(self, det_l, det_r):
         x_left = det_l['center'][0]
         x_right = det_r['center'][0]
-        disparity = x_left - x_right
+        disparity = abs(x_left - x_right)
         
         if disparity <= 0.5: 
             return None
@@ -169,7 +229,19 @@ class YoloSegmenterNode(Node):
 
     def draw_debug_info(self, img, detection, label_text, color):
         x_tl, y_tl, w, h = detection['bbox']
-        cv2.rectangle(img, (x_tl, y_tl), (x_tl + w, y_tl + h), color, 2)
+        cx, cy = detection['center']
+        polygon = detection['polygon'].astype(np.int32)
+
+        # 1. Dibujar el polígono de la máscara (transparente)
+        overlay = img.copy()
+        cv2.fillPoly(overlay, [polygon], color)
+        cv2.addWeighted(overlay, 0.3, img, 0.7, 0, img)
+
+        # 2. Dibujar el contorno y el centroide
+        cv2.polylines(img, [polygon], True, color, 2)
+        cv2.circle(img, (cx, cy), 5, (255, 255, 255), -1) # Punto blanco en el centroide
+
+        # 3. Texto informativo
         cv2.putText(img, label_text, (x_tl, y_tl - 10), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
@@ -199,4 +271,23 @@ Z = f*B/d
 
 field of view = pixeles ancho/(2*tan(fov/2))
 *con fov horizontal
+
+hay que aplicar stereoRectify()
+initUndistortRectifyMap
+
+extraer 
+extremos
+convex hull
+puntos equidistantes
+
+vision:
+orb
+akaze
+sift
+
+yolo-pose
+openpose
+hrnet
+
+promedio vs ransac 
 '''
