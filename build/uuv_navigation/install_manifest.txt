@@ -9,6 +9,7 @@
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/line_trayectory
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/los
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/mapeador
+/home/alberto/Documents/sub_alberto/install/uuv_navigation/lib/uuv_navigation/bezier
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/ament_index/resource_index/package_run_dependencies/uuv_navigation
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/ament_index/resource_index/parent_prefix_path/uuv_navigation
 /home/alberto/Documents/sub_alberto/install/uuv_navigation/share/uuv_navigation/environment/ament_prefix_path.sh

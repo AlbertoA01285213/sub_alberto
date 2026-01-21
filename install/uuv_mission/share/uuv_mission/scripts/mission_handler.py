@@ -2,7 +2,7 @@
 import rclpy
 from rclpy.node import Node
 import yaml
-from geometry_msgs.msg import Point, PoseStamped
+from geometry_msgs.msg import Point, Pose, PoseStamped, PoseArray
 from std_msgs.msg import Bool, String, Float32, Int16
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
 import time
@@ -36,6 +36,8 @@ class MissionHandler(Node):
 
         self.actions = self.mission["actions"]
         self.idx = 0
+        self.last_idx = -1
+        self.time_stamp = 0
         self.state = "RUNNING"
         self.pose_actual = [0]*6
         self.checkpoint = 0  # ✅ inicializado
@@ -44,11 +46,12 @@ class MissionHandler(Node):
         self.create_subscription(PoseStamped, 'pose', self.pose_callback, 10)
         self.mission_sub = self.create_subscription(String, 'load_mission', self.load_mission_callback, 10)
         self.wp_pub = self.create_publisher(PoseStamped, 'waypoint', 10)
+        self.bezier_pub = self.create_publisher(PoseArray, 'bezier_waypoints', 10)
         self.checkpoint_pub = self.create_publisher(Bool, 'checkpoint', 10)
         self.status_pub = self.create_publisher(Int16, 'mission_status', 10)
         self.picture_pub = self.create_publisher(Int16, 'take_picture', 10)
 
-        self.timer = self.create_timer(0.5, self.run)
+        self.timer = self.create_timer(0.1, self.run)
 
     def checkpoint_callback(self, msg: Bool):
         self.checkpoint = msg.data  # ✅ corregido
@@ -79,6 +82,7 @@ class MissionHandler(Node):
                 status_msg = Int16()
                 status_msg.data = 0
                 self.status_pub.publish(status_msg)
+                # self.run()
         else:
             self.get_logger().error(f"No existe el archivo: {new_path}")
 
@@ -126,8 +130,32 @@ class MissionHandler(Node):
             if self.checkpoint == 1:
                 self.checkpoint = 0
                 self.idx += 1
-                
+        
+        elif action["type"] == "bezier_wp":
+            wp = action["waypoints"]
+            msg = PoseArray()
+            if self.last_idx != self.idx:
+                self.time_stamp = self.get_clock().now().to_msg()
+                self.last_idx = self.idx
+            msg.header.stamp = self.time_stamp
+            msg.header.frame_id = "world"
 
+            for i in wp:
+                p = Pose()
+
+                p.position.x = float(i[0])
+                p.position.y = float(i[1])
+                p.position.z = float(i[2])
+                p.orientation.x = 0.0
+                p.orientation.y = 0.0
+                p.orientation.z = 0.0
+                p.orientation.w = 1.0
+
+                msg.poses.append(p)
+
+            self.bezier_pub.publish(msg)
+            
+                
 
         elif action["type"] == "hold":
             duration = action["duration"]

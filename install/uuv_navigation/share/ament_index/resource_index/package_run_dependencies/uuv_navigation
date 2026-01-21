@@ -1,1 +1,1 @@
-rclcpp;std_msgs;geometry_msgs;sensor_msgs;visualization_msgs;nav2_msgs;ament_lint_auto;ament_lint_common
+rclcpp;std_msgs;geometry_msgs;sensor_msgs;visualization_msgs;nav2_msgs;builtin_interfaces;tf2_ros;tf2;pluginlib;tf2_geometry_msgs;nav_msgs;ament_lint_auto;ament_lint_common

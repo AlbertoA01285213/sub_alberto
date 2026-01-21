@@ -197,6 +197,43 @@ uuv_navigation_uninstall/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uuv_navigation_uninstall.dir/build.make CMakeFiles/uuv_navigation_uninstall.dir/build
 .PHONY : uuv_navigation_uninstall/fast
 
+#=============================================================================
+# Target rules for targets named bezier
+
+# Build rule for target.
+bezier: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bezier
+.PHONY : bezier
+
+# fast build rule for target.
+bezier/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bezier.dir/build.make CMakeFiles/bezier.dir/build
+.PHONY : bezier/fast
+
+src/bezier.o: src/bezier.cpp.o
+.PHONY : src/bezier.o
+
+# target to build an object file
+src/bezier.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bezier.dir/build.make CMakeFiles/bezier.dir/src/bezier.cpp.o
+.PHONY : src/bezier.cpp.o
+
+src/bezier.i: src/bezier.cpp.i
+.PHONY : src/bezier.i
+
+# target to preprocess a source file
+src/bezier.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bezier.dir/build.make CMakeFiles/bezier.dir/src/bezier.cpp.i
+.PHONY : src/bezier.cpp.i
+
+src/bezier.s: src/bezier.cpp.s
+.PHONY : src/bezier.s
+
+# target to generate assembly for a file
+src/bezier.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bezier.dir/build.make CMakeFiles/bezier.dir/src/bezier.cpp.s
+.PHONY : src/bezier.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -212,6 +249,10 @@ help:
 	@echo "... test"
 	@echo "... uninstall"
 	@echo "... uuv_navigation_uninstall"
+	@echo "... bezier"
+	@echo "... src/bezier.o"
+	@echo "... src/bezier.i"
+	@echo "... src/bezier.s"
 .PHONY : help
 
 
