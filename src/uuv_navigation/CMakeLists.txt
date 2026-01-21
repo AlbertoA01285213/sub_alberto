@@ -12,7 +12,13 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 find_package(nav2_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(Eigen3 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 # Directorios del paquete
 install(DIRECTORY
@@ -55,6 +61,22 @@ install(PROGRAMS scripts/mapeador.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME mapeador
 )
+
+add_executable(bezier src/bezier.cpp)
+
+target_include_directories(bezier PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${Eigen3_INCLUDE_DIRS}
+)
+
+ament_target_dependencies(bezier rclcpp nav_msgs visualization_msgs std_msgs Eigen3 geometry_msgs tf2 tf2_ros tf2_geometry_msgs)
+
+install(TARGETS
+  bezier
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

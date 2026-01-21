@@ -1,0 +1,15 @@
+mission_name: "test_bezier"
+
+actions:
+  - type: publish
+    message: ['True', 'checkpoint'] # Mensaje, topico
+
+  - type: bezier_wp
+    waypoints:
+      - [1.0, 2.0, 3.0, 0.0, 0.0, 0.0]
+      - [2.0, 2.0, 2.0, 0.0, 0.0, 0.0]
+      - [3.0, 3.0, 3.0, 0.0, 0.0, 0.0]
+      # - [9.0, 11.0, -2.0, 0.0, 0.0, 0.0]
+
+
+

@@ -5,6 +5,7 @@ from nav_msgs.msg import Path
 from geometry_msgs.msg import Pose, PoseStamped
 from tf_transformations import euler_from_quaternion
 from std_msgs.msg import Bool
+from builtin_interfaces.msg import Time
 import math
 
 class LineOfSightNode(Node):
@@ -16,7 +17,7 @@ class LineOfSightNode(Node):
         self.declare_parameter('path_topic', 'robot_path')
         self.declare_parameter('pose_topic', 'pose')
         self.declare_parameter('target_topic', 'pose_objetivo')
-        self.declare_parameter('acceptance_radius', 0.5)
+        self.declare_parameter('acceptance_radius', 0.15)
 
         # --- Obtener Parámetros ---
         path_topic = self.get_parameter('path_topic').value
@@ -26,7 +27,12 @@ class LineOfSightNode(Node):
         self.acceptance_radius_sq = self.acceptance_radius ** 2
 
         # --- Estado Interno ---
-        self.current_path = None
+        self.current_path = Path()
+        self.current_path.header.frame_id = ''
+        time_stamp = Time()
+        time_stamp.nanosec = 0
+        time_stamp.sec = 0
+        self.current_path.header.stamp = time_stamp
         self.current_pose = None
         self.current_target_index = 0
         self.path_in_progress = False
@@ -51,9 +57,15 @@ class LineOfSightNode(Node):
             self.current_path = None
             self.path_in_progress = False
             return
+
+        # Si el path es el mismo, no se reinicia el index para que siga adelante
+        # (El header se mantiene igual para un mismo path de Bezier)
+        if self.current_path.header == msg.header:
+            return
             
         self.current_path = msg
         self.current_target_index = 0
+        self.get_logger().warn("Recibido camino.")
         self.path_in_progress = True
         # self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
 
@@ -121,6 +133,7 @@ class LineOfSightNode(Node):
             # (Si es solo rotación, dist_sq será 0, pero yaw_error mantendrá el punto activo)
             if dist_sq < self.acceptance_radius_sq and yaw_error < 0.15: # 0.15 rad approx 8 deg
                 self.current_target_index += 1
+                self.get_logger().info(f"Target index: {self.current_target_index}")
             else:
                 # Si el punto actual está lejos, este es nuestro objetivo
                 break
@@ -133,19 +146,20 @@ class LineOfSightNode(Node):
         else:
             # 4. PUBLICAR SIEMPRE el objetivo actual
             current_target = self.current_path.poses[self.current_target_index].pose
+            self.get_logger().info(f"Yendo hacia [{current_target.position.x}, {current_target.position.y}, {current_target.position.z}]")
             self.target_publisher.publish(current_target)
 
     def finalizar_trayectoria(self):
         """Función limpia para avisar que terminamos"""
         # self.get_logger().info("Trayectoria completa. Enviando Checkpoint.")
-        
+        self.get_logger().info("🎯 Trayectoria completa. Enviando Checkpoint.")
         msg = Bool()
         msg.data = True
         self.checkpoint_publisher.publish(msg)
         
         # Resetear estado para no repetir el mensaje en el siguiente ciclo
         self.path_in_progress = False
-        self.current_path = None
+        # self.current_path = None
         self.current_target_index = 0
 
 def main(args=None):
