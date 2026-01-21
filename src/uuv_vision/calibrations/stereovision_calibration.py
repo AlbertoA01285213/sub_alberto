@@ -2,6 +2,10 @@ import numpy as np
 import cv2 as cv
 import glob
 
+'''
+https://www.youtube.com/watch?v=yKypaVl6qQo
+'''
+
 chessboardSize = (9,6)
 frameSize = (1920, 1080)
 
