@@ -1,3 +1,5 @@
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/Calibracion/meshes/Calibracion_obj.mtl
+/home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/Calibracion/meshes/Calibracion_obj.obj
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/model.sdf
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/model.config
 /home/alberto/Documents/sub_alberto/install/uuv_description/share/uuv_description/models/ocean_cleanup_table/meshes/mesa.obj

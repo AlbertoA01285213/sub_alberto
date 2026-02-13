@@ -1,0 +1,199 @@
+mission_name: "survey"
+
+actions:
+  - type: publish
+    message: ['True', 'checkpoint'] # Mensaje, topico
+
+  - type: hold
+    duration: 1
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.0]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.1]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.2]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.3]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.4]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.5]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, 0.0]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, -0.1]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, -0.2]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, -0.3]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, -0.4]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.4, 0.0, 0.0, -0.5]
+
+  - type: hold
+    duration: 5
+
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.0]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.1]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.2]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.3]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.4]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.5]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, 0.0]
+
+  - type: hold
+    duration: 5
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, -0.1]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, -0.2]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, -0.3]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, -0.4]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: goto
+    waypoint: [0.0, 0.0, -1.6, 0.0, 0.0, -0.5]
+
+  - type: hold
+    duration: 5
+
+  - type: picture
+
+  - type: end

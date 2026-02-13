@@ -11,6 +11,11 @@ from cv_bridge import CvBridge
 from ultralytics import YOLO
 from sensor_msgs.msg import Image
 from ament_index_python.packages import get_package_share_directory
+from geometry_msgs.msg import Pose
+from tf_transformations import euler_from_quaternion
+import sqlite3
+import random
+import math
 
 class YoloSegmenterNode(Node):
     def __init__(self):
@@ -21,10 +26,15 @@ class YoloSegmenterNode(Node):
 
         self.create_subscription(Image, 'image_left_to_analyze', self.picture_left_callback, 10, callback_group=self.group)
         self.create_subscription(Image, 'image_right_to_analyze', self.picture_right_callback, 10, callback_group=self.group)
+        self.create_subscription(Pose, 'pose', self.pose_callback, 10)
 
         self.bridge = CvBridge()
         self.queue_left = []
         self.queue_right = []
+
+        self.known_obstacles = [] # Lista de diccionarios: {'name': str, 'x': float, 'y': float}
+        self.min_dist_threshold = 2.0 # Distancia mínima en metros para considerar un objeto "nuevo"
+        self.pose_actual = None
 
         # Cargar modelo con seguridad
         try:
@@ -33,6 +43,12 @@ class YoloSegmenterNode(Node):
         except Exception as e:
             self.get_logger().error(f"No se pudo cargar el modelo: {e}")
             self.model = YOLO("yolov8n-seg.pt") # Modelo de emergencia
+
+        self.db_path = os.path.join(get_package_share_directory('uuv_visualization'), 'data')
+        if not os.path.exists(self.db_path):
+            os.makedirs(self.db_path)
+        self.db_path = os.path.join(self.db_path, 'obstacles.db')
+        self.init_database()
 
         self.processing_lock = threading.Lock()
         self.is_processing = False
@@ -61,6 +77,29 @@ class YoloSegmenterNode(Node):
         self.timer = self.create_timer(0.5, self.inference_loop, callback_group=self.group)
         self.get_logger().info("🔍 Analizador YOLO iniciado y esperando imágenes...")
 
+    def pose_callback(self, msg: Pose):
+        # Si recibes geometry_msgs/Pose, no lleva el campo .pose intermedio
+        try:
+            quat = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
+            _, _, yaw = euler_from_quaternion(quat)
+            self.pose_actual = {
+                'x': msg.position.x,
+                'y': msg.position.y,
+                'z': msg.position.z,
+                'yaw': yaw
+            }
+        except Exception:
+            # Por si acaso tu tópico sí es PoseStamped
+            quat = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
+            _, _, yaw = euler_from_quaternion(quat)
+            self.pose_actual = {
+                'x': msg.pose.position.x,
+                'y': msg.pose.position.y,
+                'z': msg.pose.position.z,
+                'yaw': yaw
+            }
+
+
     def picture_left_callback(self, msg: Image):
         self.get_logger().info("📸 Llegó imagen a la cola IZQUIERDA")
         cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
@@ -72,6 +111,58 @@ class YoloSegmenterNode(Node):
         cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         with self.processing_lock:
             self.queue_right.append(cv_img)
+
+    def init_database(self):
+        """ Crea la tabla si no existe al iniciar el nodo """
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            # ID es dificultad (1-5), name, y coordenadas relativas al sub
+            cursor.execute(''' 
+                CREATE TABLE IF NOT EXISTS waypoints (
+                    id_db INTEGER PRIMARY KEY AUTOINCREMENT,
+                    dificultad INTEGER,
+                    name TEXT,
+                    x REAL,
+                    y REAL,
+                    z REAL
+                )''')
+            conn.commit()
+            conn.close()
+            self.get_logger().info("✅ Base de datos inicializada correctamente.")
+        except Exception as e:
+            self.get_logger().error(f"❌ Error al crear DB: {e}")
+
+    def save_to_db(self, name, x, y, z):
+        """ Inserta una nueva detección en la base de datos """
+
+        if self.is_duplicate(name, x, y):
+            return # Salir sin guardar
+        
+        try:
+            dificultad = random.randint(1, 5) # Como pediste, del 1 al 5
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO waypoints (dificultad, name, x, y, z)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (dificultad, name, x, y, z))
+            conn.commit()
+            conn.close()
+            self.known_obstacles.append({'name': name, 'x': x, 'y': y})
+            self.get_logger().info(f"💾 Guardado en DB: {name} (Dif: {dificultad}) en relativas: {x:.2f}, {y:.2f}, {z:.2f}")
+        except Exception as e:
+            self.get_logger().error(f"❌ Error al insertar en DB: {e}")
+
+    def is_duplicate(self, name, x_g, y_g):
+        """ Comprueba si el objeto ya está en la lista de conocidos por cercanía """
+        for obs in self.known_obstacles:
+            if obs['name'] == name:
+                # Distancia Euclidiana 2D (X e Y globales)
+                dist = math.sqrt((x_g - obs['x'])**2 + (y_g - obs['y'])**2)
+                if dist < self.min_dist_threshold:
+                    return True
+        return False
 
     def inference_loop(self):
         # Log de latido para saber que el timer está vivo
@@ -108,38 +199,33 @@ class YoloSegmenterNode(Node):
 
             # Imagen para dibujar
             debug_img = img_l.copy()
-            detecciones_reales = 0
+            hay_deteccion = False
 
             # 2. Match Estéreo
             for label, items_l in filtered_l.items():
                 # Siempre intentamos buscar el par en la derecha
                 best_l = max(items_l, key=lambda x: x['conf'])
-                coords_3d = None
-                
-                if label in filtered_r:
-                    items_r = filtered_r[label]
-                    best_r = min(items_r, key=lambda x: abs(x['center'][1] - best_l['center'][1]))
-                    coords_3d = self.calculate_3d_position(best_l, best_r)
+                # coords_3d = None
+                cx, cy = best_l['center']
+
+                if 810 <= cx <= 1110:
+                    if label in filtered_r:
+                        items_r = filtered_r[label]
+                        best_r = min(items_r, key=lambda x: abs(x['center'][1] - cy))
+                        coords_3d = self.calculate_3d_position(best_l, best_r)
                     
-                    if coords_3d:
-                        x_r, y_r, z_r = coords_3d
-                        if z_r <= self.distancia_limite:
-                            # CASO A: Cerca y con posición
-                            self.draw_debug_info(debug_img, best_l, f"{label} {z_r:.1f}m", (0, 255, 0))
-                            self.get_logger().info(f"✅ {label} detectado a {z_r:.2f}m")
-                        else:
-                            # CASO B: Detectado pero muy lejos (>20m)
-                            self.draw_debug_info(debug_img, best_l, f"{label} FAR", (0, 165, 255))
-                            self.get_logger().info(f"🔭 {label} detectado pero muy lejos ({z_r:.2f}m)")
-                    else:
-                        # CASO C: Solo se ve en una cámara o disparidad nula
-                        self.draw_debug_info(debug_img, best_l, f"{label} ?", (0, 0, 255))
-                        self.get_logger().warn(f"⚠️ {label} sin datos de profundidad.")
+                        if coords_3d and self.pose_actual:
+                            x_cam, y_cam, z_cam = coords_3d
+                            ps = self.pose_actual
 
-                detecciones_reales += 1
+                            # Rotación simple en 2D para el mapa (Yaw)
+                            # Z_cam es hacia adelante, X_cam es lateral
+                            x_global = ps['x'] + (z_cam * math.cos(ps['yaw']) - x_cam * math.sin(ps['yaw']))
+                            y_global = ps['y'] + (z_cam * math.sin(ps['yaw']) + x_cam * math.cos(ps['yaw']))
 
-            # 3. Guardado solo si hay detecciones (para no llenar disco)
-            if detecciones_reales > 0:
+                            self.save_to_db(label, x_global, y_global, ps['z'] + y_cam) # Z global suele ser profundidad
+            
+            if hay_deteccion:
                 folder_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'Fotos_sub')
                 if not os.path.exists(folder_path):
                     os.makedirs(folder_path)
@@ -148,7 +234,7 @@ class YoloSegmenterNode(Node):
                 # save_path = os.path.join(folder_path, filename)
                 save_path = os.path.join(get_package_share_directory('uuv_vision'), 'images', filename)
                 cv2.imwrite(save_path, debug_img)
-                self.get_logger().info(f"✅ Imagen guardada: {filename} con {detecciones_reales} objetos.")
+                # self.get_logger().info(f"✅ Imagen guardada: {filename} con {detecciones_reales} objetos.")
                 self.count += 1
 
         except Exception as e:
@@ -164,10 +250,7 @@ class YoloSegmenterNode(Node):
             self.camera_matrix, self.dist_coeffs, (w, h), 1, (w, h)
         )
         undistorted = cv2.undistort(raw_img, self.camera_matrix, self.dist_coeffs, None, new_camera_matrix)
-        
-        # Opcional: Recortar la imagen si quedan bordes negros (roi)
-        # x, y, w_roi, h_roi = roi
-        # undistorted = undistorted[y:y+h_roi, x:x+w_roi]
+
         
         return undistorted
     

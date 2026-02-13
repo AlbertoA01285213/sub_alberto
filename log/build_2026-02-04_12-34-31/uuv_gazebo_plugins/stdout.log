@@ -1,0 +1,22 @@
+[ 66%] [32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/SubmarineDynamics.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/SubmarineDynamics.dir/src/uuv_dynamic_model.cpp.o[0m
+[100%] [32m[1mLinking CXX shared library libSubmarineDynamics.so[0m
+[100%] Built target SubmarineDynamics
+-- Install configuration: ""
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/lib/uuv_gazebo_plugins/libSubmarineDynamics.so
+-- Set runtime path of "/home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/lib/uuv_gazebo_plugins/libSubmarineDynamics.so" to ""
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/ament_index/resource_index/package_run_dependencies/uuv_gazebo_plugins
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/ament_index/resource_index/parent_prefix_path/uuv_gazebo_plugins
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/ament_prefix_path.sh
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/path.sh
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/environment/path.dsv
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.bash
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.sh
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.zsh
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/local_setup.dsv
+-- Installing: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/package.dsv
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/ament_index/resource_index/packages/uuv_gazebo_plugins
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/cmake/uuv_gazebo_pluginsConfig.cmake
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/cmake/uuv_gazebo_pluginsConfig-version.cmake
+-- Up-to-date: /home/alberto/Documents/sub_alberto/install/uuv_gazebo_plugins/share/uuv_gazebo_plugins/package.xml

@@ -1,6 +1,10 @@
 import numpy as np
 import cv2
 
+'''
+https://www.youtube.com/watch?v=yKypaVl6qQo
+'''
+
 cv_file = cv2.FileStorage()
 cv_file.open('stereoMap.xml', cv2.FileStorage_READ)
 

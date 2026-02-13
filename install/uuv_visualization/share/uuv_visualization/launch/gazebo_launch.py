@@ -42,28 +42,28 @@ def generate_launch_description():
     with open(urdf_file_path, 'r') as f:
         robot_description_content = f.read()
 
-    urdf_octagon_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'octagon.urdf')
-    with open(urdf_octagon_file_path, 'r') as f:
-        octagon_description_content = f.read()
+    # urdf_octagon_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'octagon.urdf')
+    # with open(urdf_octagon_file_path, 'r') as f:
+    #     octagon_description_content = f.read()
 
-    urdf_mesa_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'mesa.urdf')
-    with open(urdf_mesa_file_path, 'r') as f:
-        mesa_description_content = f.read()
+    # urdf_mesa_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'mesa.urdf')
+    # with open(urdf_mesa_file_path, 'r') as f:
+    #     mesa_description_content = f.read()
 
-    urdf_path_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'path.urdf')
-    with open(urdf_path_file_path, 'r') as f:
-        path_description_content = f.read()
+    # urdf_path_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'path.urdf')
+    # with open(urdf_path_file_path, 'r') as f:
+    #     path_description_content = f.read()
 
-    urdf_slalom_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'slalom.urdf')
-    with open(urdf_slalom_file_path, 'r') as f:
-        slalom_description_content = f.read()
+    # urdf_slalom_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'slalom.urdf')
+    # with open(urdf_slalom_file_path, 'r') as f:
+    #     slalom_description_content = f.read()
 
-    urdf_tagging_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'tagging.urdf')
-    with open(urdf_tagging_file_path, 'r') as f:
-        tagging_description_content = f.read()
+    # urdf_tagging_file_path = os.path.join(pkg_share_uuv_viz, 'urdf', 'tagging.urdf')
+    # with open(urdf_tagging_file_path, 'r') as f:
+    #     tagging_description_content = f.read()
 
     # Variables de entorno para solucionar el problema del "Black Screen"
-    set_partition = SetEnvironmentVariable('IGN_PARTITION', 'uuv_sim')
+    set_partition = SetEnvironmentVariable('IGN_PARTITION', 'uuv_sim') # NO tocar
     set_ip = SetEnvironmentVariable('IGN_IP', '127.0.0.1')
 
     set_plugin_path = AppendEnvironmentVariable(
@@ -133,7 +133,7 @@ def generate_launch_description():
 
     mission_file_arg = DeclareLaunchArgument(
         'mission_file',
-        default_value='survey.yaml',
+        default_value='camera_calib.yaml', # <========= Aqui se decide la mision inicial
         description='Nombre del archivo yaml de la misión'
     )
 

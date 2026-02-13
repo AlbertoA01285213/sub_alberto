@@ -16,7 +16,7 @@ class MissionHandler(Node):
         try:
             default_path = os.path.join(
                 get_package_share_directory('uuv_mission'), 
-                'missions', 'survey.yaml'
+                'missions', 'camera_calib.yaml'
             )
         except:
             default_path = ""

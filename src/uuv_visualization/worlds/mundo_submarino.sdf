@@ -310,6 +310,42 @@
       <self_collide>false</self_collide>
     </model>
 
+    <!-- <model name="calibracion">
+      <static>true</static>
+      <link name="link">
+        <collision name='collision'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>file:///uuv_description/models/Calibracion/meshes/Calibracion_obj.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///uuv_description/models/Calibracion/meshes/Calibracion_obj.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose>0 0 0 0 0 0 </pose>
+        <inertial>
+          <pose>0 0 0 0 0 0 </pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+      </link>
+      <pose>3.0 1.0 -2 1.57 0 1.57</pose>
+      <self_collide>false</self_collide>
+    </model> -->
+
     <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics" />
     <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands" />
     <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster" />
