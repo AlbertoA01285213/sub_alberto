@@ -198,7 +198,7 @@
           </inertia>
         </inertial>
       </link>
-      <pose>14 -3 -2 1.57 0 0.524</pose>
+      <pose>14 -7 -2 1.57 0 0.524</pose>
       <self_collide>false</self_collide>
     </model>
 

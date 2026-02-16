@@ -211,9 +211,9 @@ class YoloSegmenterNode(Node):
                 msg_dir = Int16()
                 self.pic_analized_pub.publish(Int16(data = 2))
 
-                self.get_logger().info(f"Error_x del tagging: {self.error_x}", once=True)
+                self.get_logger().info(f"Error_x del tagging: {error_x}", once=True)
 
-                if abs(error_x) < 50:
+                if abs(error_x) < 10:
                     msg_dir.data = 0
                     self.direccion_pub.publish(msg_dir)
 
@@ -221,7 +221,7 @@ class YoloSegmenterNode(Node):
                     self.get_logger().info("🎯 ¡OBJETIVO ALINEADO!")
 
                 else:
-                    msg_dir.data = int((error_x - 0) * (30 - 0) / (800 - 0) + 0)
+                    msg_dir.data = int(-1*((error_x - 0) * (30 - 0) / (800 - 0) + 0))
                     # msg_dir.data = 1 if error_x > 0 else -1
                     self.direccion_pub.publish(msg_dir)
                     self.get_logger().info(f"Angulo del tagging: {msg_dir.data}", once=True)
