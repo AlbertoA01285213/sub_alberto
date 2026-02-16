@@ -133,7 +133,7 @@ def generate_launch_description():
 
     mission_file_arg = DeclareLaunchArgument(
         'mission_file',
-        default_value='camera_calib.yaml', # <========= Aqui se decide la mision inicial
+        default_value='survey.yaml', # <========= Aqui se decide la mision inicial
         description='Nombre del archivo yaml de la misión'
     )
 

@@ -12,9 +12,8 @@ from ultralytics import YOLO
 from sensor_msgs.msg import Image
 from ament_index_python.packages import get_package_share_directory
 from geometry_msgs.msg import Pose
+from std_msgs.msg import Bool, Int16
 from tf_transformations import euler_from_quaternion
-import sqlite3
-import random
 import math
 
 class YoloSegmenterNode(Node):
@@ -27,6 +26,11 @@ class YoloSegmenterNode(Node):
         self.create_subscription(Image, 'image_left_to_analyze', self.picture_left_callback, 10, callback_group=self.group)
         self.create_subscription(Image, 'image_right_to_analyze', self.picture_right_callback, 10, callback_group=self.group)
         self.create_subscription(Pose, 'pose', self.pose_callback, 10)
+
+        self.alineado_pub = self.create_publisher(Bool, 'alineado', 10) # Bandera para mission handler para determinar cuando el sub esta alineado con el obstaculo a ir
+        self.servoing_complete_pub = self.create_publisher(Bool, 'servoing_complete', 10) # Bandera para mission handler para determinar cuando el sub llego al objetivo
+        self.direccion_pub = self.create_publisher(Int16, 'direccion', 10)
+        self.pic_analized_pub = self.create_publisher(Int16, 'picture_analized', 10) # Topico para indicar al mission handler que se esta analizando una foto 0 es sin foto, 1 es analizando y 2 es foto analizada
 
         self.bridge = CvBridge()
         self.queue_left = []
@@ -48,7 +52,6 @@ class YoloSegmenterNode(Node):
         if not os.path.exists(self.db_path):
             os.makedirs(self.db_path)
         self.db_path = os.path.join(self.db_path, 'obstacles.db')
-        self.init_database()
 
         self.processing_lock = threading.Lock()
         self.is_processing = False
@@ -106,74 +109,65 @@ class YoloSegmenterNode(Node):
         with self.processing_lock:
             self.queue_left.append(cv_img)
 
+        self.pic_analized_pub.publish(Int16(data = 1))
+
+        
+
     def picture_right_callback(self, msg: Image):
         self.get_logger().info("📸 Llegó imagen a la cola DERECHA")
         cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         with self.processing_lock:
             self.queue_right.append(cv_img)
 
-    def init_database(self):
-        """ Crea la tabla si no existe al iniciar el nodo """
-        try:
-            conn = sqlite3.connect(self.db_path)
-            cursor = conn.cursor()
-            # ID es dificultad (1-5), name, y coordenadas relativas al sub
-            cursor.execute(''' 
-                CREATE TABLE IF NOT EXISTS waypoints (
-                    id_db INTEGER PRIMARY KEY AUTOINCREMENT,
-                    dificultad INTEGER,
-                    name TEXT,
-                    x REAL,
-                    y REAL,
-                    z REAL
-                )''')
-            conn.commit()
-            conn.close()
-            self.get_logger().info("✅ Base de datos inicializada correctamente.")
-        except Exception as e:
-            self.get_logger().error(f"❌ Error al crear DB: {e}")
+    
+    def get_filtered_detections(self, results):
+        detections = {}
+        if results.boxes is None:
+            return detections
 
-    def save_to_db(self, name, x, y, z):
-        """ Inserta una nueva detección en la base de datos """
+        for i, box in enumerate(results.boxes):
+            label = self.model.names[int(box.cls[0])]
+            conf = float(box.conf[0])
+            
+            if conf < 0.5: # Umbral de confianza
+                continue
 
-        if self.is_duplicate(name, x, y):
-            return # Salir sin guardar
+            # Obtener Bounding Box [x1, y1, x2, y2]
+            xyxy = box.xyxy[0].cpu().numpy()
+            x1, y1, x2, y2 = xyxy
+            w, h = x2 - x1, y2 - y1
+            cx, cy = int(x1 + w/2), int(y1 + h/2)
+
+            det_data = {
+                'bbox': [int(x1), int(y1), int(w), int(h)],
+                'center': (cx, cy),
+                'conf': conf,
+            }
+
+            # Si hay máscaras de segmentación, guardamos el polígono
+            if results.masks is not None:
+                det_data['polygon'] = results.masks.xy[i]
+
+            if label not in detections:
+                detections[label] = []
+            detections[label].append(det_data)
         
-        try:
-            dificultad = random.randint(1, 5) # Como pediste, del 1 al 5
-            conn = sqlite3.connect(self.db_path)
-            cursor = conn.cursor()
-            cursor.execute('''
-                INSERT INTO waypoints (dificultad, name, x, y, z)
-                VALUES (?, ?, ?, ?, ?)
-            ''', (dificultad, name, x, y, z))
-            conn.commit()
-            conn.close()
-            self.known_obstacles.append({'name': name, 'x': x, 'y': y})
-            self.get_logger().info(f"💾 Guardado en DB: {name} (Dif: {dificultad}) en relativas: {x:.2f}, {y:.2f}, {z:.2f}")
-        except Exception as e:
-            self.get_logger().error(f"❌ Error al insertar en DB: {e}")
+        return detections
 
-    def is_duplicate(self, name, x_g, y_g):
-        """ Comprueba si el objeto ya está en la lista de conocidos por cercanía """
-        for obs in self.known_obstacles:
-            if obs['name'] == name:
-                # Distancia Euclidiana 2D (X e Y globales)
-                dist = math.sqrt((x_g - obs['x'])**2 + (y_g - obs['y'])**2)
-                if dist < self.min_dist_threshold:
-                    return True
-        return False
 
     def inference_loop(self):
         # Log de latido para saber que el timer está vivo
         if not self.queue_left or not self.queue_right:
             self.get_logger().info("Esperando que ambas colas tengan imágenes...", once=True)
+            self.pic_analized_pub.publish(Int16(data = 0))
             return
 
         if self.is_processing:
             return
 
         try:
+            self.pic_analized_pub.publish(Int16(data = 1)) # Publica que se esta analizando una foto
+
             self.is_processing = True
             with self.processing_lock:
                 img_l = self.queue_left.pop(0)
@@ -184,131 +178,82 @@ class YoloSegmenterNode(Node):
 
             self.get_logger().info("Iniciando analisis")
 
-            # img_l = self.undistort_image(img_l)
-            # img_r = self.undistort_image(img_r)
 
             # 1. Inferencia
             res_l = self.model(img_l, verbose=False)[0]
             res_r = self.model(img_r, verbose=False)[0]
 
             filtered_l = self.get_filtered_detections(res_l)
-            filtered_r = self.get_filtered_detections(res_r)
+            target_found = False
 
-            n_raw_l = len(res_l.boxes) if res_l.boxes is not None else 0
-            self.get_logger().info(f"YOLO encontró {n_raw_l} objetos en total (sin filtrar).")
-
-            # Imagen para dibujar
             debug_img = img_l.copy()
-            hay_deteccion = False
 
-            # 2. Match Estéreo
-            for label, items_l in filtered_l.items():
-                # Siempre intentamos buscar el par en la derecha
-                best_l = max(items_l, key=lambda x: x['conf'])
-                # coords_3d = None
-                cx, cy = best_l['center']
-
-                if 810 <= cx <= 1110:
-                    if label in filtered_r:
-                        items_r = filtered_r[label]
-                        best_r = min(items_r, key=lambda x: abs(x['center'][1] - cy))
-                        coords_3d = self.calculate_3d_position(best_l, best_r)
-                    
-                        if coords_3d and self.pose_actual:
-                            x_cam, y_cam, z_cam = coords_3d
-                            ps = self.pose_actual
-
-                            # Rotación simple en 2D para el mapa (Yaw)
-                            # Z_cam es hacia adelante, X_cam es lateral
-                            x_global = ps['x'] + (z_cam * math.cos(ps['yaw']) - x_cam * math.sin(ps['yaw']))
-                            y_global = ps['y'] + (z_cam * math.sin(ps['yaw']) + x_cam * math.cos(ps['yaw']))
-
-                            self.save_to_db(label, x_global, y_global, ps['z'] + y_cam) # Z global suele ser profundidad
+            if not filtered_l:
+                self.get_logger().info("⚠️ No se detectó NADA en esta frame.")
             
-            if hay_deteccion:
-                folder_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'Fotos_sub')
-                if not os.path.exists(folder_path):
-                    os.makedirs(folder_path)
+            else:
+                for label, items in filtered_l.items():
+                    self.get_logger().info(f"🔎 Detectado: {label} (x{len(items)})")
 
-                filename = f"analisis_{self.count:04d}.jpg"
-                # save_path = os.path.join(folder_path, filename)
-                save_path = os.path.join(get_package_share_directory('uuv_vision'), 'images', filename)
-                cv2.imwrite(save_path, debug_img)
-                # self.get_logger().info(f"✅ Imagen guardada: {filename} con {detecciones_reales} objetos.")
-                self.count += 1
+                    for item in items:
+                        # Dibujar en la imagen de debug
+                        color = (0, 255, 0) if label == 'tagging' else (255, 120, 0)
+                        self.draw_debug_info(debug_img, item, f"{label} {item['conf']:.2f}", color)
+
+            if 'tagging' in filtered_l:
+                target_found = True
+                best_l = max(filtered_l['tagging'], key=lambda x: x['conf'])
+                cx, cy = best_l['center']
+                _, _, _, h = best_l['bbox']
+
+
+                error_x = cx - self.img_center_x
+                msg_dir = Int16()
+                self.pic_analized_pub.publish(Int16(data = 2))
+
+                self.get_logger().info(f"Error_x del tagging: {self.error_x}", once=True)
+
+                if abs(error_x) < 50:
+                    msg_dir.data = 0
+                    self.direccion_pub.publish(msg_dir)
+
+                    self.alineado_pub.publish(Bool(data = True))
+                    self.get_logger().info("🎯 ¡OBJETIVO ALINEADO!")
+
+                else:
+                    msg_dir.data = int((error_x - 0) * (30 - 0) / (800 - 0) + 0)
+                    # msg_dir.data = 1 if error_x > 0 else -1
+                    self.direccion_pub.publish(msg_dir)
+                    self.get_logger().info(f"Angulo del tagging: {msg_dir.data}", once=True)
+                    self.alineado_pub.publish(Bool(data = False))
+
+                if h >= 850:
+                    self.servoing_complete_pub.publish(Bool(data = True))
+                    self.get_logger().info("✅ LLEGAMOS AL OBJETIVO")
+
+                else:
+                    self.servoing_complete_pub.publish(Bool(data = False))
+
+            if not target_found:
+                self.get_logger().warn("🔭 Target 'tagging' perdido. Enviando comando de búsqueda (Giro 10°)")
+                self.alineado_pub.publish(Bool(data=False))
+                self.servoing_complete_pub.publish(Bool(data=False))
+                
+                msg_search = Int16()
+                msg_search.data = 10 # Fuerza un giro constante para encontrar el objeto
+                self.direccion_pub.publish(msg_search)
+                self.pic_analized_pub.publish(Int16(data = 0))
+
+            # 5. GUARDAR LA FOTO ANOTADA
+            save_path = os.path.expanduser(f"~/Desktop/Fotos_sub/debug_yolo_{self.count}.jpg")
+            cv2.imwrite(save_path, debug_img)
+            self.count += 1
 
         except Exception as e:
-            self.get_logger().error(f"🚨 Error en loop: {e}")
+            self.get_logger().error(f"🚨 Error en loop de inferencia: {e}")
         finally:
             self.is_processing = False
 
-    
-    def undistort_image(self, raw_img):
-        h, w = raw_img.shape[:2]
-        # Obtenemos una nueva matriz de cámara óptima para no perder bordes
-        new_camera_matrix, roi = cv2.getOptimalNewCameraMatrix(
-            self.camera_matrix, self.dist_coeffs, (w, h), 1, (w, h)
-        )
-        undistorted = cv2.undistort(raw_img, self.camera_matrix, self.dist_coeffs, None, new_camera_matrix)
-
-        
-        return undistorted
-    
-    def get_filtered_detections(self, result):
-        filtered = {}
-        if result.masks is None: 
-            return filtered
-            
-        # Recorremos cajas y máscaras al mismo tiempo
-        for box, mask in zip(result.boxes, result.masks):
-            label = self.model.names[int(box.cls[0])]
-            
-            if label in self.target_names:
-                if label not in filtered: 
-                    filtered[label] = []
-                
-                # Obtenemos los puntos del polígono de la máscara
-                polygon = mask.xy[0] # Lista de puntos (x, y)
-                
-                # Calculamos el centroide usando Momentos de OpenCV
-                M = cv2.moments(polygon)
-                if M["m00"] != 0:
-                    cx = int(M["m10"] / M["m00"])
-                    cy = int(M["m01"] / M["m00"])
-                else:
-                    # Fallback al centro de la caja si la máscara falla
-                    cx, cy = int(box.xywh[0][0]), int(box.xywh[0][1])
-
-                pts = polygon.astype(np.int32).reshape((-1, 1, 2))
-                hull = cv2.convexHull(pts)
-                hull = hull.reshape(-1, 2)
-                ext_left  = tuple(hull[hull[:, 0].argmin()])
-                ext_right = tuple(hull[hull[:, 0].argmax()])
-                ext_top   = tuple(hull[hull[:, 1].argmin()])
-                ext_bot   = tuple(hull[hull[:, 1].argmax()])
-
-                x, y, w, h = box.xywh[0].tolist()
-                filtered[label].append({
-                    'center': (cx, cy), # <-- ¡Ahora es el centroide!
-                    'conf': box.conf[0].item(),
-                    'bbox': (int(x - w/2), int(y - h/2), int(w), int(h)),
-                    'polygon': polygon, # Guardamos el polígono para dibujar
-                    'extremes': (ext_left, ext_right, ext_top, ext_bot)
-                })
-        return filtered
-
-    def calculate_3d_position(self, det_l, det_r):
-        x_left = det_l['center'][0]
-        x_right = det_r['center'][0]
-        disparity = abs(x_left - x_right)
-        
-        if disparity <= 0.5: 
-            return None
-        
-        z = (self.focal_lenght * self.baseline) / disparity
-        x_real = (x_left - self.img_center_x) * z / self.focal_lenght
-        y_real = (det_l['center'][1] - self.img_center_y) * z / self.focal_lenght
-        return (x_real, y_real, z)
 
     def draw_debug_info(self, img, detection, label_text, color):
         x_tl, y_tl, w, h = detection['bbox']
@@ -343,34 +288,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-'''
-Coincidencia estereo: consiste en estimar un modelo 3D a partir de 2 imagenes.
-Disparidad: diferencia en pixeles de la posicion del objeto entre camaras
-f: distancia focal de la camara en pixeles
-B: baseline la distancia entre camaras en metros
-
-Z = f*B/d
-
-field of view = pixeles ancho/(2*tan(fov/2))
-*con fov horizontal
-
-hay que aplicar stereoRectify()
-initUndistortRectifyMap
-
-extraer 
-extremos
-convex hull
-puntos equidistantes
-
-vision:
-orb
-akaze
-sift
-
-yolo-pose
-openpose
-hrnet
-
-promedio vs ransac 
-'''

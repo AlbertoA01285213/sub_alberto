@@ -133,7 +133,7 @@ class LineOfSightNode(Node):
             # (Si es solo rotación, dist_sq será 0, pero yaw_error mantendrá el punto activo)
             if dist_sq < self.acceptance_radius_sq and yaw_error < 0.15: # 0.15 rad approx 8 deg
                 self.current_target_index += 1
-                self.get_logger().info(f"Target index: {self.current_target_index}")
+                # self.get_logger().info(f"Target index: {self.current_target_index}")
             else:
                 # Si el punto actual está lejos, este es nuestro objetivo
                 break

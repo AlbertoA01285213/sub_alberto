@@ -7,6 +7,7 @@ from std_msgs.msg import Bool, String, Float32, Int16
 from tf_transformations import euler_from_quaternion, quaternion_from_euler
 import time
 import os
+import numpy as np
 from ament_index_python.packages import get_package_share_directory
 
 class MissionHandler(Node):
@@ -16,7 +17,7 @@ class MissionHandler(Node):
         try:
             default_path = os.path.join(
                 get_package_share_directory('uuv_mission'), 
-                'missions', 'camera_calib.yaml'
+                'missions', 'survey.yaml'
             )
         except:
             default_path = ""
@@ -41,15 +42,26 @@ class MissionHandler(Node):
         self.state = "RUNNING"
         self.pose_actual = [0]*6
         self.checkpoint = 0  # ✅ inicializado
+        self.magnitud = 1
+
+        self.alineado = False # Bandera del nodo analyzer que detecta si se alineo con el objeto
+        self.servoing_complete = False # Bandera del nodo analyzer que detecta si llego al objetivo
+        self.direccion = 0.0
 
         self.create_subscription(Bool, 'checkpoint', self.checkpoint_callback, 10)
         self.create_subscription(PoseStamped, 'pose', self.pose_callback, 10)
         self.mission_sub = self.create_subscription(String, 'load_mission', self.load_mission_callback, 10)
+
         self.wp_pub = self.create_publisher(PoseStamped, 'waypoint', 10)
         self.bezier_pub = self.create_publisher(PoseArray, 'bezier_waypoints', 10)
         self.checkpoint_pub = self.create_publisher(Bool, 'checkpoint', 10)
         self.status_pub = self.create_publisher(Int16, 'mission_status', 10)
         self.picture_pub = self.create_publisher(Int16, 'take_picture', 10)
+
+        self.create_subscription(Bool, 'alineado', self.alineado_callback, 10)
+        self.create_subscription(Bool, 'servoing_complete', self.servoing_complete_callback, 10)
+        self.create_subscription(Int16, 'direccion', self.direccion_callback, 10)
+        self.create_subscription(Int16, 'picture_analized', self.picture_analized_callback, 10)
 
         self.timer = self.create_timer(0.1, self.run)
 
@@ -65,6 +77,9 @@ class MissionHandler(Node):
         self.pose_actual[3] = roll
         self.pose_actual[4] = pitch
         self.pose_actual[5] = yaw
+
+    def picture_analized_callback(self, msg: Int16):
+        self.picture_status = msg.data
 
     def load_mission_callback(self, msg: String):
         mission_name = msg.data
@@ -86,6 +101,16 @@ class MissionHandler(Node):
         else:
             self.get_logger().error(f"No existe el archivo: {new_path}")
 
+    def alineado_callback(self, msg: Bool):
+        self.alineado = msg.data
+    
+    def servoing_complete_callback(self, msg: Bool):
+        self.servoing_complete = msg.data
+
+    def direccion_callback(self, msg: Int16):
+        self.direccion = msg.data
+
+
     def run(self):
         if self.idx >= len(self.actions):
             # Publicar status solo una vez cuando termina
@@ -102,6 +127,7 @@ class MissionHandler(Node):
         if not hasattr(self, 'current_idx_logged') or self.current_idx_logged != self.idx:
             self.get_logger().info(f"Ejecutando Acción {self.idx}: {action['type']}")
             self.current_idx_logged = self.idx
+            self.checkpoint = 0
             # IMPORTANTE: Si es un movimiento nuevo, ignoramos checkpoints viejos
             if action["type"] in ["goto", "rotate"]:
                 self.checkpoint = 0
@@ -231,6 +257,90 @@ class MissionHandler(Node):
             status_msg.data = 1
             self.status_pub.publish(status_msg)
             return
+        
+        elif action["type"] == "servo":
+            self.get_logger().info("Iniciando servo")
+
+            msg = PoseStamped()
+            msg.header.stamp = self.get_clock().now().to_msg()
+            msg.header.frame_id = "world"
+
+            take_picture_msg = Int16(data = 1)
+            self.picture_pub.publish(take_picture_msg)
+            self.get_logger().info("Foto disparada")
+
+            take_picture_msg = Int16(data = 0)
+            self.picture_pub.publish(take_picture_msg)
+
+            if hasattr(self, 'waiting_for_checkpoint') and self.waiting_for_checkpoint:
+                if self.checkpoint == 1:
+                    self.get_logger().info("📍 Punto alcanzado. Procesando siguiente ajuste...")
+                    self.checkpoint = 0
+                    self.waiting_for_checkpoint = False
+                return
+
+            if self.servoing_complete:
+                self.get_logger().info("✅ Servoing completado. Pasando a la siguiente acción.")
+                self.servoing_complete = False
+                self.alineado = False
+                self.waiting_for_checkpoint = False
+                return
+                            
+                
+            if not self.alineado:
+                    self.get_logger().info(f"Alineando... Error: {self.direccion}", once=True)
+
+                    msg.pose.position.x = self.pose_actual[0]
+                    msg.pose.position.y = self.pose_actual[1]
+                    msg.pose.position.z = self.pose_actual[2]
+
+                    roll =  self.pose_actual[3]
+                    pitch =  self.pose_actual[4]
+                    yaw =  self.pose_actual[5] + np.deg2rad(self.direccion)
+
+                    q = quaternion_from_euler(roll, pitch, yaw)
+                    msg.pose.orientation.x = q[0]
+                    msg.pose.orientation.y = q[1]
+                    msg.pose.orientation.z = q[2]
+                    msg.pose.orientation.w = q[3]
+                    self.wp_pub.publish(msg)         
+
+
+            else:
+                self.get_logger().info("Servo alineado, yendo adelante")
+                u_x = np.sin(np.deg2rad(self.pose_actual(5)))
+                u_y = np.cos(np.deg2rad(self.pose_actual(5)))
+
+                x = u_x * self.magnitud
+                y = u_y * self.magnitud
+
+                msg = PoseStamped()
+
+                msg.header.stamp = self.get_clock().now().to_msg()
+                msg.header.frame_id = "world"
+
+                msg.pose.position.x = self.pose_actual[0] + x
+                msg.pose.position.y = self.pose_actual[1] + y
+                msg.pose.position.z = self.pose_actual[2]
+
+                roll =  self.pose_actual[3]
+                pitch =  self.pose_actual[4]
+                yaw =  self.pose_actual[5]
+
+                q = quaternion_from_euler(roll, pitch, yaw)
+                msg.pose.orientation.x = q[0]
+                msg.pose.orientation.y = q[1]
+                msg.pose.orientation.z = q[2]
+                msg.pose.orientation.w = q[3]
+
+                self.wp_pub.publish(msg)
+
+
+            self.get_logger().info("✅ Servoing completado. Pasando a la siguiente acción.")
+            self.waiting_for_checkpoint = True
+            self.checkpoint = 0
+            
+            
 
 def main():
     rclpy.init()
