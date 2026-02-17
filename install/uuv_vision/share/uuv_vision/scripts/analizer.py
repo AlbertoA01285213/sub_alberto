@@ -213,14 +213,14 @@ class YoloSegmenterNode(Node):
 
                 self.get_logger().info(f"Error_x del tagging: {error_x}", once=True)
 
-                if abs(error_x) < 10:
+                if abs(error_x) < 50:
                     msg_dir.data = 0
                     self.direccion_pub.publish(msg_dir)
 
                     self.alineado_pub.publish(Bool(data = True))
                     self.get_logger().info("🎯 ¡OBJETIVO ALINEADO!")
 
-                else:
+                else: # (x - in_min)*(out_max - out_min) / (in_max - in_min) + out_min Map function de arduino
                     msg_dir.data = int(-1*((error_x - 0) * (30 - 0) / (800 - 0) + 0))
                     # msg_dir.data = 1 if error_x > 0 else -1
                     self.direccion_pub.publish(msg_dir)
@@ -233,6 +233,11 @@ class YoloSegmenterNode(Node):
 
                 else:
                     self.servoing_complete_pub.publish(Bool(data = False))
+
+            else:
+                target_gound = False
+                self.get_logger().warn("Target perdido")
+                self.pic_analized_pub.publish(Int16(data = 3))
 
             if not target_found:
                 self.get_logger().warn("🔭 Target 'tagging' perdido. Enviando comando de búsqueda (Giro 10°)")

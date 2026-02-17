@@ -37,6 +37,7 @@ Se agrego una adaptacion para gazebo. Esto para poder incluir la camara a los ca
 ```bash
 pkill -9 ruby && pkill -9 parameter_brid && pkill -9 static_transform
 ros2 launch uuv_visualization gazebo_launch.py mission_file:=mission_test.yaml
+ros2 topic echo /pose --msg-type geometry_msgs/msg/Pose
 ```
 
 Si se desea abrir la terminal y ver mensajes dentro del gazebo:
