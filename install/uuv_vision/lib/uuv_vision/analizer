@@ -12,7 +12,7 @@ from ultralytics import YOLO
 from sensor_msgs.msg import Image
 from ament_index_python.packages import get_package_share_directory
 from geometry_msgs.msg import Pose
-from std_msgs.msg import Bool, Int16
+from std_msgs.msg import Bool, Int16, String
 from tf_transformations import euler_from_quaternion
 import math
 
@@ -26,6 +26,7 @@ class YoloSegmenterNode(Node):
         self.create_subscription(Image, 'image_left_to_analyze', self.picture_left_callback, 10, callback_group=self.group)
         self.create_subscription(Image, 'image_right_to_analyze', self.picture_right_callback, 10, callback_group=self.group)
         self.create_subscription(Pose, 'pose', self.pose_callback, 10)
+        self.create_subscription(String, 'objective', self.objective_callback, 10)
 
         self.alineado_pub = self.create_publisher(Bool, 'alineado', 10) # Bandera para mission handler para determinar cuando el sub esta alineado con el obstaculo a ir
         self.servoing_complete_pub = self.create_publisher(Bool, 'servoing_complete', 10) # Bandera para mission handler para determinar cuando el sub llego al objetivo
@@ -35,6 +36,16 @@ class YoloSegmenterNode(Node):
         self.bridge = CvBridge()
         self.queue_left = []
         self.queue_right = []
+
+        self.objective = 'octagon'
+        self.target_found = False
+
+        self.thresholds = {
+            "slalom":  {"metric": "h", "value": 450},
+            "octagon": {"metric": "w", "value": 200},
+            "tagging": {"metric": "h", "value": 450},
+            "default": {"metric": "h", "value": 400}
+        }
 
         self.known_obstacles = [] # Lista de diccionarios: {'name': str, 'x': float, 'y': float}
         self.min_dist_threshold = 2.0 # Distancia mínima en metros para considerar un objeto "nuevo"
@@ -119,6 +130,9 @@ class YoloSegmenterNode(Node):
         with self.processing_lock:
             self.queue_right.append(cv_img)
 
+    def objective_callback(self, msg: String):
+        self.objective = msg.data
+
     
     def get_filtered_detections(self, results):
         detections = {}
@@ -200,18 +214,19 @@ class YoloSegmenterNode(Node):
                         color = (0, 255, 0) if label == 'tagging' else (255, 120, 0)
                         self.draw_debug_info(debug_img, item, f"{label} {item['conf']:.2f}", color)
 
-            if 'tagging' in filtered_l:
+            if self.objective in filtered_l:
                 target_found = True
-                best_l = max(filtered_l['tagging'], key=lambda x: x['conf'])
+                best_l = max(filtered_l[self.objective], key=lambda x: x['conf'])
                 cx, cy = best_l['center']
-                _, _, _, h = best_l['bbox']
+                _, _, w, h = best_l['bbox']
 
 
                 error_x = cx - self.img_center_x
                 msg_dir = Int16()
                 self.pic_analized_pub.publish(Int16(data = 2))
 
-                self.get_logger().info(f"Error_x del tagging: {error_x}", once=True)
+                self.get_logger().info(f"Error_x del {self.objective}: {error_x}", once=True)
+                self.get_logger().info(f"Altura del box: {h}")
 
                 if abs(error_x) < 50:
                     msg_dir.data = 0
@@ -222,12 +237,19 @@ class YoloSegmenterNode(Node):
 
                 else: # (x - in_min)*(out_max - out_min) / (in_max - in_min) + out_min Map function de arduino
                     msg_dir.data = int(-1*((error_x - 0) * (30 - 0) / (800 - 0) + 0))
-                    # msg_dir.data = 1 if error_x > 0 else -1
+                    # if msg_dir.data > 3:
+                    #     msg_dir.data = 0
                     self.direccion_pub.publish(msg_dir)
-                    self.get_logger().info(f"Angulo del tagging: {msg_dir.data}", once=True)
+                    self.get_logger().info(f"Angulo del {self.objective}: {msg_dir.data}", once=True)
                     self.alineado_pub.publish(Bool(data = False))
 
-                if h >= 850:
+                config = self.thresholds.get(self.objective, self.thresholds["default"])
+                
+                # Elegimos qué valor medir: w o h
+                valor_actual = h if config["metric"] == "h" else w
+                umbral = config["value"]
+
+                if valor_actual >= umbral:
                     self.servoing_complete_pub.publish(Bool(data = True))
                     self.get_logger().info("✅ LLEGAMOS AL OBJETIVO")
 
@@ -240,14 +262,14 @@ class YoloSegmenterNode(Node):
                 self.pic_analized_pub.publish(Int16(data = 3))
 
             if not target_found:
-                self.get_logger().warn("🔭 Target 'tagging' perdido. Enviando comando de búsqueda (Giro 10°)")
+                self.get_logger().warn(f"🔭 Target {self.objective} perdido. Enviando comando de búsqueda (Giro 10°)")
                 self.alineado_pub.publish(Bool(data=False))
                 self.servoing_complete_pub.publish(Bool(data=False))
                 
                 msg_search = Int16()
                 msg_search.data = 10 # Fuerza un giro constante para encontrar el objeto
                 self.direccion_pub.publish(msg_search)
-                self.pic_analized_pub.publish(Int16(data = 0))
+                self.pic_analized_pub.publish(Int16(data = 3))
 
             # 5. GUARDAR LA FOTO ANOTADA
             save_path = os.path.expanduser(f"~/Desktop/Fotos_sub/debug_yolo_{self.count}.jpg")
@@ -255,6 +277,9 @@ class YoloSegmenterNode(Node):
             self.count += 1
 
         except Exception as e:
+            self.pic_analized_pub.publish(Int16(data = 3))
+            self.get_logger().info(f"Buscando objetivo: '{self.objective}'")
+    
             self.get_logger().error(f"🚨 Error en loop de inferencia: {e}")
         finally:
             self.is_processing = False

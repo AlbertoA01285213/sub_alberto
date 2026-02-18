@@ -63,20 +63,26 @@ class MissionHandler(Node):
         self.create_subscription(Int16, 'direccion', self.direccion_callback, 10)
         self.create_subscription(Int16, 'picture_analized', self.picture_analized_callback, 10)
 
+        self.objective_pub = self.create_publisher(String, 'objective', 10) # El topico que le deice al analizer que obstaculo o reto es el objetivo
+
         self.timer = self.create_timer(0.1, self.run)
 
     def checkpoint_callback(self, msg: Bool):
         self.checkpoint = msg.data  # ✅ corregido
 
     def pose_callback(self, msg: PoseStamped):
-        self.pose_actual[0] = msg.pose.position.x
-        self.pose_actual[1] = msg.pose.position.y
-        self.pose_actual[2] = msg.pose.position.z
-        quat = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
-        roll, pitch, yaw = euler_from_quaternion(quat)
-        self.pose_actual[3] = roll
-        self.pose_actual[4] = pitch
-        self.pose_actual[5] = yaw
+        try:
+            self.pose_actual[0] = msg.pose.position.x
+            self.pose_actual[1] = msg.pose.position.y
+            self.pose_actual[2] = msg.pose.position.z
+            quat = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
+            roll, pitch, yaw = euler_from_quaternion(quat)
+            self.pose_actual[3] = roll
+            self.pose_actual[4] = pitch
+            self.pose_actual[5] = yaw
+
+        except Exception as e:
+            self.get_logger().error(f"Error en pose_callback: {e}")
 
     def picture_analized_callback(self, msg: Int16):
         self.picture_status = msg.data
@@ -262,6 +268,12 @@ class MissionHandler(Node):
             return
         
         elif action["type"] == "servo":
+            obj_msg = String()
+            obj_msg.data = action["objective"]
+            self.objective_pub.publish(obj_msg)
+
+            
+
             if not hasattr(self, 'servo_state'):
                 self.get_logger().info("🔄 Iniciando ciclo de Servo Visual...")
                 self.servo_state = "WAITING_PHOTO"
@@ -277,18 +289,52 @@ class MissionHandler(Node):
                         self.idx += 1
                         return
                     
+                    if abs(self.direccion) <= 5:
+                        self.get_logger().info("✅ Alineación detectada (dentro del umbral).")
+                        self.alineado = True
+                    
                     if not self.alineado:
                         self.servo_state = "ROTATING"
                     else:
                         self.servo_state = "MOVING_FORWARD"
+
+                elif self.picture_status == 3: # No se encontro el objetivo, tomar foto de nuevo
+                    # self.servo_state = "WAITING_PHOTO"
+                    # self.picture_status = 0
+                    # self.picture_pub.publish(Int16(data=1))
+                    self.get_logger().warn("❓ Objetivo no detectado. Girando 30° para buscar")
+                    self.servo_state = "SEARCH_ROTATING"
+                return
+            
+            if self.servo_state == "SEARCH_ROTATING":
+                grados_busqueda = 30.0
+                busqueda_rad = grados_busqueda * (np.pi / 180.0)
+                new_yaw = self.pose_actual[5] + busqueda_rad # Gira 30 grados desde donde esté
+                
+                msg = PoseStamped()
+                msg.header.stamp = self.get_clock().now().to_msg()
+                msg.header.frame_id = "world"
+                msg.pose.position.x = self.pose_actual[0]
+                msg.pose.position.y = self.pose_actual[1]
+                msg.pose.position.z = self.pose_actual[2]
+                
+                q = quaternion_from_euler(self.pose_actual[3], self.pose_actual[4], new_yaw)
+                msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w = q
+                
+                self.last_target_msg = msg
+                self.wp_pub.publish(msg)
+                self.checkpoint = 0
+                self.servo_state = "WAITING_CHECKPOINT"
                 return
             
             if self.servo_state == "ROTATING":
+                if abs(self.direccion) < 4:
+                    self.direccion = 0
                 correction_rad = float(self.direccion) * (np.pi / 180.0)
                 new_yaw = self.pose_actual[5] + correction_rad
                 
                 self.get_logger().info(f"📐 Alineando: Girando {self.direccion} grados...")
-                
+
                 msg = PoseStamped()
                 msg.header.stamp = self.get_clock().now().to_msg()
                 msg.header.frame_id = "world"
@@ -300,9 +346,14 @@ class MissionHandler(Node):
                 q = quaternion_from_euler(self.pose_actual[3], self.pose_actual[4], new_yaw)
                 msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w = q
                 
+                self.last_target_msg = msg
                 self.wp_pub.publish(msg)
                 self.checkpoint = 0
                 self.servo_state = "WAITING_CHECKPOINT"
+
+                self.get_logger().info(f"Pose actual x:{self.pose_actual[0]:.2f}, y:{self.pose_actual[1]:.2f}, z:{self.pose_actual[2]:.2f}, Rx:{self.pose_actual[3]:.2f}, Ry:{self.pose_actual[4]:.2f}, Rz:{self.pose_actual[5]:.2f}")
+                self.get_logger().info(f"Pose objetivo x:{msg.pose.position.x:.2f}, y:{msg.pose.position.y:.2f}, z:{msg.pose.position.z:.2f}, Rx:{self.pose_actual[3]:.2f}, Ry:{self.pose_actual[4]:.2f}, Rz:{new_yaw:.2f}")
+                
                 return
             
             if self.servo_state == "MOVING_FORWARD":
@@ -326,67 +377,24 @@ class MissionHandler(Node):
                 self.wp_pub.publish(msg)
                 self.checkpoint = 0
                 self.servo_state = "WAITING_CHECKPOINT"
+
+                self.get_logger().info(f"Pose actual x:{self.pose_actual[0]:.2f}, y:{self.pose_actual[1]:.2f}, z:{self.pose_actual[2]:.2f}, Rx:{self.pose_actual[3]:.2f}, Ry:{self.pose_actual[4]:.2f}, Rz:{self.pose_actual[5]:.2f}")
+                self.get_logger().info(f"Pose objetivo x:{msg.pose.position.x:.2f}, y:{msg.pose.position.y:.2f}, z:{msg.pose.position.z:.2f}, Rx:{self.pose_actual[3]:.2f}, Ry:{self.pose_actual[4]:.2f}, Rz:{yaw_actual:.2f}")
+
                 return
             
-            
+            if self.servo_state == "WAITING_CHECKPOINT":
+                if self.last_target_msg is not None:
+                    self.last_target_msg.header.stamp = self.get_clock().now().to_msg()
+                    self.wp_pub.publish(self.last_target_msg)
 
-        
-        # elif action["type"] == "servo":
-        #     self.get_logger().info("Iniciando servo")
-
-        #     if not hasattr(self, 'waiting_for_analizer'):
-        #         self.get_logger().info("📸 Iniciando Servo: Disparando foto y esperando a YOLO...")
-        #         self.waiting_for_analizer = True
-        #         self.picture_status = 0 # Resetear cualquier estado previo
-                
-        #         take_picture_msg = Int16(data = 1)
-        #         self.picture_pub.publish(take_picture_msg)
-        #         return
-            
-        #     if self.picture_status == 2:
-        #         self.get_logger().info("✅ YOLO terminó el análisis. Continuando misión.")
-                
-        #         if self.servoing_complete:
-        #             self.get_logger().info("🏁 ¡Objetivo alcanzado! Fin del servo.")
-        #             del self.waiting_for_analizer
-        #             self.idx += 1
-        #             return
-                
-        #         dist_paso = 1.5
-                
-        #         correction_rad = float(self.direccion) * (np.pi / 180.0) # se convierte el angulo de error de deg a rad
-        #         new_yaw = self.pose_actual[5] + correction_rad
-
-        #         self.get_logger().info(f"🔄 Aplicando corrección: {self.direccion} deg ({correction_rad:.3f} rad)")
-                
-        #         msg = PoseStamped()
-        #         msg.header.stamp = self.get_clock().now().to_msg()
-        #         msg.header.frame_id = "world"
-
-        #         # Mantenemos posición, solo cambiamos orientación
-        #         msg.pose.position.x = self.pose_actual[0] + dist_paso * np.cos(new_yaw)
-        #         msg.pose.position.y = self.pose_actual[1] + dist_paso * np.sin(new_yaw)
-        #         msg.pose.position.z = self.pose_actual[2]
-
-        #         q = quaternion_from_euler(self.pose_actual[3], self.pose_actual[4], new_yaw)
-        #         msg.pose.orientation.x = q[0]
-        #         msg.pose.orientation.y = q[1]
-        #         msg.pose.orientation.z = q[2]
-        #         msg.pose.orientation.w = q[3]
-
-        #         # Publicamos para que el submarino gire
-        #         self.wp_pub.publish(msg)
-
-        #         self.picture_status = 0
-
-        #         if hasattr(self, 'picture_status') and self.picture_status == 3:
-        #             if self.checkpoint == 1:
-        #                 self.get_logger().info("🎯 Alineación completada. Continuando misión.")
-        #                 self.checkpoint = 0
-        #                 del self.waiting_for_analizer
-        #                 self.idx += 1
-
-            
+                if self.checkpoint == 1:
+                    self.get_logger().info("📍 Movimiento listo. Reiniciando ciclo de foto...")
+                    self.checkpoint = 0
+                    self.picture_status = 0
+                    self.servo_state = "WAITING_PHOTO"
+                    self.last_target_msg = None
+                    self.picture_pub.publish(Int16(data=1)) # Dispara nueva foto para el ciclo
             
 
 def main():

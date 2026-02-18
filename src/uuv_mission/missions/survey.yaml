@@ -14,6 +14,13 @@ actions:
     duration: 5
 
   - type: servo
+    objective: tagging # tagging, octagon, slalom, 
+
+  - type: servo
+    objective: octagon # tagging, octagon, slalom,
+
+  - type: servo
+    objective: slalom # tagging, octagon, slalom,  
 
   - type: goto
     waypoint: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

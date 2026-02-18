@@ -32,6 +32,7 @@ class Trayectory_generator(Node):
             return
 
         # Estado actual
+        self.current_pose = [0.0]*6
         self.current_pose = None
         self.new_waypoint_received = False
 
@@ -51,7 +52,16 @@ class Trayectory_generator(Node):
 
     # ------------------ CALLBACKS ------------------
 
-    def pose_callback(self, msg: PoseStamped):
+    def pose_callback(self, msg: PoseStamped): # Este estaba mal, no converita de quaternion a euler
+        # self.current_pose[0] = msg.pose.position.x
+        # self.current_pose[1] = msg.pose.position.y
+        # self.current_pose[2] = msg.pose.position.z
+        # quat = [msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w]
+        # roll, pitch, yaw = euler_from_quaternion(quat)
+        # self.current_pose[3] = roll
+        # self.current_pose[4] = pitch
+        # self.current_pose[5] = yaw
+
         self.current_pose = msg
 
     def waypoint_callback(self, msg: PoseStamped):

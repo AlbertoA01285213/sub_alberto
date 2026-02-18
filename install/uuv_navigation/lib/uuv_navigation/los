@@ -17,7 +17,7 @@ class LineOfSightNode(Node):
         self.declare_parameter('path_topic', 'robot_path')
         self.declare_parameter('pose_topic', 'pose')
         self.declare_parameter('target_topic', 'pose_objetivo')
-        self.declare_parameter('acceptance_radius', 0.15)
+        self.declare_parameter('acceptance_radius', 0.15) # 0.15
 
         # --- Obtener Parámetros ---
         path_topic = self.get_parameter('path_topic').value
@@ -131,7 +131,7 @@ class LineOfSightNode(Node):
 
             # SI estamos cerca en posición Y en ángulo, pasamos al siguiente punto
             # (Si es solo rotación, dist_sq será 0, pero yaw_error mantendrá el punto activo)
-            if dist_sq < self.acceptance_radius_sq and yaw_error < 0.15: # 0.15 rad approx 8 deg
+            if dist_sq < self.acceptance_radius_sq and yaw_error < 0.035: # 0.15 rad approx 8 deg
                 self.current_target_index += 1
                 # self.get_logger().info(f"Target index: {self.current_target_index}")
             else:
@@ -146,7 +146,7 @@ class LineOfSightNode(Node):
         else:
             # 4. PUBLICAR SIEMPRE el objetivo actual
             current_target = self.current_path.poses[self.current_target_index].pose
-            self.get_logger().info(f"Yendo hacia [{current_target.position.x}, {current_target.position.y}, {current_target.position.z}]")
+            self.get_logger().info(f"Yendo hacia [{current_target.position.x:.3f}, {current_target.position.y:.3f}, {current_target.position.z:.3f}]")
             self.target_publisher.publish(current_target)
 
     def finalizar_trayectoria(self):
