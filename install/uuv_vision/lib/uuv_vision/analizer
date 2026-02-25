@@ -16,6 +16,12 @@ from std_msgs.msg import Bool, Int16, String
 from tf_transformations import euler_from_quaternion
 import math
 
+'''
+Para alinearse usar cv2.findCOntours
+cv2.approxPolyDP
+success, rvec, tvec = cv2.solvePnP 
+'''
+
 class YoloSegmenterNode(Node):
     def __init__(self):
         super().__init__('analizer')
@@ -26,23 +32,26 @@ class YoloSegmenterNode(Node):
         self.create_subscription(Image, 'image_left_to_analyze', self.picture_left_callback, 10, callback_group=self.group)
         self.create_subscription(Image, 'image_right_to_analyze', self.picture_right_callback, 10, callback_group=self.group)
         self.create_subscription(Pose, 'pose', self.pose_callback, 10)
-        self.create_subscription(String, 'objective', self.objective_callback, 10)
+        self.create_subscription(String, 'objective', self.objective_callback, 10) # Topico que recibe el obstaculo al cual dirigirse
 
         self.alineado_pub = self.create_publisher(Bool, 'alineado', 10) # Bandera para mission handler para determinar cuando el sub esta alineado con el obstaculo a ir
         self.servoing_complete_pub = self.create_publisher(Bool, 'servoing_complete', 10) # Bandera para mission handler para determinar cuando el sub llego al objetivo
         self.direccion_pub = self.create_publisher(Int16, 'direccion', 10)
         self.pic_analized_pub = self.create_publisher(Int16, 'picture_analized', 10) # Topico para indicar al mission handler que se esta analizando una foto 0 es sin foto, 1 es analizando y 2 es foto analizada
 
+        self.create_subscription(Int16, 'nav_analyzer', self.nav_analyzer_callback, 10)
+        
         self.bridge = CvBridge()
         self.queue_left = []
         self.queue_right = []
 
         self.objective = 'octagon'
         self.target_found = False
+        self.activate = 0 # Si es 0, el nodo no envia nada
 
         self.thresholds = {
             "slalom":  {"metric": "h", "value": 450},
-            "octagon": {"metric": "w", "value": 200},
+            "octagon": {"metric": "w", "value": 600},
             "tagging": {"metric": "h", "value": 450},
             "default": {"metric": "h", "value": 400}
         }
@@ -115,23 +124,28 @@ class YoloSegmenterNode(Node):
 
 
     def picture_left_callback(self, msg: Image):
-        self.get_logger().info("📸 Llegó imagen a la cola IZQUIERDA")
-        cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-        with self.processing_lock:
-            self.queue_left.append(cv_img)
+        if self.activate == 1:
+            self.get_logger().info("📸 Llegó imagen a la cola IZQUIERDA")
+            cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+            with self.processing_lock:
+                self.queue_left.append(cv_img)
 
-        self.pic_analized_pub.publish(Int16(data = 1))
+            self.pic_analized_pub.publish(Int16(data = 1))
 
         
 
     def picture_right_callback(self, msg: Image):
-        self.get_logger().info("📸 Llegó imagen a la cola DERECHA")
-        cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-        with self.processing_lock:
-            self.queue_right.append(cv_img)
+        if self.activate == 1:
+            self.get_logger().info("📸 Llegó imagen a la cola DERECHA")
+            cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+            with self.processing_lock:
+                self.queue_right.append(cv_img)
 
     def objective_callback(self, msg: String):
         self.objective = msg.data
+
+    def nav_analyzer_callback(self, msg: Int16):
+        self.activate = msg.data
 
     
     def get_filtered_detections(self, results):
@@ -170,119 +184,124 @@ class YoloSegmenterNode(Node):
 
 
     def inference_loop(self):
-        # Log de latido para saber que el timer está vivo
-        if not self.queue_left or not self.queue_right:
-            self.get_logger().info("Esperando que ambas colas tengan imágenes...", once=True)
-            self.pic_analized_pub.publish(Int16(data = 0))
-            return
+        if self.activate == 1:
+            # Log de latido para saber que el timer está vivo
+            if not self.queue_left or not self.queue_right:
+                self.get_logger().info("Esperando que ambas colas tengan imágenes...", once=True)
+                self.pic_analized_pub.publish(Int16(data = 0))
+                return
 
-        if self.is_processing:
-            return
+            if self.is_processing:
+                return
 
-        try:
-            self.pic_analized_pub.publish(Int16(data = 1)) # Publica que se esta analizando una foto
+            try:
+                self.pic_analized_pub.publish(Int16(data = 1)) # Publica que se esta analizando una foto
 
-            self.is_processing = True
-            with self.processing_lock:
-                img_l = self.queue_left.pop(0)
-                img_r = self.queue_right.pop(0)
-                # Limpiar colas para procesar siempre lo más nuevo
-                self.queue_left.clear()
-                self.queue_right.clear()
+                self.is_processing = True
+                with self.processing_lock:
+                    img_l = self.queue_left.pop(0)
+                    img_r = self.queue_right.pop(0)
+                    # Limpiar colas para procesar siempre lo más nuevo
+                    self.queue_left.clear()
+                    self.queue_right.clear()
 
-            self.get_logger().info("Iniciando analisis")
-
-
-            # 1. Inferencia
-            res_l = self.model(img_l, verbose=False)[0]
-            res_r = self.model(img_r, verbose=False)[0]
-
-            filtered_l = self.get_filtered_detections(res_l)
-            target_found = False
-
-            debug_img = img_l.copy()
-
-            if not filtered_l:
-                self.get_logger().info("⚠️ No se detectó NADA en esta frame.")
-            
-            else:
-                for label, items in filtered_l.items():
-                    self.get_logger().info(f"🔎 Detectado: {label} (x{len(items)})")
-
-                    for item in items:
-                        # Dibujar en la imagen de debug
-                        color = (0, 255, 0) if label == 'tagging' else (255, 120, 0)
-                        self.draw_debug_info(debug_img, item, f"{label} {item['conf']:.2f}", color)
-
-            if self.objective in filtered_l:
-                target_found = True
-                best_l = max(filtered_l[self.objective], key=lambda x: x['conf'])
-                cx, cy = best_l['center']
-                _, _, w, h = best_l['bbox']
+                self.get_logger().info("Iniciando analisis")
 
 
-                error_x = cx - self.img_center_x
-                msg_dir = Int16()
-                self.pic_analized_pub.publish(Int16(data = 2))
+                # 1. Inferencia
+                res_l = self.model(img_l, verbose=False)[0]
+                res_r = self.model(img_r, verbose=False)[0]
 
-                self.get_logger().info(f"Error_x del {self.objective}: {error_x}", once=True)
-                self.get_logger().info(f"Altura del box: {h}")
+                filtered_l = self.get_filtered_detections(res_l)
+                target_found = False
 
-                if abs(error_x) < 50:
-                    msg_dir.data = 0
-                    self.direccion_pub.publish(msg_dir)
+                debug_img = img_l.copy()
 
-                    self.alineado_pub.publish(Bool(data = True))
-                    self.get_logger().info("🎯 ¡OBJETIVO ALINEADO!")
-
-                else: # (x - in_min)*(out_max - out_min) / (in_max - in_min) + out_min Map function de arduino
-                    msg_dir.data = int(-1*((error_x - 0) * (30 - 0) / (800 - 0) + 0))
-                    # if msg_dir.data > 3:
-                    #     msg_dir.data = 0
-                    self.direccion_pub.publish(msg_dir)
-                    self.get_logger().info(f"Angulo del {self.objective}: {msg_dir.data}", once=True)
-                    self.alineado_pub.publish(Bool(data = False))
-
-                config = self.thresholds.get(self.objective, self.thresholds["default"])
+                if not filtered_l:
+                    self.get_logger().info("⚠️ No se detectó NADA en esta frame.")
                 
-                # Elegimos qué valor medir: w o h
-                valor_actual = h if config["metric"] == "h" else w
-                umbral = config["value"]
+                else:
+                    for label, items in filtered_l.items():
+                        self.get_logger().info(f"🔎 Detectado: {label} (x{len(items)})")
 
-                if valor_actual >= umbral:
-                    self.servoing_complete_pub.publish(Bool(data = True))
-                    self.get_logger().info("✅ LLEGAMOS AL OBJETIVO")
+                        for item in items:
+                            # Dibujar en la imagen de debug
+                            color = (0, 255, 0) if label == 'tagging' else (255, 120, 0)
+                            self.draw_debug_info(debug_img, item, f"{label} {item['conf']:.2f}", color)
+
+                if self.objective in filtered_l:
+                    target_found = True
+                    best_l = max(filtered_l[self.objective], key=lambda x: x['conf'])
+                    cx, cy = best_l['center']
+                    _, _, w, h = best_l['bbox']
+
+
+                    error_x = cx - self.img_center_x
+                    msg_dir = Int16()
+                    self.pic_analized_pub.publish(Int16(data = 2))
+
+                    self.get_logger().info(f"Error_x del {self.objective}: {error_x}", once=True)
+                    self.get_logger().info(f"Altura del box: {h}")
+
+                    if abs(error_x) < 50:
+                        msg_dir.data = 0
+                        self.direccion_pub.publish(msg_dir)
+
+                        self.alineado_pub.publish(Bool(data = True))
+                        self.get_logger().info("🎯 ¡OBJETIVO ALINEADO!")
+
+                    else: # (x - in_min)*(out_max - out_min) / (in_max - in_min) + out_min Map function de arduino
+                        msg_dir.data = int(-1*((error_x - 0) * (30 - 0) / (800 - 0) + 0))
+                        # if msg_dir.data > 3:
+                        #     msg_dir.data = 0
+                        self.direccion_pub.publish(msg_dir)
+                        self.get_logger().info(f"Angulo del {self.objective}: {msg_dir.data}", once=True)
+                        self.alineado_pub.publish(Bool(data = False))
+
+                    config = self.thresholds.get(self.objective, self.thresholds["default"])
+                    
+                    # Elegimos qué valor medir: w o h
+                    valor_actual = h if config["metric"] == "h" else w
+                    umbral = config["value"]
+
+                    if valor_actual >= umbral:
+                        self.servoing_complete_pub.publish(Bool(data = True))
+                        self.get_logger().info("✅ LLEGAMOS AL OBJETIVO")
+
+                    else:
+                        self.servoing_complete_pub.publish(Bool(data = False))
 
                 else:
-                    self.servoing_complete_pub.publish(Bool(data = False))
+                    target_gound = False
+                    self.get_logger().warn("Target perdido")
+                    self.pic_analized_pub.publish(Int16(data = 3))
 
-            else:
-                target_gound = False
-                self.get_logger().warn("Target perdido")
+                if not target_found:
+                    self.get_logger().warn(f"🔭 Target {self.objective} perdido. Enviando comando de búsqueda (Giro 10°)")
+                    self.alineado_pub.publish(Bool(data=False))
+                    self.servoing_complete_pub.publish(Bool(data=False))
+                    
+                    msg_search = Int16()
+                    msg_search.data = 10 # Fuerza un giro constante para encontrar el objeto
+                    self.direccion_pub.publish(msg_search)
+                    self.pic_analized_pub.publish(Int16(data = 3))
+
+                # 5. GUARDAR LA FOTO ANOTADA
+                save_path = os.path.expanduser(f"~/Desktop/Fotos_sub/debug_yolo_{self.count}.jpg")
+                cv2.imwrite(save_path, debug_img)
+                self.count += 1
+
+            except Exception as e:
                 self.pic_analized_pub.publish(Int16(data = 3))
+                self.get_logger().info(f"Buscando objetivo: '{self.objective}'")
+        
+                self.get_logger().error(f"🚨 Error en loop de inferencia: {e}")
+            finally:
+                self.is_processing = False
 
-            if not target_found:
-                self.get_logger().warn(f"🔭 Target {self.objective} perdido. Enviando comando de búsqueda (Giro 10°)")
-                self.alineado_pub.publish(Bool(data=False))
-                self.servoing_complete_pub.publish(Bool(data=False))
-                
-                msg_search = Int16()
-                msg_search.data = 10 # Fuerza un giro constante para encontrar el objeto
-                self.direccion_pub.publish(msg_search)
-                self.pic_analized_pub.publish(Int16(data = 3))
+        else:
+            self.get_logger().info("Nodo desactivado")
 
-            # 5. GUARDAR LA FOTO ANOTADA
-            save_path = os.path.expanduser(f"~/Desktop/Fotos_sub/debug_yolo_{self.count}.jpg")
-            cv2.imwrite(save_path, debug_img)
-            self.count += 1
-
-        except Exception as e:
-            self.pic_analized_pub.publish(Int16(data = 3))
-            self.get_logger().info(f"Buscando objetivo: '{self.objective}'")
-    
-            self.get_logger().error(f"🚨 Error en loop de inferencia: {e}")
-        finally:
-            self.is_processing = False
 
 
     def draw_debug_info(self, img, detection, label_text, color):

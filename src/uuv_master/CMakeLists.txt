@@ -15,6 +15,11 @@ find_package(visualization_msgs REQUIRED)
 find_package(nav2_msgs REQUIRED)
 
 install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY
   scripts
   DESTINATION share/${PROJECT_NAME}
 )

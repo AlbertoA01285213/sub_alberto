@@ -16,6 +16,9 @@ actions:
   - type: servo
     objective: tagging # tagging, octagon, slalom, 
 
+  # - type: align
+  #   objective: tagging
+
   - type: servo
     objective: octagon # tagging, octagon, slalom,
 

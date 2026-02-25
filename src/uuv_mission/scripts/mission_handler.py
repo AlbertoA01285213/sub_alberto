@@ -58,12 +58,24 @@ class MissionHandler(Node):
         self.status_pub = self.create_publisher(Int16, 'mission_status', 10)
         self.picture_pub = self.create_publisher(Int16, 'take_picture', 10)
 
+# Topicos para la navegacion ===================================================
         self.create_subscription(Bool, 'alineado', self.alineado_callback, 10)
         self.create_subscription(Bool, 'servoing_complete', self.servoing_complete_callback, 10)
         self.create_subscription(Int16, 'direccion', self.direccion_callback, 10)
         self.create_subscription(Int16, 'picture_analized', self.picture_analized_callback, 10)
 
+        self.nav_analyzer_pub = self.create_publisher(Int16, 'nav_analyzer', 10) # Topico encargado activar o desactivar el nodo de analizar general.
+# ==============================================================================
+
+
+# Topicos para la alineacion ===================================================
+        self.tagging_analyzer_pub = self.create_publisher(Int16, 'tagging_analyzer', 10)
+        self.obstacle_pub = self.create_publisher(String, 'align_obstacle', 10)
+
+# ==============================================================================
+
         self.objective_pub = self.create_publisher(String, 'objective', 10) # El topico que le deice al analizer que obstaculo o reto es el objetivo
+
 
         self.timer = self.create_timer(0.1, self.run)
 
@@ -143,6 +155,8 @@ class MissionHandler(Node):
                 
 
         if action["type"] == "goto":
+            self.nav_analyzer_pub.publish(Int16(data=1)) # Desactivacion del nodo de analyzer general para navegar a objetivos
+
             wp = action["waypoint"]
             msg = PoseStamped()
 
@@ -167,6 +181,8 @@ class MissionHandler(Node):
                 self.idx += 1
         
         elif action["type"] == "bezier_wp":
+            self.nav_analyzer_pub.publish(Int16(data=1)) # Desactivacion del nodo de analyzer general para navegar a objetivos
+
             wp = action["waypoints"]
             msg = PoseArray()
             if self.last_idx != self.idx:
@@ -193,6 +209,8 @@ class MissionHandler(Node):
                 
 
         elif action["type"] == "hold":
+            self.nav_analyzer_pub.publish(Int16(data=1)) # Desactivacion del nodo de analyzer general para navegar a objetivos
+
             duration = action["duration"]
             if not hasattr(self, "hold_start"):
                 # self.get_logger().info(f"Holding for {duration} seconds")
@@ -205,6 +223,7 @@ class MissionHandler(Node):
 
 
         elif action["type"] == "publish":
+            self.nav_analyzer_pub.publish(Int16(data=0)) # Desactivacion del nodo de analyzer general para navegar a objetivos
             information = action["message"]
             msg_data_str = information[0]   # Esto es el string 'True'
             topic_name_str = information[1] # Esto es el string 'checkpoint'
@@ -225,6 +244,7 @@ class MissionHandler(Node):
 
 
         elif action["type"] == "rotate":
+            self.nav_analyzer_pub.publish(Int16(data=0)) # Desactivacion del nodo de analyzer general para navegar a objetivos
             rotations = action["rotation"]
 
             qx, qy, qz, qw = quaternion_from_euler(
@@ -268,6 +288,8 @@ class MissionHandler(Node):
             return
         
         elif action["type"] == "servo":
+            self.nav_analyzer_pub.publish(Int16(data=1)) # Activacion del nodo de analyzer general para navegar a objetivos
+
             obj_msg = String()
             obj_msg.data = action["objective"]
             self.objective_pub.publish(obj_msg)
@@ -289,7 +311,7 @@ class MissionHandler(Node):
                         self.idx += 1
                         return
                     
-                    if abs(self.direccion) <= 5:
+                    if abs(self.direccion) <= 3:
                         self.get_logger().info("✅ Alineación detectada (dentro del umbral).")
                         self.alineado = True
                     
@@ -396,6 +418,34 @@ class MissionHandler(Node):
                     self.last_target_msg = None
                     self.picture_pub.publish(Int16(data=1)) # Dispara nueva foto para el ciclo
             
+
+        elif action["type"] == "align":
+            self.nav_analyzer_pub.publish(Int16(data=0)) # Desactivacion del nodo de analyzer general para navegar a objetivos
+            self.tagging_analyzer_pub.publish(Int16(data = 1))
+
+            obstacle_msg = String()
+            obstacle_msg.data = action["objective"]
+            self.obstacle_pub.publish(obstacle_msg)
+
+            if not hasattr(self, 'servo_state'):
+                self.get_logger().info("🔄 Iniciando ciclo de Servo Visual...")
+                self.servo_state = "WAITING_PHOTO"
+                self.picture_status = 0
+                self.picture_pub.publish(Int16(data=1))
+                return
+            
+            if self.servo_state == "WAITING_PHOTO":
+                if self.picture_status == 2: # YOLO terminó
+                    if self.servoing_complete:
+                        self.get_logger().info("🏁 ¡OBJETIVO ALCANZADO!")
+                        del self.servo_state
+                        self.idx += 1
+                        return
+                    
+                    
+
+
+
 
 def main():
     rclpy.init()

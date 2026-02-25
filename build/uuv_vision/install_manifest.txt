@@ -1,3 +1,4 @@
+/home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/tagging_analizer.py
 /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/analizer_antiguo.py
 /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/picture.py
 /home/alberto/Documents/sub_alberto/install/uuv_vision/share/uuv_vision/scripts/analizer.py
