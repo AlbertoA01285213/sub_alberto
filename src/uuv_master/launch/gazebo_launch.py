@@ -220,6 +220,13 @@ def generate_launch_description():
         name='analizer',
         parameters=[{'use_sim_time': True}]
     )  
+
+    tagging_analizer_node = Node(
+        package='uuv_vision',
+        executable='tagging_analizer',
+        name='tagging_analizer',
+        parameters=[{'use_sim_time': True}]
+    )  
     
     rviz_node = Node(
         package='rviz2',
@@ -265,6 +272,7 @@ def generate_launch_description():
         asmc,
         picture_node,
         analizer_node,
+        tagging_analizer_node,
         # dynamic_model,rviz_config_arg
         # uuv_pose_tracker_node,
         object_visualizer_node,

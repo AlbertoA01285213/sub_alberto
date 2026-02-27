@@ -62,7 +62,7 @@ class YoloSegmenterNode(Node):
 
         # Cargar modelo con seguridad
         try:
-            model_path = os.path.join(get_package_share_directory('uuv_vision'), 'models', 'best.pt')
+            model_path = os.path.join(get_package_share_directory('uuv_vision'), 'models', 'general.pt')
             self.model = YOLO(model_path)
         except Exception as e:
             self.get_logger().error(f"No se pudo cargar el modelo: {e}")
@@ -299,8 +299,8 @@ class YoloSegmenterNode(Node):
             finally:
                 self.is_processing = False
 
-        else:
-            self.get_logger().info("Nodo desactivado")
+        # else:
+            # self.get_logger().info("Nodo desactivado")
 
 
 

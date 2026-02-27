@@ -65,7 +65,7 @@ class LineOfSightNode(Node):
             
         self.current_path = msg
         self.current_target_index = 0
-        self.get_logger().warn("Recibido camino.")
+        # self.get_logger().warn("Recibido camino.")
         self.path_in_progress = True
         # self.get_logger().info(f"Nuevo camino con {len(msg.poses)} waypoints.")
 

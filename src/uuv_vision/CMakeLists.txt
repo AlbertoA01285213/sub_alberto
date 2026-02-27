@@ -47,6 +47,11 @@ install(PROGRAMS scripts/analizer.py
   RENAME analizer
 )
 
+install(PROGRAMS scripts/tagging_analizer.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME tagging_analizer
+)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
